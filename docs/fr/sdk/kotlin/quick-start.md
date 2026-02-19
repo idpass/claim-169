@@ -8,7 +8,7 @@ Ce guide couvre les opérations essentielles : décoder un QR code (lecture) et 
 ## Décoder (avec vérification Ed25519)
 
 ```kotlin
-import fr.acn.claim169.Claim169
+import org.idpass.claim169.Claim169
 
 val qrData = "..." // Base45 depuis le scanner
 val publicKey = "d75a980182b10ab7d54bfed3c964073a0ee172f3daa62325af021a68f707511a"
@@ -36,9 +36,9 @@ check(result.verificationStatus == VerificationStatus.Skipped)
 ## Encoder (signer Ed25519)
 
 ```kotlin
-import fr.acn.claim169.Claim169
-import fr.acn.claim169.claim169Data
-import fr.acn.claim169.cwtMetaData
+import org.idpass.claim169.Claim169
+import org.idpass.claim169.claim169Data
+import org.idpass.claim169.cwtMetaData
 
 val claim = claim169Data {
   id = "ID-12345"

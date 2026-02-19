@@ -88,7 +88,7 @@ If you need to build the SDK from source:
 
 ```bash
 # Clone the repository
-git clone https://github.com/jeremi/claim-169.git
+git clone https://github.com/idpass/claim-169.git
 cd claim-169/sdks/typescript
 
 # Install dependencies

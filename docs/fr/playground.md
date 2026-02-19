@@ -3,7 +3,7 @@
 Essayez d’encoder et de décoder des identifiants Claim 169 directement dans votre navigateur.
 
 <div class="playground-link" markdown>
-[Ouvrir le Playground](https://jeremi.github.io/claim-169/){ .md-button .md-button--primary }
+[Ouvrir le Playground](https://idpass.github.io/claim-169/){ .md-button .md-button--primary }
 </div>
 
 ![Capture d’écran du Playground](../assets/img/playground.png)
@@ -42,7 +42,7 @@ Aucun bouton « Generate » ou « Decode » n’est nécessaire.
 
 ### Créer un identifiant
 
-1. Ouvrez le [Playground](https://jeremi.github.io/claim-169/)
+1. Ouvrez le [Playground](https://idpass.github.io/claim-169/)
 2. Sélectionnez **Load example → Demo Identity** pour pré-remplir des données de test
 3. Modifiez les champs d’identité si besoin
 4. Le QR code se met à jour automatiquement
@@ -93,4 +93,4 @@ Aucune donnée n’est envoyée à un serveur.
 ## Code source
 
 Le code source du playground est disponible ici :
-[github.com/jeremi/claim-169/tree/main/playground](https://github.com/jeremi/claim-169/tree/main/playground)
+[github.com/idpass/claim-169/tree/main/playground](https://github.com/idpass/claim-169/tree/main/playground)

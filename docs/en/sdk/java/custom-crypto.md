@@ -20,7 +20,7 @@ This can help meet security requirements that mandate private key material stays
 Implement this interface to provide custom signature verification:
 
 ```java
-import fr.acn.claim169.SignatureVerifier;
+import org.idpass.claim169.SignatureVerifier;
 
 SignatureVerifier myVerifier = new SignatureVerifier() {
     @Override
@@ -41,7 +41,7 @@ SignatureVerifier myVerifier = new SignatureVerifier() {
 Implement this interface to provide custom signing:
 
 ```java
-import fr.acn.claim169.Signer;
+import org.idpass.claim169.Signer;
 
 Signer mySigner = new Signer() {
     @Override
@@ -62,7 +62,7 @@ Signer mySigner = new Signer() {
 Implement this interface to provide custom decryption:
 
 ```java
-import fr.acn.claim169.Decryptor;
+import org.idpass.claim169.Decryptor;
 
 Decryptor myDecryptor = new Decryptor() {
     @Override
@@ -84,7 +84,7 @@ Decryptor myDecryptor = new Decryptor() {
 Implement this interface to provide custom encryption:
 
 ```java
-import fr.acn.claim169.Encryptor;
+import org.idpass.claim169.Encryptor;
 
 Encryptor myEncryptor = new Encryptor() {
     @Override
@@ -110,10 +110,10 @@ Android Keystore provides hardware-backed key storage on Android devices.
 ```java
 import android.security.keystore.KeyGenParameterSpec;
 import android.security.keystore.KeyProperties;
-import fr.acn.claim169.Claim169;
-import fr.acn.claim169.Signer;
-import fr.acn.claim169.CoseAlgorithm;
-import fr.acn.claim169.EncoderConfigurer;
+import org.idpass.claim169.Claim169;
+import org.idpass.claim169.Signer;
+import org.idpass.claim169.CoseAlgorithm;
+import org.idpass.claim169.EncoderConfigurer;
 
 import java.security.KeyPairGenerator;
 import java.security.KeyStore;
@@ -184,9 +184,9 @@ String qrData = Claim169.encode(data, meta, (EncoderConfigurer) builder -> {
 ### Verifying with Android Keystore
 
 ```java
-import fr.acn.claim169.Claim169;
-import fr.acn.claim169.SignatureVerifier;
-import fr.acn.claim169.DecoderConfigurer;
+import org.idpass.claim169.Claim169;
+import org.idpass.claim169.SignatureVerifier;
+import org.idpass.claim169.DecoderConfigurer;
 
 import java.security.KeyStore;
 import java.security.Signature;
@@ -320,10 +320,10 @@ private static byte[] toFixedLengthBytes(BigInteger value, int length) {
 ### Signing with AWS KMS
 
 ```java
-import fr.acn.claim169.Claim169;
-import fr.acn.claim169.Signer;
-import fr.acn.claim169.CoseAlgorithm;
-import fr.acn.claim169.EncoderConfigurer;
+import org.idpass.claim169.Claim169;
+import org.idpass.claim169.Signer;
+import org.idpass.claim169.CoseAlgorithm;
+import org.idpass.claim169.EncoderConfigurer;
 import software.amazon.awssdk.core.SdkBytes;
 import software.amazon.awssdk.services.kms.KmsClient;
 import software.amazon.awssdk.services.kms.model.MessageType;
@@ -369,7 +369,7 @@ String qrData = Claim169.encode(data, meta, (EncoderConfigurer) builder -> {
 ### Verifying with AWS KMS
 
 ```java
-import fr.acn.claim169.SignatureVerifier;
+import org.idpass.claim169.SignatureVerifier;
 import software.amazon.awssdk.core.SdkBytes;
 import software.amazon.awssdk.services.kms.KmsClient;
 import software.amazon.awssdk.services.kms.model.MessageType;
@@ -413,8 +413,8 @@ import com.azure.identity.DefaultAzureCredentialBuilder;
 import com.azure.security.keyvault.keys.cryptography.CryptographyClient;
 import com.azure.security.keyvault.keys.cryptography.CryptographyClientBuilder;
 import com.azure.security.keyvault.keys.cryptography.models.SignatureAlgorithm;
-import fr.acn.claim169.Signer;
-import fr.acn.claim169.CoseAlgorithm;
+import org.idpass.claim169.Signer;
+import org.idpass.claim169.CoseAlgorithm;
 
 import java.security.MessageDigest;
 
@@ -466,8 +466,8 @@ import com.google.cloud.kms.v1.CryptoKeyVersionName;
 import com.google.cloud.kms.v1.Digest;
 import com.google.cloud.kms.v1.KeyManagementServiceClient;
 import com.google.protobuf.ByteString;
-import fr.acn.claim169.Signer;
-import fr.acn.claim169.CoseAlgorithm;
+import org.idpass.claim169.Signer;
+import org.idpass.claim169.CoseAlgorithm;
 
 import java.security.MessageDigest;
 
@@ -525,8 +525,8 @@ String qrData = Claim169.encode(data, meta, (EncoderConfigurer) builder -> {
 For PKCS#11 HSMs using a JCA provider:
 
 ```java
-import fr.acn.claim169.Signer;
-import fr.acn.claim169.CoseAlgorithm;
+import org.idpass.claim169.Signer;
+import org.idpass.claim169.CoseAlgorithm;
 
 import java.security.KeyStore;
 import java.security.Signature;
@@ -577,7 +577,7 @@ String qrData = Claim169.encode(data, meta, (EncoderConfigurer) builder -> {
 Wrap provider-specific exceptions so they surface as meaningful messages:
 
 ```java
-import fr.acn.claim169.Signer;
+import org.idpass.claim169.Signer;
 
 public class SafeSigner implements Signer {
     private final Signer delegate;

@@ -64,7 +64,7 @@ publishing {
             pom {
                 name.set("Claim 169 SDK")
                 description.set("Kotlin/Java SDK for encoding and decoding Claim 169 QR codes")
-                url.set("https://github.com/jeremi/claim-169")
+                url.set("https://github.com/idpass/claim-169")
 
                 licenses {
                     license {
@@ -81,10 +81,15 @@ publishing {
                     }
                 }
 
+                organization {
+                    name.set("ID PASS")
+                    url.set("https://github.com/idpass")
+                }
+
                 scm {
-                    connection.set("scm:git:git://github.com/jeremi/claim-169.git")
-                    developerConnection.set("scm:git:ssh://github.com:jeremi/claim-169.git")
-                    url.set("https://github.com/jeremi/claim-169")
+                    connection.set("scm:git:git://github.com/idpass/claim-169.git")
+                    developerConnection.set("scm:git:ssh://github.com:idpass/claim-169.git")
+                    url.set("https://github.com/idpass/claim-169")
                 }
             }
         }

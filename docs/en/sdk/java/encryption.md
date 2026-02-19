@@ -37,12 +37,12 @@ QR Code -> Base45 -> Decompress -> Decrypt -> Verify -> Identity Data
 ### Sign + Encrypt with AES-256-GCM
 
 ```java
-import fr.acn.claim169.Claim169;
-import fr.acn.claim169.Claim169Data;
-import fr.acn.claim169.Claim169DataConfigurer;
-import fr.acn.claim169.CwtMetaData;
-import fr.acn.claim169.CwtMetaDataConfigurer;
-import fr.acn.claim169.EncoderConfigurer;
+import org.idpass.claim169.Claim169;
+import org.idpass.claim169.Claim169Data;
+import org.idpass.claim169.Claim169DataConfigurer;
+import org.idpass.claim169.CwtMetaData;
+import org.idpass.claim169.CwtMetaDataConfigurer;
+import org.idpass.claim169.EncoderConfigurer;
 
 // Identity data
 Claim169Data data = Claim169.claim169((Claim169DataConfigurer) builder -> {
@@ -74,10 +74,10 @@ System.out.println("Encrypted credential: " + qrData.length() + " characters");
 ### Sign + Encrypt with AES-128-GCM
 
 ```java
-import fr.acn.claim169.Claim169;
-import fr.acn.claim169.Claim169DataConfigurer;
-import fr.acn.claim169.CwtMetaDataConfigurer;
-import fr.acn.claim169.EncoderConfigurer;
+import org.idpass.claim169.Claim169;
+import org.idpass.claim169.Claim169DataConfigurer;
+import org.idpass.claim169.CwtMetaDataConfigurer;
+import org.idpass.claim169.EncoderConfigurer;
 
 Claim169Data data = Claim169.claim169((Claim169DataConfigurer) builder -> {
     builder.setId("ENC128-001");
@@ -108,9 +108,9 @@ For encrypted credentials, you typically need both:
 2. Verification key (signing public key) or verification callback
 
 ```java
-import fr.acn.claim169.Claim169;
-import fr.acn.claim169.DecodeResultData;
-import fr.acn.claim169.DecoderConfigurer;
+import org.idpass.claim169.Claim169;
+import org.idpass.claim169.DecodeResultData;
+import org.idpass.claim169.DecoderConfigurer;
 
 // Keys
 byte[] encryptKey = hexToByteArray("000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f");
@@ -156,9 +156,9 @@ System.out.println("Status: " + Claim169.verificationStatus(result));  // Verifi
 For HSM or KMS decryption, provide a `Decryptor` implementation using an anonymous class:
 
 ```java
-import fr.acn.claim169.Claim169;
-import fr.acn.claim169.Decryptor;
-import fr.acn.claim169.DecoderConfigurer;
+import org.idpass.claim169.Claim169;
+import org.idpass.claim169.Decryptor;
+import org.idpass.claim169.DecoderConfigurer;
 
 Decryptor customDecryptor = new Decryptor() {
     @Override
@@ -179,10 +179,10 @@ DecodeResultData result = Claim169.decode(qrData, (DecoderConfigurer) builder ->
 For HSM or KMS encryption during encoding:
 
 ```java
-import fr.acn.claim169.Claim169;
-import fr.acn.claim169.Encryptor;
-import fr.acn.claim169.CoseAlgorithm;
-import fr.acn.claim169.EncoderConfigurer;
+import org.idpass.claim169.Claim169;
+import org.idpass.claim169.Encryptor;
+import org.idpass.claim169.CoseAlgorithm;
+import org.idpass.claim169.EncoderConfigurer;
 
 Encryptor customEncryptor = new Encryptor() {
     @Override
@@ -209,16 +209,16 @@ builder.encryptWith(customEncryptor, "A256GCM");
 Use custom callbacks for both signing and encryption:
 
 ```java
-import fr.acn.claim169.Claim169;
-import fr.acn.claim169.Signer;
-import fr.acn.claim169.Encryptor;
-import fr.acn.claim169.SignatureVerifier;
-import fr.acn.claim169.Decryptor;
-import fr.acn.claim169.CoseAlgorithm;
-import fr.acn.claim169.Claim169DataConfigurer;
-import fr.acn.claim169.CwtMetaDataConfigurer;
-import fr.acn.claim169.EncoderConfigurer;
-import fr.acn.claim169.DecoderConfigurer;
+import org.idpass.claim169.Claim169;
+import org.idpass.claim169.Signer;
+import org.idpass.claim169.Encryptor;
+import org.idpass.claim169.SignatureVerifier;
+import org.idpass.claim169.Decryptor;
+import org.idpass.claim169.CoseAlgorithm;
+import org.idpass.claim169.Claim169DataConfigurer;
+import org.idpass.claim169.CwtMetaDataConfigurer;
+import org.idpass.claim169.EncoderConfigurer;
+import org.idpass.claim169.DecoderConfigurer;
 
 // Custom signer
 Signer signer = new Signer() {
@@ -284,9 +284,9 @@ System.out.println("Status: " + Claim169.verificationStatus(result));
 ## Error Handling
 
 ```java
-import fr.acn.claim169.Claim169;
-import fr.acn.claim169.DecoderConfigurer;
-import fr.acn.claim169.Claim169Exception;
+import org.idpass.claim169.Claim169;
+import org.idpass.claim169.DecoderConfigurer;
+import org.idpass.claim169.Claim169Exception;
 
 try {
     DecodeResultData result = Claim169.decode(qrData, (DecoderConfigurer) builder -> {

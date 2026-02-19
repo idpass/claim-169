@@ -11,7 +11,7 @@ L'artefact est le même que pour le SDK Kotlin.
 
 ```kotlin
 dependencies {
-  implementation("fr.acn.claim169:claim169-core:0.2.0-alpha")
+  implementation("org.idpass.claim169:claim169-core:0.2.0-alpha")
 }
 ```
 
@@ -19,7 +19,7 @@ dependencies {
 
 ```groovy
 dependencies {
-  implementation "fr.acn.claim169:claim169-core:0.2.0-alpha"
+  implementation "org.idpass.claim169:claim169-core:0.2.0-alpha"
 }
 ```
 
@@ -27,7 +27,7 @@ dependencies {
 
 ```xml
 <dependency>
-    <groupId>fr.acn.claim169</groupId>
+    <groupId>org.idpass.claim169</groupId>
     <artifactId>claim169-core</artifactId>
     <version>0.2.0-alpha</version>
 </dependency>

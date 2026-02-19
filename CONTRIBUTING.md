@@ -35,7 +35,7 @@ This project is committed to providing a welcoming and inclusive environment for
 
 ```bash
 # Clone the repository
-git clone https://github.com/jeremi/claim-169.git
+git clone https://github.com/idpass/claim-169.git
 cd claim-169
 
 # Build everything
@@ -222,7 +222,7 @@ This project implements cryptographic protocols for digital identity. Security i
 
 ### Reporting Vulnerabilities
 
-**Do not open public GitHub issues for security vulnerabilities.** Use [GitHub's private vulnerability reporting](https://github.com/jeremi/claim-169/security/advisories/new). See [SECURITY.md](SECURITY.md) for full details.
+**Do not open public GitHub issues for security vulnerabilities.** Use [GitHub's private vulnerability reporting](https://github.com/idpass/claim-169/security/advisories/new). See [SECURITY.md](SECURITY.md) for full details.
 
 ### Security-Critical Areas
 
@@ -275,7 +275,7 @@ cargo test --all-features -- --nocapture
 cd core/claim169-python && uv run pytest tests/test_decode.py::test_name -v
 
 # Single Kotlin test class
-cd sdks/kotlin && ./gradlew :claim169-core:test --tests "fr.acn.claim169.DecodeValidTest"
+cd sdks/kotlin && ./gradlew :claim169-core:test --tests "org.idpass.claim169.DecodeValidTest"
 
 # Generate test vectors
 cargo run -p generate-vectors
@@ -391,7 +391,7 @@ Use the feature request template and include:
 
 ### Security Issues
 
-**Do not open public issues for security vulnerabilities.** Use [GitHub's private vulnerability reporting](https://github.com/jeremi/claim-169/security/advisories/new).
+**Do not open public issues for security vulnerabilities.** Use [GitHub's private vulnerability reporting](https://github.com/idpass/claim-169/security/advisories/new).
 
 ## Documentation
 

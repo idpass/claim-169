@@ -79,4 +79,4 @@ The SDK is designed to be secure by default:
 
 ## License
 
-MIT License - See [LICENSE](https://github.com/jeremi/claim-169/blob/main/LICENSE) for details.
+MIT License - See [LICENSE](https://github.com/idpass/claim-169/blob/main/LICENSE) for details.

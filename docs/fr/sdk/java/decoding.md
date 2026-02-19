@@ -8,8 +8,8 @@ Ce guide couvre le décodage d'un QR code Claim 169 et la vérification de signa
 ## Vérifier une signature Ed25519
 
 ```java
-import fr.acn.claim169.Claim169;
-import fr.acn.claim169.DecoderConfigurer;
+import org.idpass.claim169.Claim169;
+import org.idpass.claim169.DecoderConfigurer;
 
 DecodeResultData result = Claim169.decode(qrData, (DecoderConfigurer) b -> {
     b.verifyWithEd25519(publicKey);
@@ -47,7 +47,7 @@ try (CloseableDecodeResult result = Claim169.decodeCloseable(qrData, (DecoderCon
 ## Statut de vérification
 
 ```java
-import fr.acn.claim169.VerificationStatus;
+import org.idpass.claim169.VerificationStatus;
 
 VerificationStatus status = Claim169.verificationStatus(result);
 if (status == VerificationStatus.Verified) {

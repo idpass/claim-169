@@ -86,7 +86,7 @@ d75a980182b10ab7d54bfed3c964073a0ee172f3daa62325af021a68f707511a
 === "Kotlin"
 
     ```kotlin
-    import fr.acn.claim169.Claim169
+    import org.idpass.claim169.Claim169
 
     val qrData = "6BF590B20FFWJWG.FKJ05H7B0XKA8FA9DIWENPEJ/5P\$DPQE88EB\$CBECP9ERZC04E21DDF3/E96007F3ORAO001KL580 B9%W5*B9C+9%R8646%86HKESED1/DRTC5UA QE\$345\$CVQEX.DX88WBK0NG8PB4 O/38TL6XDALLKLPQATHO.3ZPJMUAVQFSB1:+B*21V FWMC6SU439YU774475LJ2U5T02\$VBSIMLQ3:6J.E1-1STM\$4"
 
@@ -106,8 +106,8 @@ d75a980182b10ab7d54bfed3c964073a0ee172f3daa62325af021a68f707511a
 === "Java"
 
     ```java
-    import fr.acn.claim169.Claim169;
-    import fr.acn.claim169.DecodeResultData;
+    import org.idpass.claim169.Claim169;
+    import org.idpass.claim169.DecodeResultData;
 
     String qrData = "6BF590B20FFWJWG.FKJ05H7B0XKA8FA9DIWENPEJ/5P$DPQE88EB$CBECP9ERZC04E21DDF3/E96007F3ORAO001KL580 B9%W5*B9C+9%R8646%86HKESED1/DRTC5UA QE$345$CVQEX.DX88WBK0NG8PB4 O/38TL6XDALLKLPQATHO.3ZPJMUAVQFSB1:+B*21V FWMC6SU439YU774475LJ2U5T02$VBSIMLQ3:6J.E1-1STM$4";
 
@@ -172,7 +172,7 @@ Commencez ici :
 
 ## Entrées de référence (vecteurs de test)
 
-Pour décoder un QR déjà prêt (ou valider une autre implémentation), utilisez les [vecteurs de test](https://github.com/jeremi/claim-169/tree/main/test-vectors/valid) du dépôt :
+Pour décoder un QR déjà prêt (ou valider une autre implémentation), utilisez les [vecteurs de test](https://github.com/idpass/claim-169/tree/main/test-vectors/valid) du dépôt :
 
 - `test-vectors/valid/ed25519-signed.json` (signé)
 - `test-vectors/valid/ecdsa-p256-signed.json` (signé)

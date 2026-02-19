@@ -4,7 +4,7 @@ plugins {
 }
 
 android {
-    namespace = "fr.acn.claim169"
+    namespace = "org.idpass.claim169"
     compileSdk = 34
 
     defaultConfig {

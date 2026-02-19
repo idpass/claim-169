@@ -12,8 +12,8 @@ The most common operation is decoding a QR code that was scanned from an identit
 ### With Ed25519 Verification
 
 ```kotlin
-import fr.acn.claim169.Claim169
-import fr.acn.claim169.VerificationStatus
+import org.idpass.claim169.Claim169
+import org.idpass.claim169.VerificationStatus
 
 // QR code content (Base45 encoded string from scanner)
 val qrData = "NCFOXN..."
@@ -48,7 +48,7 @@ println("Expires: ${result.cwtMeta.expiresAt}")
 For testing and development only. Never use in production.
 
 ```kotlin
-import fr.acn.claim169.Claim169
+import org.idpass.claim169.Claim169
 
 // WARNING: INSECURE - skips signature verification
 val result = Claim169.decode(qrData) {
@@ -66,10 +66,10 @@ Create a signed credential that can be encoded in a QR code.
 ### Basic Encoding with Ed25519
 
 ```kotlin
-import fr.acn.claim169.Claim169
-import fr.acn.claim169.claim169Data
-import fr.acn.claim169.cwtMetaData
-import fr.acn.claim169.Gender
+import org.idpass.claim169.Claim169
+import org.idpass.claim169.claim169Data
+import org.idpass.claim169.cwtMetaData
+import org.idpass.claim169.Gender
 
 // Create identity data using DSL builder
 val data = claim169Data {
@@ -106,9 +106,9 @@ println(qrData)
 Encode a credential and immediately decode it to verify:
 
 ```kotlin
-import fr.acn.claim169.Claim169
-import fr.acn.claim169.claim169Data
-import fr.acn.claim169.cwtMetaData
+import org.idpass.claim169.Claim169
+import org.idpass.claim169.claim169Data
+import org.idpass.claim169.cwtMetaData
 
 // Keys
 val privateKey = "9d61b19deffd5a60ba844af492ec2cc44449c5697b326919703bac031cae7f60"
@@ -147,8 +147,8 @@ println("Roundtrip successful!")
 The SDK uses a sealed class hierarchy for exceptions, enabling exhaustive `when` expressions:
 
 ```kotlin
-import fr.acn.claim169.Claim169
-import fr.acn.claim169.Claim169Exception
+import org.idpass.claim169.Claim169
+import org.idpass.claim169.Claim169Exception
 
 try {
     val result = Claim169.decode(qrData) {

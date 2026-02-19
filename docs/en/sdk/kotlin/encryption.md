@@ -37,9 +37,9 @@ QR Code -> Base45 -> Decompress -> Decrypt -> Verify -> Identity Data
 ### Sign + Encrypt with AES-256-GCM
 
 ```kotlin
-import fr.acn.claim169.Claim169
-import fr.acn.claim169.claim169Data
-import fr.acn.claim169.cwtMetaData
+import org.idpass.claim169.Claim169
+import org.idpass.claim169.claim169Data
+import org.idpass.claim169.cwtMetaData
 
 // Identity data
 val data = claim169Data {
@@ -71,9 +71,9 @@ println("Encrypted credential: ${qrData.length} characters")
 ### Sign + Encrypt with AES-128-GCM
 
 ```kotlin
-import fr.acn.claim169.Claim169
-import fr.acn.claim169.claim169Data
-import fr.acn.claim169.cwtMetaData
+import org.idpass.claim169.Claim169
+import org.idpass.claim169.claim169Data
+import org.idpass.claim169.cwtMetaData
 
 val data = claim169Data {
     id = "ENC128-001"
@@ -104,7 +104,7 @@ For encrypted credentials, you typically need both:
 2. Verification key (signing public key) or verification callback
 
 ```kotlin
-import fr.acn.claim169.Claim169
+import org.idpass.claim169.Claim169
 
 // Keys
 val encryptKey = "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f"
@@ -152,8 +152,8 @@ println("Status: ${result.verificationStatus}")  // VerificationStatus.Skipped
 For HSM or KMS decryption, provide a `Decryptor` implementation:
 
 ```kotlin
-import fr.acn.claim169.Claim169
-import fr.acn.claim169.Decryptor
+import org.idpass.claim169.Claim169
+import org.idpass.claim169.Decryptor
 
 val customDecryptor = object : Decryptor {
     override fun decrypt(
@@ -179,9 +179,9 @@ val result = Claim169.decode(qrData) {
 For HSM or KMS encryption during encoding:
 
 ```kotlin
-import fr.acn.claim169.Claim169
-import fr.acn.claim169.Encryptor
-import fr.acn.claim169.CoseAlgorithm
+import org.idpass.claim169.Claim169
+import org.idpass.claim169.Encryptor
+import org.idpass.claim169.CoseAlgorithm
 
 val customEncryptor = object : Encryptor {
     override fun encrypt(
@@ -213,13 +213,13 @@ encryptWith(customEncryptor, "A256GCM")
 Use custom callbacks for both signing and encryption:
 
 ```kotlin
-import fr.acn.claim169.Claim169
-import fr.acn.claim169.Signer
-import fr.acn.claim169.Encryptor
-import fr.acn.claim169.SignatureVerifier
-import fr.acn.claim169.Decryptor
-import fr.acn.claim169.claim169Data
-import fr.acn.claim169.cwtMetaData
+import org.idpass.claim169.Claim169
+import org.idpass.claim169.Signer
+import org.idpass.claim169.Encryptor
+import org.idpass.claim169.SignatureVerifier
+import org.idpass.claim169.Decryptor
+import org.idpass.claim169.claim169Data
+import org.idpass.claim169.cwtMetaData
 
 // Custom signer
 val signer = object : Signer {
@@ -282,8 +282,8 @@ println("Status: ${result.verificationStatus}")
 ## Error Handling
 
 ```kotlin
-import fr.acn.claim169.Claim169
-import fr.acn.claim169.Claim169Exception
+import org.idpass.claim169.Claim169
+import org.idpass.claim169.Claim169Exception
 
 try {
     val result = Claim169.decode(qrData) {

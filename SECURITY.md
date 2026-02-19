@@ -8,7 +8,7 @@
 
 ## Reporting a Vulnerability
 
-Please report security vulnerabilities through [GitHub's private vulnerability reporting](https://github.com/jeremi/claim-169/security/advisories/new).
+Please report security vulnerabilities through [GitHub's private vulnerability reporting](https://github.com/idpass/claim-169/security/advisories/new).
 
 This allows us to discuss and address the issue privately before any public disclosure. You will receive updates on the progress of your report through GitHub.
 

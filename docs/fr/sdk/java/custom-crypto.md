@@ -16,8 +16,8 @@ Le SDK expose des interfaces de rappel (callbacks) à implémenter comme classes
 - `Encryptor` / `Decryptor`
 
 ```java
-import fr.acn.claim169.SignatureVerifier;
-import fr.acn.claim169.VerificationResult;
+import org.idpass.claim169.SignatureVerifier;
+import org.idpass.claim169.VerificationResult;
 
 SignatureVerifier verifier = new SignatureVerifier() {
     @Override

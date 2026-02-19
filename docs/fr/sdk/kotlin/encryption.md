@@ -5,7 +5,7 @@ Le chiffrement est optionnel. Il enveloppe un payload signé dans un COSE_Encryp
 ## Encoder + chiffrer (AES-256-GCM)
 
 ```kotlin
-import fr.acn.claim169.Claim169
+import org.idpass.claim169.Claim169
 
 val qrData = Claim169.encode(claim, meta) {
   signWithEd25519(privateKey)

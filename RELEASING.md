@@ -53,7 +53,7 @@ Configure trusted publisher on PyPI:
 1. Go to https://pypi.org/manage/account/publishing/
 2. Under "Add a new pending publisher", fill in:
    - **PyPI Project Name**: `claim169`
-   - **Owner**: `jeremi` (your GitHub username)
+   - **Owner**: `idpass` (your GitHub username)
    - **Repository name**: `claim-169`
    - **Workflow name**: `publish-release.yml`
    - **Environment name**: `pypi`

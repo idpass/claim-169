@@ -137,7 +137,7 @@ The PR template includes an **AI Disclosure** section — fill it in if you used
 
 ## Security
 
-**Do not open public GitHub issues for security vulnerabilities.** Use [GitHub's private vulnerability reporting](https://github.com/jeremi/claim-169/security/advisories/new). See [SECURITY.md](https://github.com/jeremi/claim-169/blob/main/SECURITY.md) for full details.
+**Do not open public GitHub issues for security vulnerabilities.** Use [GitHub's private vulnerability reporting](https://github.com/idpass/claim-169/security/advisories/new). See [SECURITY.md](https://github.com/idpass/claim-169/blob/main/SECURITY.md) for full details.
 
 ## Reporting Issues
 

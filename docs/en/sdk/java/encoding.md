@@ -19,11 +19,11 @@ Encoding follows these steps:
 The `Claim169.claim169()` static method accepts a `Claim169DataConfigurer` lambda:
 
 ```java
-import fr.acn.claim169.Claim169;
-import fr.acn.claim169.Claim169Data;
-import fr.acn.claim169.Claim169DataConfigurer;
-import fr.acn.claim169.Gender;
-import fr.acn.claim169.MaritalStatus;
+import org.idpass.claim169.Claim169;
+import org.idpass.claim169.Claim169Data;
+import org.idpass.claim169.Claim169DataConfigurer;
+import org.idpass.claim169.Gender;
+import org.idpass.claim169.MaritalStatus;
 
 // Create with all demographics
 Claim169Data data = Claim169.claim169((Claim169DataConfigurer) builder -> {
@@ -55,9 +55,9 @@ Claim169Data data = Claim169.claim169((Claim169DataConfigurer) builder -> {
 You can also construct data directly with `Claim169DataBuilder`:
 
 ```java
-import fr.acn.claim169.Claim169DataBuilder;
-import fr.acn.claim169.Claim169Data;
-import fr.acn.claim169.Gender;
+import org.idpass.claim169.Claim169DataBuilder;
+import org.idpass.claim169.Claim169Data;
+import org.idpass.claim169.Gender;
 
 Claim169DataBuilder dataBuilder = new Claim169DataBuilder();
 dataBuilder.setId("MOSIP-2024-001");
@@ -103,7 +103,7 @@ Claim169Data data = dataBuilder.build();
 ```java
 import java.io.File;
 import java.nio.file.Files;
-import fr.acn.claim169.PhotoFormat;
+import org.idpass.claim169.PhotoFormat;
 
 byte[] photoData = Files.readAllBytes(new File("photo.jpg").toPath());
 
@@ -122,9 +122,9 @@ Claim169Data data = Claim169.claim169((Claim169DataConfigurer) builder -> {
 The `Claim169.cwtMeta()` static method accepts a `CwtMetaDataConfigurer` lambda:
 
 ```java
-import fr.acn.claim169.Claim169;
-import fr.acn.claim169.CwtMetaData;
-import fr.acn.claim169.CwtMetaDataConfigurer;
+import org.idpass.claim169.Claim169;
+import org.idpass.claim169.CwtMetaData;
+import org.idpass.claim169.CwtMetaDataConfigurer;
 
 long now = System.currentTimeMillis() / 1000;
 
@@ -140,8 +140,8 @@ CwtMetaData meta = Claim169.cwtMeta((CwtMetaDataConfigurer) builder -> {
 ### Using the Explicit Builder Pattern
 
 ```java
-import fr.acn.claim169.CwtMetaDataBuilder;
-import fr.acn.claim169.CwtMetaData;
+import org.idpass.claim169.CwtMetaDataBuilder;
+import org.idpass.claim169.CwtMetaData;
 
 CwtMetaDataBuilder metaBuilder = new CwtMetaDataBuilder();
 metaBuilder.setIssuer("https://id.example.org");
@@ -165,12 +165,12 @@ CwtMetaData meta = metaBuilder.build();
 Ed25519 is recommended for its small signatures and fast verification.
 
 ```java
-import fr.acn.claim169.Claim169;
-import fr.acn.claim169.Claim169Data;
-import fr.acn.claim169.Claim169DataConfigurer;
-import fr.acn.claim169.CwtMetaData;
-import fr.acn.claim169.CwtMetaDataConfigurer;
-import fr.acn.claim169.EncoderConfigurer;
+import org.idpass.claim169.Claim169;
+import org.idpass.claim169.Claim169Data;
+import org.idpass.claim169.Claim169DataConfigurer;
+import org.idpass.claim169.CwtMetaData;
+import org.idpass.claim169.CwtMetaDataConfigurer;
+import org.idpass.claim169.EncoderConfigurer;
 
 // Identity data
 Claim169Data data = Claim169.claim169((Claim169DataConfigurer) builder -> {
@@ -202,8 +202,8 @@ System.out.println("Encoded: " + qrData.length() + " characters");
 ECDSA P-256 is widely supported in enterprise environments.
 
 ```java
-import fr.acn.claim169.Claim169;
-import fr.acn.claim169.EncoderConfigurer;
+import org.idpass.claim169.Claim169;
+import org.idpass.claim169.EncoderConfigurer;
 
 Claim169Data data = Claim169.claim169((Claim169DataConfigurer) builder -> {
     builder.setId("ECDSA-001");
@@ -228,8 +228,8 @@ String qrData = Claim169.encode(data, meta, (EncoderConfigurer) builder -> {
 For testing and development only. Never use in production.
 
 ```java
-import fr.acn.claim169.Claim169;
-import fr.acn.claim169.EncoderConfigurer;
+import org.idpass.claim169.Claim169;
+import org.idpass.claim169.EncoderConfigurer;
 
 Claim169Data data = Claim169.claim169((Claim169DataConfigurer) builder -> {
     builder.setId("TEST-001");
@@ -262,10 +262,10 @@ String qrData = Claim169.encode(data, meta, (EncoderConfigurer) builder -> {
 For HSM or KMS signing, provide a `Signer` implementation using an anonymous class:
 
 ```java
-import fr.acn.claim169.Claim169;
-import fr.acn.claim169.Signer;
-import fr.acn.claim169.CoseAlgorithm;
-import fr.acn.claim169.EncoderConfigurer;
+import org.idpass.claim169.Claim169;
+import org.idpass.claim169.Signer;
+import org.idpass.claim169.CoseAlgorithm;
+import org.idpass.claim169.EncoderConfigurer;
 
 Signer customSigner = new Signer() {
     @Override
@@ -296,14 +296,14 @@ builder.signWith(customSigner, "EdDSA");
 Complete example with all demographics:
 
 ```java
-import fr.acn.claim169.Claim169;
-import fr.acn.claim169.Claim169Data;
-import fr.acn.claim169.Claim169DataConfigurer;
-import fr.acn.claim169.CwtMetaData;
-import fr.acn.claim169.CwtMetaDataConfigurer;
-import fr.acn.claim169.EncoderConfigurer;
-import fr.acn.claim169.Gender;
-import fr.acn.claim169.MaritalStatus;
+import org.idpass.claim169.Claim169;
+import org.idpass.claim169.Claim169Data;
+import org.idpass.claim169.Claim169DataConfigurer;
+import org.idpass.claim169.CwtMetaData;
+import org.idpass.claim169.CwtMetaDataConfigurer;
+import org.idpass.claim169.EncoderConfigurer;
+import org.idpass.claim169.Gender;
+import org.idpass.claim169.MaritalStatus;
 
 // Create comprehensive identity data
 long now = System.currentTimeMillis() / 1000;
@@ -353,9 +353,9 @@ System.out.println("Ready for QR code generation");
 ## Error Handling
 
 ```java
-import fr.acn.claim169.Claim169;
-import fr.acn.claim169.EncoderConfigurer;
-import fr.acn.claim169.Claim169Exception;
+import org.idpass.claim169.Claim169;
+import org.idpass.claim169.EncoderConfigurer;
+import org.idpass.claim169.Claim169Exception;
 
 try {
     String qrData = Claim169.encode(data, meta, (EncoderConfigurer) builder -> {

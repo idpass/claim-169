@@ -32,7 +32,7 @@ Pour contribuer ou tester des fournisseurs crypto personnalisés :
 
 ```bash
 # Cloner le dépôt
-git clone https://github.com/jeremi/claim-169.git
+git clone https://github.com/idpass/claim-169.git
 cd claim-169/core/claim169-python
 
 # Installer avec les dépendances de dev

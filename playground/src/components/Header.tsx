@@ -21,7 +21,7 @@ export function Header() {
         <nav className="flex items-center gap-2">
           <LanguageSelector />
           <a
-            href="https://github.com/jeremi/claim-169"
+            href="https://github.com/idpass/claim-169"
             target="_blank"
             rel="noopener noreferrer"
             className={cn(buttonVariants({ variant: "ghost", size: "sm" }), "flex items-center gap-2")}

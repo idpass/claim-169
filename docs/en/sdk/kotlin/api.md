@@ -25,11 +25,11 @@ println(result.claim169.fullName)
 
 ```kotlin
 val qrData = Claim169.encode(
-    claim169 {
+    claim169Data {
         id = "ID-12345"
         fullName = "Jane Doe"
     },
-    cwtMeta {
+    cwtMetaData {
         issuer = "https://issuer.example.com"
     }
 ) {
@@ -44,8 +44,11 @@ val qrData = Claim169.encode(
 | claim169With | fun claim169With(configure: Claim169DataConfigurer): Claim169Data<br>Create a Claim169Data using a Claim169DataConfigurer. |
 | cwtMetaWith | fun cwtMetaWith(configure: CwtMetaDataConfigurer): CwtMetaData<br>Create a CwtMetaData using a CwtMetaDataConfigurer. |
 | decode | fun decode(qrText: `String`, configure: DecoderBuilder.() -> `Unit`): DecodeResultData<br>Decode a Claim 169 QR code string. |
+| decodeCatching | fun decodeCatching(qrText: `String`, configure: DecoderBuilder.() -> `Unit`): `Result`<DecodeResultData><br>Decode a Claim 169 QR code string, wrapping the result in [kotlin.Result](https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-result/index.html). |
 | decodeCloseable | fun decodeCloseable(qrText: `String`, configure: DecoderBuilder.() -> `Unit`): CloseableDecodeResult<br>Decode a Claim 169 QR code string and return a closeable wrapper that zeroizes sensitive byte arrays when closed. |
 | encode | fun encode(claim169: Claim169Data, cwtMeta: CwtMetaData, configure: EncoderBuilder.() -> `Unit`): `String`<br>Encode Claim 169 data into a QR-ready Base45 string. |
+| generateNonce | fun generateNonce(): `ByteArray`<br>Generate a cryptographically secure random 12-byte nonce suitable for AES-GCM encryption. |
+| inspect | fun inspect(qrText: `String`): InspectResultData<br>Inspect credential metadata without full decoding or verification. |
 | verificationStatus | fun verificationStatus(result: DecodeResultData): VerificationStatus<br>Get the VerificationStatus enum from a decode result. |
 | version | fun version(): `String`<br>Get the native library version. |
 
@@ -57,7 +60,7 @@ fun claim169With(configure: Claim169DataConfigurer): Claim169Data
 
 Create a Claim169Data using a Claim169DataConfigurer.
 
-Java-friendly alternative to the `claim169 {}` DSL function.
+Java-friendly alternative to the `claim169Data {}` DSL function.
 
 From Java: `Claim169.claim169(b -> { b.setId("X"); })`
 
@@ -69,9 +72,23 @@ fun cwtMetaWith(configure: CwtMetaDataConfigurer): CwtMetaData
 
 Create a CwtMetaData using a CwtMetaDataConfigurer.
 
-Java-friendly alternative to the `cwtMeta {}` DSL function.
+Java-friendly alternative to the `cwtMetaData {}` DSL function.
 
 From Java: `Claim169.cwtMeta(b -> { b.setIssuer("https://..."); })`
+
+### decodeCatching
+
+```kotlin
+fun decodeCatching(qrText: `String`, configure: DecoderBuilder.() -> `Unit`): `Result`<DecodeResultData>
+```
+
+Decode a Claim 169 QR code string, wrapping the result in [kotlin.Result](https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-result/index.html).
+
+```kotlin
+val result = Claim169.decodeCatching(qrText) { allowUnverified() }
+result.onSuccess { data -> println(data.claim169.fullName) }
+result.onFailure { error -> println("Decode failed: $error") }
+```
 
 ### decodeCloseableWith
 
@@ -150,6 +167,46 @@ The Base45-encoded QR string
 |---|---|
 | Claim169Exception | on encode errors |
 
+### generateNonce
+
+```kotlin
+fun generateNonce(): `ByteArray`
+```
+
+Generate a cryptographically secure random 12-byte nonce suitable for AES-GCM encryption.
+
+###### Return
+
+12 random bytes from [SecureRandom](https://docs.oracle.com/javase/8/docs/api/java/security/SecureRandom.html).
+
+### inspect
+
+```kotlin
+fun inspect(qrText: `String`): InspectResultData
+```
+
+Inspect credential metadata without full decoding or verification.
+
+Extracts metadata (issuer, key ID, algorithm, expiration) from a QR code without verifying the signature. Useful for multi-issuer key lookup.
+
+For encrypted credentials (COSE_Encrypt0), only COSE-level headers are available; CWT-level fields (issuer, subject, expiresAt) will be `null`.
+
+###### Return
+
+Metadata extracted from the credential
+
+###### Parameters
+
+| | |
+|---|---|
+| qrText | The Base45-encoded QR code content |
+
+###### Throws
+
+| | |
+|---|---|
+| Claim169Exception | on parse errors |
+
 ### verificationStatus
 
 ```kotlin
@@ -158,7 +215,7 @@ fun verificationStatus(result: DecodeResultData): VerificationStatus
 
 Get the VerificationStatus enum from a decode result.
 
-Java-friendly alternative to the DecodeResultData.verificationStatusEnum extension function.
+Java-friendly alternative to `result.getVerificationStatus()`.
 
 From Java: `Claim169.verificationStatus(result)`
 
@@ -196,7 +253,7 @@ val result = Claim169.decode(qrText) {
 | Name | Summary |
 |---|---|
 | allowUnverified | fun allowUnverified()<br>Allow decoding without signature verification. |
-| clockSkewTolerance | fun clockSkewTolerance(seconds: `Long`)<br>Set clock skew tolerance for timestamp validation (in seconds). |
+| clockSkewTolerance | fun clockSkewTolerance(seconds: `Long`)<br>Set clock skew tolerance for timestamp validation (in seconds).<br>fun clockSkewTolerance(duration: `Duration`)<br>Set clock skew tolerance for timestamp validation using [kotlin.time.Duration](https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.time/-duration/index.html). |
 | decryptWith | fun decryptWith(decryptor: Decryptor)<br>Decrypt with a custom Decryptor implementation (for HSM/KMS). |
 | decryptWithAes128 | fun decryptWithAes128(key: `ByteArray`)<br>Decrypt with AES-128-GCM (16-byte key). |
 | decryptWithAes256 | fun decryptWithAes256(key: `ByteArray`)<br>Decrypt with AES-256-GCM (32-byte key). |
@@ -232,6 +289,18 @@ fun clockSkewTolerance(seconds: `Long`)
 ```
 
 Set clock skew tolerance for timestamp validation (in seconds).
+
+```kotlin
+fun clockSkewTolerance(duration: `Duration`)
+```
+
+Set clock skew tolerance for timestamp validation using [kotlin.time.Duration](https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.time/-duration/index.html).
+
+```kotlin
+Claim169.decode(qrText) {
+    clockSkewTolerance(30.seconds)
+}
+```
 
 ### decryptWithAes128
 
@@ -346,10 +415,10 @@ val qrData = Claim169.encode(claim, meta) {
 | Name | Summary |
 |---|---|
 | allowUnsigned | fun allowUnsigned()<br>Allow encoding without a signature. |
-| encryptWith | fun encryptWith(encryptor: Encryptor, algorithm: CoseAlgorithm)<br>Encrypt with a custom Encryptor implementation using a known COSE algorithm.<br>fun encryptWith(encryptor: Encryptor, algorithm: `String`)<br>Encrypt with a custom Encryptor implementation (for HSM/KMS). |
+| encryptWith | fun encryptWith(encryptor: Encryptor, algorithm: `String`)<br>Encrypt with a custom Encryptor implementation (for HSM/KMS).<br>fun encryptWith(encryptor: Encryptor, algorithm: CoseAlgorithm)<br>Encrypt with a custom Encryptor implementation using a known COSE algorithm. |
 | encryptWithAes128 | fun encryptWithAes128(key: `ByteArray`)<br>Encrypt with AES-128-GCM (16-byte key). Nonce is generated randomly. |
 | encryptWithAes256 | fun encryptWithAes256(key: `ByteArray`)<br>Encrypt with AES-256-GCM (32-byte key). Nonce is generated randomly. |
-| signWith | fun signWith(signer: Signer, algorithm: CoseAlgorithm)<br>Sign with a custom Signer implementation using a known COSE algorithm.<br>fun signWith(signer: Signer, algorithm: `String`)<br>Sign with a custom Signer implementation (for HSM/KMS). |
+| signWith | fun signWith(signer: Signer, algorithm: `String`)<br>Sign with a custom Signer implementation (for HSM/KMS).<br>fun signWith(signer: Signer, algorithm: CoseAlgorithm)<br>Sign with a custom Signer implementation using a known COSE algorithm. |
 | signWithEcdsaP256 | fun signWithEcdsaP256(privateKey: `ByteArray`)<br>Sign with an ECDSA P-256 private key (32-byte scalar). |
 | signWithEd25519 | fun signWithEd25519(privateKey: `ByteArray`)<br>Sign with an Ed25519 private key (32 raw bytes). |
 | skipBiometrics | fun skipBiometrics()<br>Skip biometric data during encoding. |
@@ -479,7 +548,7 @@ DSL builder for creating Claim169Data instances.
 ### Usage
 
 ```kotlin
-val data = claim169 {
+val data = claim169Data {
     id = "ID-12345"
     fullName = "Jane Doe"
     dateOfBirth = "19900115"
@@ -821,7 +890,7 @@ DSL builder for creating CwtMetaData instances.
 ### Usage
 
 ```kotlin
-val meta = cwtMeta {
+val meta = cwtMetaData {
     issuer = "https://issuer.example.com"
     expiresAt = 1800000000L
 }
@@ -1531,17 +1600,20 @@ val reason: `String`
 class BiometricData
 ```
 
-Wrapper for biometric data that keeps the public API in `fr.acn.claim169`.
+A single biometric data entry (fingerprint, iris, face, palm, or voice).
 
 ### Properties
 
 | Name | Summary |
 |---|---|
-| format | var format: `Long`? |
-| issuer | var issuer: `String`? |
-| subFormat | var subFormat: `Long`? |
+| data | var data: `ByteArray`<br>Raw biometric data bytes (template or image). |
+| format | var format: `Long`?<br>Biometric format: 0=Image, 1=Template, 2=Sound, 3=BioHash. `null` if not specified. |
+| issuer | var issuer: `String`?<br>Issuer URI of the biometric data. `null` if not specified. |
+| subFormat | var subFormat: `Long`?<br>Biometric sub-format (interpretation depends on `format`). `null` if not specified. |
 
 ### BiometricData
+
+@`JvmOverloads`
 
 ```kotlin
 constructor(data: `ByteArray`, format: `Long`? = null, subFormat: `Long`? = null, issuer: `String`? = null)
@@ -1595,16 +1667,19 @@ open override fun toString(): `String`
 class CertificateHashData
 ```
 
-Wrapper for X.509 certificate hash data.
+X.509 certificate hash used in COSE `x5t` headers.
 
 ### Properties
 
 | Name | Summary |
 |---|---|
-| algorithmName | var algorithmName: `String`? |
-| algorithmNumeric | var algorithmNumeric: `Long`? |
+| algorithmName | var algorithmName: `String`?<br>Hash algorithm name (for non-numeric algorithms). `null` if numeric. |
+| algorithmNumeric | var algorithmNumeric: `Long`?<br>Numeric COSE hash algorithm ID (e.g., -16 for SHA-256). `null` if named. |
+| hashValue | var hashValue: `ByteArray`<br>The certificate hash value bytes. |
 
 ### CertificateHashData
+
+@`JvmOverloads`
 
 ```kotlin
 constructor(algorithmNumeric: `Long`? = null, algorithmName: `String`? = null, hashValue: `ByteArray`)
@@ -1652,25 +1727,28 @@ open override fun toString(): `String`
 class Claim169Data
 ```
 
-Claim 169 identity data wrapper.
+Identity data from a MOSIP Claim 169 QR code (CBOR keys 1–23 for demographics, 50–65 for biometrics).
+
+Demographic fields use CBOR key ranges 1–23. Enum-valued fields (gender, maritalStatus, photoFormat) store raw integer values matching the spec; use the extension properties genderEnum, maritalStatusEnum, and photoFormatEnum for typed access.
 
 ### Properties
 
 | Name | Summary |
 |---|---|
-| address | var address: `String`? |
-| bestQualityFingers | var bestQualityFingers: `ByteArray`? |
-| countryOfIssuance | var countryOfIssuance: `String`? |
-| dateOfBirth | var dateOfBirth: `String`? |
-| email | var email: `String`? |
+| address | var address: `String`?<br>Full postal address (CBOR key 10). |
+| bestQualityFingers | var bestQualityFingers: `ByteArray`?<br>Ordered list of best-quality finger positions, values 0–10 (CBOR key 18). |
+| countryOfIssuance | var countryOfIssuance: `String`?<br>ISO 3166-1 alpha-2 country of issuance (CBOR key 23). |
+| dateOfBirth | var dateOfBirth: `String`?<br>Date of birth as `"YYYYMMDD"` or `"YYYY-MM-DD"` (CBOR key 8). |
+| email | var email: `String`?<br>Email address (CBOR key 11). |
 | face | var face: `List`<BiometricData>? |
-| firstName | var firstName: `String`? |
-| fullName | var fullName: `String`? |
-| gender | var gender: `Long`? |
-| guardian | var guardian: `String`? |
-| id | var id: `String`? |
-| language | var language: `String`? |
-| lastName | var lastName: `String`? |
+| firstName | var firstName: `String`?<br>First/given name (CBOR key 5). |
+| fullName | var fullName: `String`?<br>Full name of the credential holder (CBOR key 4). |
+| gender | var gender: `Long`?<br>Gender as a 1-indexed integer: 1=Male, 2=Female, 3=Other (CBOR key 9). Use genderEnum for typed access. |
+| genderEnum | val Claim169Data.genderEnum: Gender?<br>Extension property to get the Gender enum from a Claim169Data's numeric gender field. |
+| guardian | var guardian: `String`?<br>Guardian name (CBOR key 15). |
+| id | var id: `String`?<br>Unique credential identifier (CBOR key 1). |
+| language | var language: `String`?<br>Primary language code, e.g. `"en"` (CBOR key 3). |
+| lastName | var lastName: `String`?<br>Last/family name (CBOR key 7). |
 | leftIris | var leftIris: `List`<BiometricData>? |
 | leftLittleFinger | var leftLittleFinger: `List`<BiometricData>? |
 | leftMiddleFinger | var leftMiddleFinger: `List`<BiometricData>? |
@@ -1678,14 +1756,16 @@ Claim 169 identity data wrapper.
 | leftPointerFinger | var leftPointerFinger: `List`<BiometricData>? |
 | leftRingFinger | var leftRingFinger: `List`<BiometricData>? |
 | leftThumb | var leftThumb: `List`<BiometricData>? |
-| legalStatus | var legalStatus: `String`? |
-| locationCode | var locationCode: `String`? |
-| maritalStatus | var maritalStatus: `Long`? |
-| middleName | var middleName: `String`? |
-| nationality | var nationality: `String`? |
-| phone | var phone: `String`? |
-| photo | var photo: `ByteArray`? |
-| photoFormat | var photoFormat: `Long`? |
+| legalStatus | var legalStatus: `String`?<br>Legal status string (CBOR key 22). |
+| locationCode | var locationCode: `String`?<br>Location code (CBOR key 21). |
+| maritalStatus | var maritalStatus: `Long`?<br>Marital status as a 1-indexed integer: 1=Unmarried, 2=Married, 3=Divorced (CBOR key 14). Use maritalStatusEnum for typed access. |
+| maritalStatusEnum | val Claim169Data.maritalStatusEnum: MaritalStatus?<br>Extension property to get the MaritalStatus enum from a Claim169Data's numeric marital status field. |
+| middleName | var middleName: `String`?<br>Middle name (CBOR key 6). |
+| nationality | var nationality: `String`?<br>ISO 3166-1 alpha-2 country code (CBOR key 13). |
+| phone | var phone: `String`?<br>Phone number (CBOR key 12). |
+| photo | var photo: `ByteArray`?<br>Photo bytes (CBOR key 16). Format indicated by photoFormat. |
+| photoFormat | var photoFormat: `Long`?<br>Photo format as a 1-indexed integer: 1=JPEG, 2=JPEG2000, 3=AVIF, 4=WebP (CBOR key 17). Use photoFormatEnum for typed access. |
+| photoFormatEnum | val Claim169Data.photoFormatEnum: PhotoFormat?<br>Extension property to get the PhotoFormat enum from a Claim169Data's numeric photo format field. |
 | rightIris | var rightIris: `List`<BiometricData>? |
 | rightLittleFinger | var rightLittleFinger: `List`<BiometricData>? |
 | rightMiddleFinger | var rightMiddleFinger: `List`<BiometricData>? |
@@ -1693,10 +1773,10 @@ Claim 169 identity data wrapper.
 | rightPointerFinger | var rightPointerFinger: `List`<BiometricData>? |
 | rightRingFinger | var rightRingFinger: `List`<BiometricData>? |
 | rightThumb | var rightThumb: `List`<BiometricData>? |
-| secondaryFullName | var secondaryFullName: `String`? |
-| secondaryLanguage | var secondaryLanguage: `String`? |
-| unknownFieldsJson | var unknownFieldsJson: `String`? |
-| version | var version: `String`? |
+| secondaryFullName | var secondaryFullName: `String`?<br>Secondary full name in alternate language (CBOR key 19). |
+| secondaryLanguage | var secondaryLanguage: `String`?<br>Secondary language code (CBOR key 20). |
+| unknownFieldsJson | var unknownFieldsJson: `String`?<br>JSON-encoded map of unrecognized CBOR keys, preserved for forward compatibility. |
+| version | var version: `String`?<br>Specification version string (CBOR key 2). |
 | voice | var voice: `List`<BiometricData>? |
 
 ### address
@@ -1975,6 +2055,20 @@ abstract fun configure(builder: Claim169DataBuilder)
 
 ---
 
+## Claim169Dsl
+
+@`DslMarker`
+
+@`Target`(allowedTargets = [[AnnotationTarget.CLASS](https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.annotation/-annotation-target/-c-l-a-s-s/index.html)])
+
+annotation class Claim169Dsl
+
+DSL marker for Claim 169 builder scopes.
+
+Prevents accidental access to outer builder receivers from nested DSL blocks.
+
+---
+
 ## Claim169Exception
 
 ```kotlin
@@ -1983,7 +2077,34 @@ sealed class Claim169Exception : [Exception](https://docs.oracle.com/javase/8/do
 
 High-level errors from the Claim 169 decoding/encoding pipeline.
 
-This mirrors the native error variants while keeping the public Java/Kotlin API in the `fr.acn.claim169` package.
+This mirrors the native error variants while keeping the public Java/Kotlin API in the `org.idpass.claim169` package.
+
+### Types
+
+| Name | Summary |
+|---|---|
+| Base45Decode | class Base45Decode(message: `String`, cause: `Throwable`? = null) : Claim169Exception<br>The input string is not valid Base45 encoding. |
+| CborEncode | class CborEncode(message: `String`, cause: `Throwable`? = null) : Claim169Exception<br>CBOR encoding of claim data failed. |
+| CborParse | class CborParse(message: `String`, cause: `Throwable`? = null) : Claim169Exception<br>The COSE payload is not valid CBOR. |
+| Claim169Invalid | class Claim169Invalid(message: `String`, cause: `Throwable`? = null) : Claim169Exception<br>The claim 169 CBOR map contains structurally invalid data. |
+| Claim169NotFound | class Claim169NotFound(message: `String`, cause: `Throwable`? = null) : Claim169Exception<br>The CWT payload does not contain a claim 169 entry. |
+| CoseParse | class CoseParse(message: `String`, cause: `Throwable`? = null) : Claim169Exception<br>The decompressed bytes are not a valid COSE_Sign1 or COSE_Encrypt0 structure. |
+| Crypto | class Crypto(message: `String`, cause: `Throwable`? = null) : Claim169Exception<br>A low-level cryptographic operation failed. |
+| CwtParse | class CwtParse(message: `String`, cause: `Throwable`? = null) : Claim169Exception<br>The CBOR payload is not a valid CWT (CBOR Web Token). |
+| DecodingConfig | class DecodingConfig(message: `String`, cause: `Throwable`? = null) : Claim169Exception<br>Invalid decoder configuration (e.g., no verification method specified without DecoderBuilder.allowUnverified). |
+| Decompress | class Decompress(message: `String`, cause: `Throwable`? = null) : Claim169Exception<br>Zlib/Brotli decompression of the decoded payload failed. |
+| DecompressLimitExceeded | class DecompressLimitExceeded(message: `String`, cause: `Throwable`? = null) : Claim169Exception<br>Decompressed data exceeds the configured size limit (decompression bomb protection). |
+| DecryptionFailed | class DecryptionFailed(message: `String`, cause: `Throwable`? = null) : Claim169Exception<br>COSE_Encrypt0 decryption failed (wrong key, corrupted ciphertext, or AAD mismatch). |
+| EncodingConfig | class EncodingConfig(message: `String`, cause: `Throwable`? = null) : Claim169Exception<br>Invalid encoder configuration (e.g., no signing method specified without EncoderBuilder.allowUnsigned). |
+| EncryptionFailed | class EncryptionFailed(message: `String`, cause: `Throwable`? = null) : Claim169Exception<br>Encrypting the COSE_Encrypt0 payload failed. |
+| Expired | class Expired(message: `String`, cause: `Throwable`? = null) : Claim169Exception<br>The credential's `exp` (expiration) timestamp has passed. |
+| Io | class Io(message: `String`, cause: `Throwable`? = null) : Claim169Exception<br>An I/O error occurred during encoding or decoding. |
+| KeyNotFound | class KeyNotFound(message: `String`, cause: `Throwable`? = null) : Claim169Exception<br>No key was found matching the COSE key ID header. |
+| NotYetValid | class NotYetValid(message: `String`, cause: `Throwable`? = null) : Claim169Exception<br>The credential's `nbf` (not-before) timestamp is in the future. |
+| SignatureFailed | class SignatureFailed(message: `String`, cause: `Throwable`? = null) : Claim169Exception<br>Signing the COSE_Sign1 payload failed. |
+| SignatureInvalid | class SignatureInvalid(message: `String`, cause: `Throwable`? = null) : Claim169Exception<br>The COSE_Sign1 signature does not match the provided public key. |
+| UnsupportedAlgorithm | class UnsupportedAlgorithm(message: `String`, cause: `Throwable`? = null) : Claim169Exception<br>The COSE algorithm header specifies an unsupported algorithm. |
+| UnsupportedCoseType | class UnsupportedCoseType(message: `String`, cause: `Throwable`? = null) : Claim169Exception<br>The COSE structure uses an unsupported type (neither Sign1 nor Encrypt0). |
 
 ### Properties
 
@@ -2132,19 +2253,23 @@ constructor(message: `String`, cause: `Throwable`? = null)
 class CwtMetaData
 ```
 
-CWT (CBOR Web Token) metadata wrapper.
+CWT (CBOR Web Token) metadata extracted from the COSE payload.
+
+Timestamps are Unix epoch seconds (not milliseconds).
 
 ### Properties
 
 | Name | Summary |
 |---|---|
-| expiresAt | var expiresAt: `Long`? |
-| issuedAt | var issuedAt: `Long`? |
-| issuer | var issuer: `String`? |
-| notBefore | var notBefore: `Long`? |
-| subject | var subject: `String`? |
+| expiresAt | var expiresAt: `Long`?<br>Expiration time as Unix timestamp in seconds (CWT claim 4). `null` if not present. |
+| issuedAt | var issuedAt: `Long`?<br>Issued-at time as Unix timestamp in seconds (CWT claim 6). `null` if not present. |
+| issuer | var issuer: `String`?<br>Token issuer URI (CWT claim 1). `null` if not present. |
+| notBefore | var notBefore: `Long`?<br>Not-before time as Unix timestamp in seconds (CWT claim 5). `null` if not present. |
+| subject | var subject: `String`?<br>Token subject identifier (CWT claim 2). `null` if not present. |
 
 ### CwtMetaData
+
+@`JvmOverloads`
 
 ```kotlin
 constructor(issuer: `String`? = null, subject: `String`? = null, expiresAt: `Long`? = null, notBefore: `Long`? = null, issuedAt: `Long`? = null)
@@ -2224,22 +2349,45 @@ class DecodeResultData
 
 Result of decoding a Claim 169 QR payload.
 
+All properties are read-only to prevent accidental mutation of security-sensitive fields such as verificationStatus.
+
 ### Properties
 
 | Name | Summary |
 |---|---|
-| warnings | var warnings: `List`<WarningData> |
+| algorithm | val algorithm: `String`?<br>COSE algorithm name (e.g., "EdDSA", "ES256"), if present. |
+| claim169 | val claim169: Claim169Data<br>The extracted Claim 169 identity data. |
+| cwtMeta | val cwtMeta: CwtMetaData<br>CWT metadata (issuer, expiration timestamps, etc.). |
+| detectedCompression | val detectedCompression: `String`<br>Detected compression format: `"zlib"`, `"brotli"`, or `"none"`. |
+| keyId | val keyId: `ByteArray`?<br>Key ID from the COSE header, if present. |
+| verificationStatus | val verificationStatus: VerificationStatus<br>Signature verification outcome. |
+| warnings | val warnings: `List`<WarningData><br>Warnings generated during decoding (e.g., expiring soon, unknown fields). |
+| x509Headers | val x509Headers: X509HeadersData<br>X.509 certificate headers from the COSE structure, if present. |
+
+### algorithm
+
+```kotlin
+val algorithm: `String`?
+```
+
+COSE algorithm name (e.g., "EdDSA", "ES256"), if present.
 
 ### claim169
 
 ```kotlin
-var claim169: Claim169Data
+val claim169: Claim169Data
 ```
 
 ### cwtMeta
 
 ```kotlin
-var cwtMeta: CwtMetaData
+val cwtMeta: CwtMetaData
+```
+
+### detectedCompression
+
+```kotlin
+val detectedCompression: `String`
 ```
 
 ### equals
@@ -2252,6 +2400,14 @@ open operator override fun equals(other: `Any`?): `Boolean`
 open override fun hashCode(): `Int`
 ```
 
+### keyId
+
+```kotlin
+val keyId: `ByteArray`?
+```
+
+Key ID from the COSE header, if present.
+
 ### toString
 
 ```kotlin
@@ -2261,19 +2417,101 @@ open override fun toString(): `String`
 ### verificationStatus
 
 ```kotlin
-var verificationStatus: `String`
+val verificationStatus: VerificationStatus
 ```
 
 ### warnings
 
 ```kotlin
-var warnings: `List`<WarningData>
+val warnings: `List`<WarningData>
 ```
 
 ### x509Headers
 
 ```kotlin
-var x509Headers: X509HeadersData
+val x509Headers: X509HeadersData
+```
+
+---
+
+## InspectResultData
+
+```kotlin
+class InspectResultData
+```
+
+Metadata extracted from a credential without full verification or decoding.
+
+Useful for determining which key to use in multi-issuer scenarios.
+
+### Properties
+
+| Name | Summary |
+|---|---|
+| algorithm | val algorithm: `String`?<br>COSE algorithm name (e.g., "EdDSA", "ES256"). `null` if not present. |
+| coseType | val coseType: `String`<br>COSE structure type: `"Sign1"` or `"Encrypt0"`. |
+| expiresAt | val expiresAt: `Long`?<br>Expiration time (Unix epoch seconds). `null` if not present or encrypted. |
+| issuer | val issuer: `String`?<br>Token issuer from CWT claims. `null` if not present or encrypted. |
+| keyId | val keyId: `ByteArray`?<br>Key ID from the COSE header. `null` if not present. |
+| subject | val subject: `String`?<br>Token subject from CWT claims. `null` if not present or encrypted. |
+| x509Headers | val x509Headers: X509HeadersData<br>X.509 certificate headers from the COSE structure. |
+
+### algorithm
+
+```kotlin
+val algorithm: `String`?
+```
+
+### coseType
+
+```kotlin
+val coseType: `String`
+```
+
+### equals
+
+open operator override fun equals(other: `Any`?): `Boolean`
+
+### expiresAt
+
+```kotlin
+val expiresAt: `Long`?
+```
+
+### hashCode
+
+```kotlin
+open override fun hashCode(): `Int`
+```
+
+### issuer
+
+```kotlin
+val issuer: `String`?
+```
+
+### keyId
+
+```kotlin
+val keyId: `ByteArray`?
+```
+
+### subject
+
+```kotlin
+val subject: `String`?
+```
+
+### toString
+
+```kotlin
+open override fun toString(): `String`
+```
+
+### x509Headers
+
+```kotlin
+val x509Headers: X509HeadersData
 ```
 
 ---
@@ -2284,9 +2522,14 @@ var x509Headers: X509HeadersData
 class WarningData
 ```
 
-Wrapper for decode warnings.
+Warning generated during decoding.
 
 ### Properties
+
+| Name | Summary |
+|---|---|
+| code | var code: `String`<br>Warning code: `"expiring_soon"`, `"unknown_fields"`, `"timestamp_validation_skipped"`, `"biometrics_skipped"`, or `"non_standard_compression"`. |
+| message | var message: `String`<br>Human-readable warning description. |
 
 ### WarningData
 
@@ -2330,18 +2573,20 @@ open override fun toString(): `String`
 class X509HeadersData
 ```
 
-Wrapper for COSE X.509 header data.
+X.509 certificate headers extracted from the COSE structure.
 
 ### Properties
 
 | Name | Summary |
 |---|---|
-| x5bag | var x5bag: `List`<`ByteArray`>? |
-| x5chain | var x5chain: `List`<`ByteArray`>? |
-| x5t | var x5t: CertificateHashData? |
-| x5u | var x5u: `String`? |
+| x5bag | var x5bag: `List`<`ByteArray`>?<br>Unordered bag of DER-encoded X.509 certificates. `null` if not present. |
+| x5chain | var x5chain: `List`<`ByteArray`>?<br>Ordered chain of DER-encoded X.509 certificates. `null` if not present. |
+| x5t | var x5t: CertificateHashData?<br>Certificate thumbprint hash. `null` if not present. |
+| x5u | var x5u: `String`?<br>URI pointing to an X.509 certificate. `null` if not present. |
 
 ### X509HeadersData
+
+@`JvmOverloads`
 
 ```kotlin
 constructor(x5bag: `List`<`ByteArray`>? = null, x5chain: `List`<`ByteArray`>? = null, x5t: CertificateHashData? = null, x5u: `String`? = null)
@@ -2391,34 +2636,42 @@ var x5u: `String`?
 
 ## Top-Level Functions
 
-### claim169
+### claim169Data
 
 ```kotlin
-fun claim169(configure: Claim169DataBuilder.() -> `Unit`): Claim169Data
+fun claim169Data(configure: Claim169DataBuilder.() -> `Unit`): Claim169Data
 ```
 
 Create a Claim169Data using DSL syntax.
 
-### cwtMeta
+### cwtMetaData
 
 ```kotlin
-fun cwtMeta(configure: CwtMetaDataBuilder.() -> `Unit`): CwtMetaData
+fun cwtMetaData(configure: CwtMetaDataBuilder.() -> `Unit`): CwtMetaData
 ```
 
 Create a CwtMetaData using DSL syntax.
 
-### verificationStatusEnum
+### genderEnum
 
 ```kotlin
-fun DecodeResultData.verificationStatusEnum(): VerificationStatus
+val Claim169Data.genderEnum: Gender?
 ```
 
-### zeroizeClaim169Data
+Extension property to get the Gender enum from a Claim169Data's numeric gender field.
+
+### maritalStatusEnum
 
 ```kotlin
-fun zeroizeClaim169Data(claim: Claim169Data)
+val Claim169Data.maritalStatusEnum: MaritalStatus?
 ```
 
-Zeroizes all sensitive byte arrays within a Claim169Data instance.
+Extension property to get the MaritalStatus enum from a Claim169Data's numeric marital status field.
 
-Fills photo, bestQualityFingers, and every biometric data byte array with zeros.
+### photoFormatEnum
+
+```kotlin
+val Claim169Data.photoFormatEnum: PhotoFormat?
+```
+
+Extension property to get the PhotoFormat enum from a Claim169Data's numeric photo format field.

@@ -1,8 +1,8 @@
 site_name: Claim 169
 site_description: Claim 169 QR Code Library - Encode and verify digital identity credentials
-site_url: https://jeremi.github.io/claim-169/docs
-repo_url: https://github.com/jeremi/claim-169
-repo_name: jeremi/claim-169
+site_url: https://idpass.github.io/claim-169/docs
+repo_url: https://github.com/idpass/claim-169
+repo_name: idpass/claim-169
 edit_uri: edit/main/docs/
 
 docs_dir: docs
@@ -115,8 +115,8 @@ markdown_extensions:
 extra:
   social:
     - icon: fontawesome/brands/github
-      link: https://github.com/jeremi/claim-169
-  homepage: https://jeremi.github.io/claim-169/
+      link: https://github.com/idpass/claim-169
+  homepage: https://idpass.github.io/claim-169/
   status:
     new: Recently added
 

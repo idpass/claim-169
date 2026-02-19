@@ -1,9 +1,9 @@
 # Kotlin SDK
 
 <div class="badges" markdown>
-[![Maven Central](https://img.shields.io/maven-central/v/fr.acn.claim169/claim169-core)](https://central.sonatype.com/artifact/fr.acn.claim169/claim169-core)
+[![Maven Central](https://img.shields.io/maven-central/v/org.idpass.claim169/claim169-core)](https://central.sonatype.com/artifact/org.idpass.claim169/claim169-core)
 [![Kotlin](https://img.shields.io/badge/kotlin-1.9+-7F52FF.svg)](https://kotlinlang.org)
-[![License](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/jeremi/claim-169/blob/main/LICENSE)
+[![License](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/idpass/claim-169/blob/main/LICENSE)
 </div>
 
 The Kotlin SDK provides native bindings for encoding and decoding MOSIP Claim 169 QR codes. Built with UniFFI-generated JNA bindings, it delivers the full power of the Rust core library to JVM and Android applications through an idiomatic Kotlin DSL.
@@ -22,7 +22,7 @@ The Kotlin SDK provides native bindings for encoding and decoding MOSIP Claim 16
 
     ```kotlin
     dependencies {
-        implementation("fr.acn.claim169:claim169-core:0.2.0-alpha")
+        implementation("org.idpass.claim169:claim169-core:0.2.0-alpha")
     }
     ```
 
@@ -30,7 +30,7 @@ The Kotlin SDK provides native bindings for encoding and decoding MOSIP Claim 16
 
     ```xml
     <dependency>
-        <groupId>fr.acn.claim169</groupId>
+        <groupId>org.idpass.claim169</groupId>
         <artifactId>claim169-core</artifactId>
         <version>0.2.0-alpha</version>
     </dependency>
@@ -39,7 +39,7 @@ The Kotlin SDK provides native bindings for encoding and decoding MOSIP Claim 16
 ## Quick Start
 
 ```kotlin
-import fr.acn.claim169.Claim169
+import org.idpass.claim169.Claim169
 
 // Decode a QR code with Ed25519 verification
 val qrData = "NCFOXN..."  // Base45 string from QR scanner
@@ -137,4 +137,4 @@ Common errors and solutions.
 
 ## License
 
-MIT License. See [LICENSE](https://github.com/jeremi/claim-169/blob/main/LICENSE) for details.
+MIT License. See [LICENSE](https://github.com/idpass/claim-169/blob/main/LICENSE) for details.

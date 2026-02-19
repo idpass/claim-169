@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Generate docs/en/sdk/java/api.md from compiled JVM classes using javap.
 
-This script introspects the Java-facing API in package `fr.acn.claim169`
+This script introspects the Java-facing API in package `org.idpass.claim169`
 from compiled class files and emits a Markdown reference page.
 """
 
@@ -47,7 +47,7 @@ def clean_member_line(line: str) -> str | None:
     # Drop fully-qualified package prefixes for readability.
     replacements = {
         "java.lang.": "",
-        "fr.acn.claim169.": "",
+        "org.idpass.claim169.": "",
         "uniffi.claim169_jni.": "",
         "kotlin.jvm.functions.": "",
         "kotlin.enums.": "",
@@ -89,7 +89,7 @@ def class_kind(header: str) -> str:
 
 
 def discover_classes(class_dir: Path) -> list[str]:
-    package_dir = class_dir / "fr" / "acn" / "claim169"
+    package_dir = class_dir / "org" / "idpass" / "claim169"
     if not package_dir.exists():
         raise FileNotFoundError(f"Package directory not found: {package_dir}")
 
@@ -112,7 +112,7 @@ def render_markdown(classpath: Path, class_names: list[str]) -> str:
     }
 
     for class_name in class_names:
-        fqcn = f"fr.acn.claim169.{class_name}"
+        fqcn = f"org.idpass.claim169.{class_name}"
         output = run_javap(classpath, fqcn)
         header, members = parse_javap_output(output)
         if not members and class_kind(header) == "classes":

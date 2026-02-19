@@ -1,9 +1,9 @@
 # Java SDK
 
 <div class="badges" markdown>
-[![Maven Central](https://img.shields.io/maven-central/v/fr.acn.claim169/claim169-core)](https://central.sonatype.com/artifact/fr.acn.claim169/claim169-core)
+[![Maven Central](https://img.shields.io/maven-central/v/org.idpass.claim169/claim169-core)](https://central.sonatype.com/artifact/org.idpass.claim169/claim169-core)
 [![Java](https://img.shields.io/badge/java-17+-007396.svg)](https://openjdk.org)
-[![License](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/jeremi/claim-169/blob/main/LICENSE)
+[![License](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/idpass/claim-169/blob/main/LICENSE)
 </div>
 
 The Java SDK provides native bindings for encoding and decoding MOSIP Claim 169 QR codes. Uses the same artifact as the Kotlin SDK (`claim169-core`), with Java-friendly API entry points.
@@ -22,7 +22,7 @@ The Java SDK provides native bindings for encoding and decoding MOSIP Claim 169 
 
     ```kotlin
     dependencies {
-        implementation("fr.acn.claim169:claim169-core:0.2.0-alpha")
+        implementation("org.idpass.claim169:claim169-core:0.2.0-alpha")
     }
     ```
 
@@ -30,7 +30,7 @@ The Java SDK provides native bindings for encoding and decoding MOSIP Claim 169 
 
     ```groovy
     dependencies {
-        implementation 'fr.acn.claim169:claim169-core:0.2.0-alpha'
+        implementation 'org.idpass.claim169:claim169-core:0.2.0-alpha'
     }
     ```
 
@@ -38,7 +38,7 @@ The Java SDK provides native bindings for encoding and decoding MOSIP Claim 169 
 
     ```xml
     <dependency>
-        <groupId>fr.acn.claim169</groupId>
+        <groupId>org.idpass.claim169</groupId>
         <artifactId>claim169-core</artifactId>
         <version>0.2.0-alpha</version>
     </dependency>
@@ -47,9 +47,9 @@ The Java SDK provides native bindings for encoding and decoding MOSIP Claim 169 
 ## Quick Start
 
 ```java
-import fr.acn.claim169.Claim169;
-import fr.acn.claim169.DecodeResultData;
-import fr.acn.claim169.DecoderConfigurer;
+import org.idpass.claim169.Claim169;
+import org.idpass.claim169.DecodeResultData;
+import org.idpass.claim169.DecoderConfigurer;
 
 // Decode a QR code with Ed25519 verification
 String qrData = "NCFOXN...";  // Base45 string from QR scanner
@@ -149,4 +149,4 @@ Common errors and solutions.
 
 ## License
 
-MIT License. See [LICENSE](https://github.com/jeremi/claim-169/blob/main/LICENSE) for details.
+MIT License. See [LICENSE](https://github.com/idpass/claim-169/blob/main/LICENSE) for details.

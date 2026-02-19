@@ -137,7 +137,7 @@ Le modèle de PR inclut une section **AI Disclosure** — remplissez-la si vous 
 
 ## Sécurité
 
-**N'ouvrez pas d'issues GitHub publiques pour les vulnérabilités de sécurité.** Utilisez le [signalement privé de vulnérabilités de GitHub](https://github.com/jeremi/claim-169/security/advisories/new). Consultez [SECURITY.md](https://github.com/jeremi/claim-169/blob/main/SECURITY.md) pour plus de détails.
+**N'ouvrez pas d'issues GitHub publiques pour les vulnérabilités de sécurité.** Utilisez le [signalement privé de vulnérabilités de GitHub](https://github.com/idpass/claim-169/security/advisories/new). Consultez [SECURITY.md](https://github.com/idpass/claim-169/blob/main/SECURITY.md) pour plus de détails.
 
 ## Signaler des problèmes
 

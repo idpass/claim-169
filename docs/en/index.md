@@ -70,7 +70,7 @@ Claim 169 is an [IANA-registered](https://www.iana.org/assignments/cwt/cwt.xhtml
 === "Kotlin"
 
     ```kotlin
-    import fr.acn.claim169.Claim169
+    import org.idpass.claim169.Claim169
 
     val qrData = "..."  // Base45 from QR code
     val publicKey = hexToByteArray("...")  // Issuer's Ed25519 public key
@@ -145,7 +145,7 @@ Bring your own HSM, cloud KMS, or software keys. The library never touches raw k
 === "Kotlin / Java"
 
     ```kotlin
-    implementation("fr.acn.claim169:claim169-core:<version>")
+    implementation("org.idpass.claim169:claim169-core:<version>")
     ```
 
     [Kotlin SDK docs →](sdk/kotlin/index.md){ .md-button }

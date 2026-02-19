@@ -16,9 +16,9 @@ Decoding follows these steps:
 The most common case using Ed25519 signatures:
 
 ```java
-import fr.acn.claim169.Claim169;
-import fr.acn.claim169.DecodeResultData;
-import fr.acn.claim169.DecoderConfigurer;
+import org.idpass.claim169.Claim169;
+import org.idpass.claim169.DecodeResultData;
+import org.idpass.claim169.DecoderConfigurer;
 
 String qrData = "NCFOXN...";  // From QR scanner
 byte[] publicKey = hexToByteArray("d75a980182b10ab7d54bfed3c964073a0ee172f3daa62325af021a68f707511a");
@@ -42,9 +42,9 @@ System.out.println("Status: " + Claim169.verificationStatus(result));
 For credentials signed with ECDSA P-256:
 
 ```java
-import fr.acn.claim169.Claim169;
-import fr.acn.claim169.DecodeResultData;
-import fr.acn.claim169.DecoderConfigurer;
+import org.idpass.claim169.Claim169;
+import org.idpass.claim169.DecodeResultData;
+import org.idpass.claim169.DecoderConfigurer;
 
 String qrData = "NCFOXN...";
 // SEC1 encoded P-256 public key (33 bytes compressed, or 65 bytes uncompressed)
@@ -65,9 +65,9 @@ If you have public keys in PEM format (e.g., from OpenSSL or X.509 certificates)
 ### Ed25519 with PEM
 
 ```java
-import fr.acn.claim169.Claim169;
-import fr.acn.claim169.DecodeResultData;
-import fr.acn.claim169.DecoderConfigurer;
+import org.idpass.claim169.Claim169;
+import org.idpass.claim169.DecodeResultData;
+import org.idpass.claim169.DecoderConfigurer;
 
 String qrData = "NCFOXN...";
 String pemKey = "-----BEGIN PUBLIC KEY-----\n"
@@ -84,9 +84,9 @@ System.out.println("Status: " + Claim169.verificationStatus(result));
 ### ECDSA P-256 with PEM
 
 ```java
-import fr.acn.claim169.Claim169;
-import fr.acn.claim169.DecodeResultData;
-import fr.acn.claim169.DecoderConfigurer;
+import org.idpass.claim169.Claim169;
+import org.idpass.claim169.DecodeResultData;
+import org.idpass.claim169.DecoderConfigurer;
 
 String qrData = "NCFOXN...";
 String pemKey = "-----BEGIN PUBLIC KEY-----\n"
@@ -105,10 +105,10 @@ System.out.println("Status: " + Claim169.verificationStatus(result));
 For HSM, KMS, or custom crypto providers, implement the `SignatureVerifier` interface using an anonymous class:
 
 ```java
-import fr.acn.claim169.Claim169;
-import fr.acn.claim169.DecodeResultData;
-import fr.acn.claim169.DecoderConfigurer;
-import fr.acn.claim169.SignatureVerifier;
+import org.idpass.claim169.Claim169;
+import org.idpass.claim169.DecodeResultData;
+import org.idpass.claim169.DecoderConfigurer;
+import org.idpass.claim169.SignatureVerifier;
 
 SignatureVerifier customVerifier = new SignatureVerifier() {
     @Override
@@ -131,9 +131,9 @@ System.out.println("Status: " + Claim169.verificationStatus(result));
 For testing and development only. Never use in production.
 
 ```java
-import fr.acn.claim169.Claim169;
-import fr.acn.claim169.DecodeResultData;
-import fr.acn.claim169.DecoderConfigurer;
+import org.idpass.claim169.Claim169;
+import org.idpass.claim169.DecodeResultData;
+import org.idpass.claim169.DecoderConfigurer;
 
 // WARNING: INSECURE - skips signature verification
 DecodeResultData result = Claim169.decode(qrData, (DecoderConfigurer) builder -> {
@@ -209,9 +209,9 @@ For applications handling sensitive biometric data, use `decodeCloseable()` to e
 byte arrays are zeroized when you are done. Java's try-with-resources calls `close()` automatically:
 
 ```java
-import fr.acn.claim169.Claim169;
-import fr.acn.claim169.CloseableDecodeResult;
-import fr.acn.claim169.DecoderConfigurer;
+import org.idpass.claim169.Claim169;
+import org.idpass.claim169.CloseableDecodeResult;
+import org.idpass.claim169.DecoderConfigurer;
 
 try (CloseableDecodeResult result = Claim169.decodeCloseable(qrData, (DecoderConfigurer) builder -> {
     builder.verifyWithEd25519(publicKey);
@@ -333,9 +333,9 @@ if (faces != null && !faces.isEmpty()) {
 ## Error Handling
 
 ```java
-import fr.acn.claim169.Claim169;
-import fr.acn.claim169.DecoderConfigurer;
-import fr.acn.claim169.Claim169Exception;
+import org.idpass.claim169.Claim169;
+import org.idpass.claim169.DecoderConfigurer;
+import org.idpass.claim169.Claim169Exception;
 
 try {
     DecodeResultData result = Claim169.decode(qrData, (DecoderConfigurer) builder -> {
@@ -367,11 +367,11 @@ try {
 ## Complete Example
 
 ```java
-import fr.acn.claim169.Claim169;
-import fr.acn.claim169.DecodeResultData;
-import fr.acn.claim169.DecoderConfigurer;
-import fr.acn.claim169.VerificationStatus;
-import fr.acn.claim169.Claim169Exception;
+import org.idpass.claim169.Claim169;
+import org.idpass.claim169.DecodeResultData;
+import org.idpass.claim169.DecoderConfigurer;
+import org.idpass.claim169.VerificationStatus;
+import org.idpass.claim169.Claim169Exception;
 
 import java.util.HashMap;
 import java.util.Map;

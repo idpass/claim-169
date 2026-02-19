@@ -11,7 +11,7 @@ Package prefixes are omitted in signatures for readability.
 ### BiometricData
 
 ```java
-public final class fr.acn.claim169.BiometricData {
+public final class org.idpass.claim169.BiometricData {
   public BiometricData(byte[], Long, Long, String);
   public final byte[] getData();
   public final void setData(byte[]);
@@ -24,13 +24,16 @@ public final class fr.acn.claim169.BiometricData {
   public boolean equals(Object);
   public int hashCode();
   public String toString();
+  public BiometricData(byte[], Long, Long);
+  public BiometricData(byte[], Long);
+  public BiometricData(byte[]);
 }
 ```
 
 ### CertificateHashData
 
 ```java
-public final class fr.acn.claim169.CertificateHashData {
+public final class org.idpass.claim169.CertificateHashData {
   public CertificateHashData(Long, String, byte[]);
   public final Long getAlgorithmNumeric();
   public final void setAlgorithmNumeric(Long);
@@ -41,18 +44,22 @@ public final class fr.acn.claim169.CertificateHashData {
   public boolean equals(Object);
   public int hashCode();
   public String toString();
+  public CertificateHashData(Long, byte[]);
+  public CertificateHashData(byte[]);
 }
 ```
 
 ### Claim169
 
 ```java
-public final class fr.acn.claim169.Claim169 {
+public final class org.idpass.claim169.Claim169 {
   public static final DecodeResultData decode(String, DecoderConfigurer) throws Claim169Exception;
   public static final CloseableDecodeResult decodeCloseable(String, DecoderConfigurer) throws Claim169Exception;
   public static final String encode(Claim169Data, CwtMetaData, EncoderConfigurer) throws Claim169Exception;
+  public static final InspectResultData inspect(String) throws Claim169Exception;
   public static final String version();
   public static final VerificationStatus verificationStatus(DecodeResultData);
+  public static final byte[] generateNonce();
   public static final Claim169Data claim169(Claim169DataConfigurer);
   public static final CwtMetaData cwtMeta(CwtMetaDataConfigurer);
 }
@@ -61,7 +68,7 @@ public final class fr.acn.claim169.Claim169 {
 ### Claim169Data
 
 ```java
-public final class fr.acn.claim169.Claim169Data {
+public final class org.idpass.claim169.Claim169Data {
   public final String getId();
   public final void setId(String);
   public final String getVersion();
@@ -151,7 +158,7 @@ public final class fr.acn.claim169.Claim169Data {
 ### Claim169DataBuilder
 
 ```java
-public final class fr.acn.claim169.Claim169DataBuilder {
+public final class org.idpass.claim169.Claim169DataBuilder {
   public Claim169DataBuilder();
   public final String getId();
   public final void setId(String);
@@ -246,15 +253,17 @@ public final class fr.acn.claim169.Claim169DataBuilder {
 ### Claim169Enums
 
 ```java
-public final class fr.acn.claim169.Claim169Enums {
-  public static final VerificationStatus verificationStatusEnum(DecodeResultData);
+public final class org.idpass.claim169.Claim169Enums {
+  public static final Gender getGenderEnum(Claim169Data);
+  public static final MaritalStatus getMaritalStatusEnum(Claim169Data);
+  public static final PhotoFormat getPhotoFormatEnum(Claim169Data);
 }
 ```
 
 ### Claim169SensitiveData
 
 ```java
-public final class fr.acn.claim169.Claim169SensitiveData {
+public final class org.idpass.claim169.Claim169SensitiveData {
   public static final void zeroizeClaim169Data(Claim169Data);
 }
 ```
@@ -262,7 +271,7 @@ public final class fr.acn.claim169.Claim169SensitiveData {
 ### CloseableDecodeResult
 
 ```java
-public final class fr.acn.claim169.CloseableDecodeResult implements java.io.Closeable {
+public final class org.idpass.claim169.CloseableDecodeResult implements java.io.Closeable {
   public CloseableDecodeResult(DecodeResultData);
   public final DecodeResultData getData();
   public void close();
@@ -272,7 +281,7 @@ public final class fr.acn.claim169.CloseableDecodeResult implements java.io.Clos
 ### CwtMetaData
 
 ```java
-public final class fr.acn.claim169.CwtMetaData {
+public final class org.idpass.claim169.CwtMetaData {
   public CwtMetaData(String, String, Long, Long, Long);
   public final String getIssuer();
   public final void setIssuer(String);
@@ -287,13 +296,18 @@ public final class fr.acn.claim169.CwtMetaData {
   public boolean equals(Object);
   public int hashCode();
   public String toString();
+  public CwtMetaData(String, String, Long, Long);
+  public CwtMetaData(String, String, Long);
+  public CwtMetaData(String, String);
+  public CwtMetaData(String);
+  public CwtMetaData();
 }
 ```
 
 ### CwtMetaDataBuilder
 
 ```java
-public final class fr.acn.claim169.CwtMetaDataBuilder {
+public final class org.idpass.claim169.CwtMetaDataBuilder {
   public CwtMetaDataBuilder();
   public final String getIssuer();
   public final void setIssuer(String);
@@ -312,7 +326,7 @@ public final class fr.acn.claim169.CwtMetaDataBuilder {
 ### DecoderBuilder
 
 ```java
-public final class fr.acn.claim169.DecoderBuilder {
+public final class org.idpass.claim169.DecoderBuilder {
   public DecoderBuilder(String);
   public final void verifyWithEd25519(byte[]);
   public final void verifyWithEd25519Pem(String);
@@ -326,6 +340,7 @@ public final class fr.acn.claim169.DecoderBuilder {
   public final void skipBiometrics();
   public final void withoutTimestampValidation();
   public final void clockSkewTolerance(long);
+  public final void clockSkewTolerance-LRDsOJo(long);
   public final void maxDecompressedBytes(long);
 }
 ```
@@ -333,17 +348,15 @@ public final class fr.acn.claim169.DecoderBuilder {
 ### DecodeResultData
 
 ```java
-public final class fr.acn.claim169.DecodeResultData {
+public final class org.idpass.claim169.DecodeResultData {
   public final Claim169Data getClaim169();
-  public final void setClaim169(Claim169Data);
   public final CwtMetaData getCwtMeta();
-  public final void setCwtMeta(CwtMetaData);
-  public final String getVerificationStatus();
-  public final void setVerificationStatus(String);
+  public final VerificationStatus getVerificationStatus();
   public final X509HeadersData getX509Headers();
-  public final void setX509Headers(X509HeadersData);
+  public final String getDetectedCompression();
   public final java.util.List<WarningData> getWarnings();
-  public final void setWarnings(java.util.List<WarningData>);
+  public final byte[] getKeyId();
+  public final String getAlgorithm();
   public boolean equals(Object);
   public int hashCode();
   public String toString();
@@ -353,7 +366,7 @@ public final class fr.acn.claim169.DecodeResultData {
 ### EncoderBuilder
 
 ```java
-public final class fr.acn.claim169.EncoderBuilder {
+public final class org.idpass.claim169.EncoderBuilder {
   public EncoderBuilder(Claim169Data, CwtMetaData);
   public final void signWithEd25519(byte[]);
   public final void signWithEcdsaP256(byte[]);
@@ -371,15 +384,32 @@ public final class fr.acn.claim169.EncoderBuilder {
 ### ErrorsKt
 
 ```java
-public final class fr.acn.claim169.ErrorsKt {
+public final class org.idpass.claim169.ErrorsKt {
   public static final Claim169Exception toSdkException(Claim169Exception);
+}
+```
+
+### InspectResultData
+
+```java
+public final class org.idpass.claim169.InspectResultData {
+  public final String getIssuer();
+  public final String getSubject();
+  public final byte[] getKeyId();
+  public final String getAlgorithm();
+  public final X509HeadersData getX509Headers();
+  public final Long getExpiresAt();
+  public final String getCoseType();
+  public boolean equals(Object);
+  public int hashCode();
+  public String toString();
 }
 ```
 
 ### ModelsKt
 
 ```java
-public final class fr.acn.claim169.ModelsKt {
+public final class org.idpass.claim169.ModelsKt {
   public static final java.util.List<BiometricData> toNativeBiometrics(java.util.List<BiometricData>);
   public static final java.util.List<BiometricData> toSdkBiometrics(java.util.List<BiometricData>);
   public static final java.util.List<WarningData> toNativeWarnings(java.util.List<WarningData>);
@@ -390,7 +420,7 @@ public final class fr.acn.claim169.ModelsKt {
 ### WarningData
 
 ```java
-public final class fr.acn.claim169.WarningData {
+public final class org.idpass.claim169.WarningData {
   public WarningData(String, String);
   public final String getCode();
   public final void setCode(String);
@@ -405,7 +435,7 @@ public final class fr.acn.claim169.WarningData {
 ### X509HeadersData
 
 ```java
-public final class fr.acn.claim169.X509HeadersData {
+public final class org.idpass.claim169.X509HeadersData {
   public X509HeadersData(java.util.List<byte[]>, java.util.List<byte[]>, CertificateHashData, String);
   public final java.util.List<byte[]> getX5bag();
   public final void setX5bag(java.util.List<byte[]>);
@@ -418,6 +448,10 @@ public final class fr.acn.claim169.X509HeadersData {
   public boolean equals(Object);
   public int hashCode();
   public String toString();
+  public X509HeadersData(java.util.List<byte[]>, java.util.List<byte[]>, CertificateHashData);
+  public X509HeadersData(java.util.List<byte[]>, java.util.List<byte[]>);
+  public X509HeadersData(java.util.List<byte[]>);
+  public X509HeadersData();
 }
 ```
 
@@ -426,15 +460,22 @@ public final class fr.acn.claim169.X509HeadersData {
 ### Claim169DataConfigurer
 
 ```java
-public interface fr.acn.claim169.Claim169DataConfigurer {
+public interface org.idpass.claim169.Claim169DataConfigurer {
   public abstract void configure(Claim169DataBuilder);
+}
+```
+
+### Claim169Dsl
+
+```java
+public interface org.idpass.claim169.Claim169Dsl extends java.lang.annotation.Annotation {
 }
 ```
 
 ### CwtMetaDataConfigurer
 
 ```java
-public interface fr.acn.claim169.CwtMetaDataConfigurer {
+public interface org.idpass.claim169.CwtMetaDataConfigurer {
   public abstract void configure(CwtMetaDataBuilder);
 }
 ```
@@ -442,7 +483,7 @@ public interface fr.acn.claim169.CwtMetaDataConfigurer {
 ### DecoderConfigurer
 
 ```java
-public interface fr.acn.claim169.DecoderConfigurer {
+public interface org.idpass.claim169.DecoderConfigurer {
   public abstract void configure(DecoderBuilder);
 }
 ```
@@ -450,7 +491,7 @@ public interface fr.acn.claim169.DecoderConfigurer {
 ### Decryptor
 
 ```java
-public interface fr.acn.claim169.Decryptor {
+public interface org.idpass.claim169.Decryptor {
   public abstract byte[] decrypt(String, byte[], byte[], byte[], byte[]);
 }
 ```
@@ -458,7 +499,7 @@ public interface fr.acn.claim169.Decryptor {
 ### EncoderConfigurer
 
 ```java
-public interface fr.acn.claim169.EncoderConfigurer {
+public interface org.idpass.claim169.EncoderConfigurer {
   public abstract void configure(EncoderBuilder);
 }
 ```
@@ -466,7 +507,7 @@ public interface fr.acn.claim169.EncoderConfigurer {
 ### Encryptor
 
 ```java
-public interface fr.acn.claim169.Encryptor {
+public interface org.idpass.claim169.Encryptor {
   public abstract byte[] encrypt(String, byte[], byte[], byte[], byte[]);
 }
 ```
@@ -474,7 +515,7 @@ public interface fr.acn.claim169.Encryptor {
 ### SignatureVerifier
 
 ```java
-public interface fr.acn.claim169.SignatureVerifier {
+public interface org.idpass.claim169.SignatureVerifier {
   public abstract VerificationResult verify(String, byte[], byte[], byte[]);
 }
 ```
@@ -482,7 +523,7 @@ public interface fr.acn.claim169.SignatureVerifier {
 ### Signer
 
 ```java
-public interface fr.acn.claim169.Signer {
+public interface org.idpass.claim169.Signer {
   public abstract byte[] sign(String, byte[], byte[]);
   public abstract byte[] keyId();
 }
@@ -491,7 +532,7 @@ public interface fr.acn.claim169.Signer {
 ### VerificationResult
 
 ```java
-public interface fr.acn.claim169.VerificationResult {
+public interface org.idpass.claim169.VerificationResult {
 }
 ```
 
@@ -500,7 +541,7 @@ public interface fr.acn.claim169.VerificationResult {
 ### CoseAlgorithm
 
 ```java
-public final class fr.acn.claim169.CoseAlgorithm extends java.lang.Enum<fr.acn.claim169.CoseAlgorithm> {
+public final class org.idpass.claim169.CoseAlgorithm extends java.lang.Enum<org.idpass.claim169.CoseAlgorithm> {
   public static final CoseAlgorithm EdDSA;
   public static final CoseAlgorithm ES256;
   public static final CoseAlgorithm ES384;
@@ -517,7 +558,7 @@ public final class fr.acn.claim169.CoseAlgorithm extends java.lang.Enum<fr.acn.c
 ### Gender
 
 ```java
-public final class fr.acn.claim169.Gender extends java.lang.Enum<fr.acn.claim169.Gender> {
+public final class org.idpass.claim169.Gender extends java.lang.Enum<org.idpass.claim169.Gender> {
   public static final Gender Male;
   public static final Gender Female;
   public static final Gender Other;
@@ -531,7 +572,7 @@ public final class fr.acn.claim169.Gender extends java.lang.Enum<fr.acn.claim169
 ### MaritalStatus
 
 ```java
-public final class fr.acn.claim169.MaritalStatus extends java.lang.Enum<fr.acn.claim169.MaritalStatus> {
+public final class org.idpass.claim169.MaritalStatus extends java.lang.Enum<org.idpass.claim169.MaritalStatus> {
   public static final MaritalStatus Unmarried;
   public static final MaritalStatus Married;
   public static final MaritalStatus Divorced;
@@ -545,7 +586,7 @@ public final class fr.acn.claim169.MaritalStatus extends java.lang.Enum<fr.acn.c
 ### PhotoFormat
 
 ```java
-public final class fr.acn.claim169.PhotoFormat extends java.lang.Enum<fr.acn.claim169.PhotoFormat> {
+public final class org.idpass.claim169.PhotoFormat extends java.lang.Enum<org.idpass.claim169.PhotoFormat> {
   public static final PhotoFormat Jpeg;
   public static final PhotoFormat Jpeg2000;
   public static final PhotoFormat Avif;
@@ -560,7 +601,7 @@ public final class fr.acn.claim169.PhotoFormat extends java.lang.Enum<fr.acn.cla
 ### VerificationStatus
 
 ```java
-public final class fr.acn.claim169.VerificationStatus extends java.lang.Enum<fr.acn.claim169.VerificationStatus> {
+public final class org.idpass.claim169.VerificationStatus extends java.lang.Enum<org.idpass.claim169.VerificationStatus> {
   public static final VerificationStatus Verified;
   public static final VerificationStatus Failed;
   public static final VerificationStatus Skipped;

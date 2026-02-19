@@ -412,7 +412,7 @@ If you encounter an issue not covered here:
 
 1. **Check the API reference** — [api.md](api.md)
 2. **Review examples** — Check test files in the repository
-3. **Open an issue** — [GitHub Issues](https://github.com/jeremi/claim-169/issues)
+3. **Open an issue** — [GitHub Issues](https://github.com/idpass/claim-169/issues)
 
 When reporting issues, include:
 

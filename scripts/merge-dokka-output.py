@@ -21,7 +21,7 @@ import sys
 from pathlib import Path
 
 # Package directory name within the Dokka GFM output tree
-PACKAGE_NAME = "fr.acn.claim169"
+PACKAGE_NAME = "org.idpass.claim169"
 
 # Logical ordering of classes/interfaces in the output.
 # Directories not listed here are appended alphabetically at the end.

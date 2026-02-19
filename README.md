@@ -2,18 +2,18 @@
 
 > **Alpha Software**: This library is under active development. APIs may change. Test thoroughly before production use.
 
-[![CI](https://github.com/jeremi/claim-169/actions/workflows/ci.yml/badge.svg)](https://github.com/jeremi/claim-169/actions/workflows/ci.yml)
-[![codecov](https://codecov.io/gh/jeremi/claim-169/graph/badge.svg)](https://codecov.io/gh/jeremi/claim-169)
+[![CI](https://github.com/idpass/claim-169/actions/workflows/ci.yml/badge.svg)](https://github.com/idpass/claim-169/actions/workflows/ci.yml)
+[![codecov](https://codecov.io/gh/idpass/claim-169/graph/badge.svg)](https://codecov.io/gh/idpass/claim-169)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 [![crates.io](https://img.shields.io/crates/v/claim169-core.svg?label=crates.io)](https://crates.io/crates/claim169-core)
 [![PyPI](https://img.shields.io/pypi/v/claim169.svg?label=pypi)](https://pypi.org/project/claim169/)
 [![npm](https://img.shields.io/npm/v/claim169.svg?label=npm)](https://www.npmjs.com/package/claim169)
-[![Maven Central](https://img.shields.io/maven-central/v/fr.acn.claim169/claim169-core.svg?label=maven)](https://central.sonatype.com/artifact/fr.acn.claim169/claim169-core)
+[![Maven Central](https://img.shields.io/maven-central/v/org.idpass.claim169/claim169-core.svg?label=maven)](https://central.sonatype.com/artifact/org.idpass.claim169/claim169-core)
 
 Multi-language SDKs for encoding and decoding [MOSIP Claim 169](https://github.com/mosip/id-claim-169/tree/main) QR codes — a compact, secure format for digital identity credentials.
 
-> **Try it now**: [Interactive Playground](https://jeremi.github.io/claim-169/) — encode and decode QR codes in your browser
+> **Try it now**: [Interactive Playground](https://idpass.github.io/claim-169/) — encode and decode QR codes in your browser
 
 ## Why Claim 169?
 
@@ -36,7 +36,7 @@ The format is designed for constrained environments: a typical credential fits i
 | **Rust** | [`claim169-core`](https://crates.io/crates/claim169-core) | High-performance core library, embedded systems |
 | **Python** | [`claim169`](https://pypi.org/project/claim169/) | Server-side integration, HSM support |
 | **TypeScript/JavaScript** | [`claim169`](https://www.npmjs.com/package/claim169) | Browser apps, Node.js services |
-| **Kotlin/Java** | [`claim169-core`](https://central.sonatype.com/artifact/fr.acn.claim169/claim169-core) | Android apps, JVM server-side |
+| **Kotlin/Java** | [`claim169-core`](https://central.sonatype.com/artifact/org.idpass.claim169/claim169-core) | Android apps, JVM server-side |
 
 All SDKs share the same Rust core via native bindings (Python, Kotlin/Java) or WebAssembly (TypeScript), ensuring consistent behavior across platforms.
 
@@ -186,11 +186,11 @@ const qrData = new Encoder(claim, meta)
 
 ```kotlin
 // Gradle (Kotlin DSL)
-implementation("fr.acn.claim169:claim169-core:0.1.0-alpha.3")
+implementation("org.idpass.claim169:claim169-core:0.1.0-alpha.3")
 ```
 
 ```kotlin
-import fr.acn.claim169.*
+import org.idpass.claim169.*
 
 // Decode and verify a QR code
 val result = Claim169.decode(qrText) {
@@ -245,7 +245,7 @@ val qrData = Claim169.encode(
 
 ```bash
 # Clone the repository
-git clone https://github.com/jeremi/claim-169.git
+git clone https://github.com/idpass/claim-169.git
 cd claim-169
 
 # Build Rust libraries
@@ -299,7 +299,7 @@ See [SECURITY.md](SECURITY.md) for detailed security information and threat mode
 
 ### Reporting Security Issues
 
-Please report security vulnerabilities through [GitHub's private vulnerability reporting](https://github.com/jeremi/claim-169/security/advisories/new). Do not use public GitHub issues for security reports.
+Please report security vulnerabilities through [GitHub's private vulnerability reporting](https://github.com/idpass/claim-169/security/advisories/new). Do not use public GitHub issues for security reports.
 
 ## Documentation
 

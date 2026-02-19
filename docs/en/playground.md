@@ -3,7 +3,7 @@
 Try encoding and decoding Claim 169 credentials directly in your browser.
 
 <div class="playground-link" markdown>
-[Open Playground](https://jeremi.github.io/claim-169/){ .md-button .md-button--primary }
+[Open Playground](https://idpass.github.io/claim-169/){ .md-button .md-button--primary }
 </div>
 
 ![Playground Screenshot](../assets/img/playground.png)
@@ -42,7 +42,7 @@ No "Generate" or "Decode" buttons needed.
 
 ### Creating a Credential
 
-1. Open the [Playground](https://jeremi.github.io/claim-169/)
+1. Open the [Playground](https://idpass.github.io/claim-169/)
 2. Select **Load example → Demo Identity** to populate test data
 3. Modify the identity fields as needed
 4. The QR code updates automatically
@@ -93,4 +93,4 @@ No data is sent to any server.
 ## Source Code
 
 The playground source is available at:
-[github.com/jeremi/claim-169/tree/main/playground](https://github.com/jeremi/claim-169/tree/main/playground)
+[github.com/idpass/claim-169/tree/main/playground](https://github.com/idpass/claim-169/tree/main/playground)

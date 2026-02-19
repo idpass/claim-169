@@ -412,7 +412,7 @@ Si vous rencontrez un problème non couvert ici :
 
 1. **Consulter la référence API** — [api.md](api.md)
 2. **Regarder les exemples** — voir les fichiers de test du dépôt
-3. **Ouvrir une issue** — [GitHub Issues](https://github.com/jeremi/claim-169/issues)
+3. **Ouvrir une issue** — [GitHub Issues](https://github.com/idpass/claim-169/issues)
 
 Lors d’un signalement, inclure :
 

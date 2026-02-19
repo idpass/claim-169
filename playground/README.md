@@ -63,7 +63,7 @@ npm run preview
 
 The playground is automatically deployed to GitHub Pages when changes are pushed to the `main` branch.
 
-Live at: https://jeremi.github.io/claim-169/
+Live at: https://idpass.github.io/claim-169/
 
 ## License
 

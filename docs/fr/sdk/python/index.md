@@ -3,7 +3,7 @@
 <div class="badges" markdown>
 [![PyPI](https://img.shields.io/pypi/v/claim169)](https://pypi.org/project/claim169/)
 [![Python](https://img.shields.io/pypi/pyversions/claim169)](https://pypi.org/project/claim169/)
-[![License](https://img.shields.io/pypi/l/claim169)](https://github.com/jeremi/claim-169/blob/main/LICENSE)
+[![License](https://img.shields.io/pypi/l/claim169)](https://github.com/idpass/claim-169/blob/main/LICENSE)
 </div>
 
 Le SDK Python fournit des bindings natifs pour encoder et décoder des QR codes MOSIP Claim 169. Construit avec PyO3 pour les performances, il expose toute la puissance de la bibliothèque cœur Rust aux applications Python.
@@ -125,4 +125,4 @@ Erreurs fréquentes et solutions.
 
 ## Licence
 
-Licence MIT. Voir [LICENSE](https://github.com/jeremi/claim-169/blob/main/LICENSE) pour les détails.
+Licence MIT. Voir [LICENSE](https://github.com/idpass/claim-169/blob/main/LICENSE) pour les détails.

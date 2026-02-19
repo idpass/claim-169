@@ -10,7 +10,7 @@
 
 ```kotlin
 dependencies {
-    implementation("fr.acn.claim169:claim169-core:0.2.0-alpha")
+    implementation("org.idpass.claim169:claim169-core:0.2.0-alpha")
 }
 ```
 
@@ -18,7 +18,7 @@ dependencies {
 
 ```groovy
 dependencies {
-    implementation 'fr.acn.claim169:claim169-core:0.2.0-alpha'
+    implementation 'org.idpass.claim169:claim169-core:0.2.0-alpha'
 }
 ```
 
@@ -26,7 +26,7 @@ dependencies {
 
 ```xml
 <dependency>
-    <groupId>fr.acn.claim169</groupId>
+    <groupId>org.idpass.claim169</groupId>
     <artifactId>claim169-core</artifactId>
     <version>0.2.0-alpha</version>
 </dependency>
@@ -38,7 +38,7 @@ For contributing or building from source:
 
 ```bash
 # Clone the repository
-git clone https://github.com/jeremi/claim-169.git
+git clone https://github.com/idpass/claim-169.git
 cd claim-169
 
 # Build the Rust native library
@@ -127,7 +127,7 @@ Or use the published AAR which includes all supported ABIs.
 ## Verifying Installation
 
 ```kotlin
-import fr.acn.claim169.Claim169
+import org.idpass.claim169.Claim169
 
 fun main() {
     println("claim169 version: ${Claim169.version()}")
@@ -148,7 +148,7 @@ Update the version in your build file:
 
     ```kotlin
     dependencies {
-        implementation("fr.acn.claim169:claim169-core:0.2.0")
+        implementation("org.idpass.claim169:claim169-core:0.2.0")
     }
     ```
 
@@ -156,7 +156,7 @@ Update the version in your build file:
 
     ```xml
     <dependency>
-        <groupId>fr.acn.claim169</groupId>
+        <groupId>org.idpass.claim169</groupId>
         <artifactId>claim169-core</artifactId>
         <version>0.2.0</version>
     </dependency>

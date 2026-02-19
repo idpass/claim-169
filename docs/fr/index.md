@@ -70,7 +70,7 @@ Claim 169 est une revendication (claim) **CWT** (CBOR Web Token) [enregistrée a
 === "Kotlin"
 
     ```kotlin
-    import fr.acn.claim169.Claim169
+    import org.idpass.claim169.Claim169
 
     val qrData = "..."  // Base45 depuis le QR code
     val publicKey = hexToByteArray("...")  // Clé publique Ed25519 de l'émetteur
@@ -145,7 +145,7 @@ Utilisez votre propre HSM, KMS cloud ou clés logicielles. La bibliothèque ne m
 === "Kotlin / Java"
 
     ```kotlin
-    implementation("fr.acn.claim169:claim169-core:<version>")
+    implementation("org.idpass.claim169:claim169-core:<version>")
     ```
 
     [Documentation SDK Kotlin →](sdk/kotlin/index.md){ .md-button }

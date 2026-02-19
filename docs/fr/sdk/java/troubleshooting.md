@@ -48,12 +48,12 @@ Claim169.decode(qrData, b -> { b.allowUnverified(); });
 Ajoutez les règles suivantes à votre `proguard-rules.pro` :
 
 ```proguard
--keep class fr.acn.claim169.** { *; }
+-keep class org.idpass.claim169.** { *; }
 -keep class com.sun.jna.** { *; }
--keep interface fr.acn.claim169.SignatureVerifier { *; }
--keep interface fr.acn.claim169.Signer { *; }
--keep interface fr.acn.claim169.Decryptor { *; }
--keep interface fr.acn.claim169.Encryptor { *; }
+-keep interface org.idpass.claim169.SignatureVerifier { *; }
+-keep interface org.idpass.claim169.Signer { *; }
+-keep interface org.idpass.claim169.Decryptor { *; }
+-keep interface org.idpass.claim169.Encryptor { *; }
 ```
 
 !!! note "Détails"

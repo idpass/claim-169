@@ -12,10 +12,10 @@ The most common operation is decoding a QR code that was scanned from an identit
 ### With Ed25519 Verification
 
 ```java
-import fr.acn.claim169.Claim169;
-import fr.acn.claim169.VerificationStatus;
-import fr.acn.claim169.DecodeResultData;
-import fr.acn.claim169.DecoderConfigurer;
+import org.idpass.claim169.Claim169;
+import org.idpass.claim169.VerificationStatus;
+import org.idpass.claim169.DecodeResultData;
+import org.idpass.claim169.DecoderConfigurer;
 
 // QR code content (Base45 encoded string from scanner)
 String qrData = "NCFOXN...";
@@ -47,9 +47,9 @@ System.out.println("Expires: " + result.getCwtMeta().getExpiresAt());
 For testing and development only. Never use in production.
 
 ```java
-import fr.acn.claim169.Claim169;
-import fr.acn.claim169.DecodeResultData;
-import fr.acn.claim169.DecoderConfigurer;
+import org.idpass.claim169.Claim169;
+import org.idpass.claim169.DecodeResultData;
+import org.idpass.claim169.DecoderConfigurer;
 
 // WARNING: INSECURE - skips signature verification
 DecodeResultData result = Claim169.decode(qrData, (DecoderConfigurer) builder -> {
@@ -67,13 +67,13 @@ Create a signed credential that can be encoded in a QR code.
 ### Basic Encoding with Ed25519
 
 ```java
-import fr.acn.claim169.Claim169;
-import fr.acn.claim169.Claim169Data;
-import fr.acn.claim169.Claim169DataConfigurer;
-import fr.acn.claim169.CwtMetaData;
-import fr.acn.claim169.CwtMetaDataConfigurer;
-import fr.acn.claim169.EncoderConfigurer;
-import fr.acn.claim169.Gender;
+import org.idpass.claim169.Claim169;
+import org.idpass.claim169.Claim169Data;
+import org.idpass.claim169.Claim169DataConfigurer;
+import org.idpass.claim169.CwtMetaData;
+import org.idpass.claim169.CwtMetaDataConfigurer;
+import org.idpass.claim169.EncoderConfigurer;
+import org.idpass.claim169.Gender;
 
 // Create identity data using configurer
 Claim169Data data = Claim169.claim169((Claim169DataConfigurer) builder -> {
@@ -109,14 +109,14 @@ System.out.println(qrData);
 Encode a credential and immediately decode it to verify:
 
 ```java
-import fr.acn.claim169.Claim169;
-import fr.acn.claim169.Claim169Data;
-import fr.acn.claim169.Claim169DataConfigurer;
-import fr.acn.claim169.CwtMetaData;
-import fr.acn.claim169.CwtMetaDataConfigurer;
-import fr.acn.claim169.DecodeResultData;
-import fr.acn.claim169.DecoderConfigurer;
-import fr.acn.claim169.EncoderConfigurer;
+import org.idpass.claim169.Claim169;
+import org.idpass.claim169.Claim169Data;
+import org.idpass.claim169.Claim169DataConfigurer;
+import org.idpass.claim169.CwtMetaData;
+import org.idpass.claim169.CwtMetaDataConfigurer;
+import org.idpass.claim169.DecodeResultData;
+import org.idpass.claim169.DecoderConfigurer;
+import org.idpass.claim169.EncoderConfigurer;
 
 // Keys
 byte[] privateKey = hexToByteArray("9d61b19deffd5a60ba844af492ec2cc44449c5697b326919703bac031cae7f60");
@@ -152,9 +152,9 @@ System.out.println("Roundtrip successful!");
 The SDK uses a sealed class hierarchy for exceptions. In Java, use `catch` blocks with specific exception types or `instanceof` checks:
 
 ```java
-import fr.acn.claim169.Claim169;
-import fr.acn.claim169.DecoderConfigurer;
-import fr.acn.claim169.Claim169Exception;
+import org.idpass.claim169.Claim169;
+import org.idpass.claim169.DecoderConfigurer;
+import org.idpass.claim169.Claim169Exception;
 
 try {
     DecodeResultData result = Claim169.decode(qrData, (DecoderConfigurer) builder -> {

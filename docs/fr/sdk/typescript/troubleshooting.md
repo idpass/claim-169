@@ -388,7 +388,7 @@ validateKey(aesKey, 32, 'AES-256 key');
 
 Si vous avez toujours des problèmes :
 
-1. Consulter les [GitHub Issues](https://github.com/jeremi/claim-169/issues) pour les problèmes connus
+1. Consulter les [GitHub Issues](https://github.com/idpass/claim-169/issues) pour les problèmes connus
 2. Chercher une issue existante avant d’en créer une nouvelle
 3. Inclure dans l’issue :
    - Version du SDK (`version()`)

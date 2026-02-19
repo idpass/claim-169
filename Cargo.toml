@@ -12,7 +12,7 @@ members = [
 version = "0.2.0-alpha"
 edition = "2021"
 license = "MIT"
-repository = "https://github.com/jeremi/claim-169"
+repository = "https://github.com/idpass/claim-169"
 rust-version = "1.75"
 
 [workspace.dependencies]

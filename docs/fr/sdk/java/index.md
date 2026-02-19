@@ -11,16 +11,16 @@ Le SDK Java permet d'encoder et décoder des QR codes Claim 169 sur JVM (et Andr
 
 ```kotlin
 dependencies {
-  implementation("fr.acn.claim169:claim169-core:0.2.0-alpha")
+  implementation("org.idpass.claim169:claim169-core:0.2.0-alpha")
 }
 ```
 
 ## Exemple rapide
 
 ```java
-import fr.acn.claim169.Claim169;
-import fr.acn.claim169.DecoderConfigurer;
-import fr.acn.claim169.DecodeResultData;
+import org.idpass.claim169.Claim169;
+import org.idpass.claim169.DecoderConfigurer;
+import org.idpass.claim169.DecodeResultData;
 
 DecodeResultData result = Claim169.decode(qrData, (DecoderConfigurer) b -> {
     b.verifyWithEd25519(publicKey);

@@ -5,12 +5,12 @@ Ce guide montre comment produire une chaîne Base45 prête à être mise dans un
 ## Encodage minimal (Ed25519)
 
 ```java
-import fr.acn.claim169.Claim169;
-import fr.acn.claim169.Claim169DataConfigurer;
-import fr.acn.claim169.CwtMetaDataConfigurer;
-import fr.acn.claim169.EncoderConfigurer;
-import fr.acn.claim169.Claim169Data;
-import fr.acn.claim169.CwtMetaData;
+import org.idpass.claim169.Claim169;
+import org.idpass.claim169.Claim169DataConfigurer;
+import org.idpass.claim169.CwtMetaDataConfigurer;
+import org.idpass.claim169.EncoderConfigurer;
+import org.idpass.claim169.Claim169Data;
+import org.idpass.claim169.CwtMetaData;
 
 Claim169Data data = Claim169.claim169((Claim169DataConfigurer) b -> {
     b.setId("ID-12345");
@@ -33,8 +33,8 @@ String qrData = Claim169.encode(data, meta, (EncoderConfigurer) b -> {
 ## Avec le builder explicite
 
 ```java
-import fr.acn.claim169.Claim169DataBuilder;
-import fr.acn.claim169.CwtMetaDataBuilder;
+import org.idpass.claim169.Claim169DataBuilder;
+import org.idpass.claim169.CwtMetaDataBuilder;
 
 Claim169DataBuilder dataBuilder = new Claim169DataBuilder();
 dataBuilder.setId("ID-12345");

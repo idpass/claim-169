@@ -8,9 +8,9 @@ Ce guide couvre les opérations essentielles : décoder un QR code (lecture) et 
 ## Décoder (avec vérification Ed25519)
 
 ```java
-import fr.acn.claim169.Claim169;
-import fr.acn.claim169.DecoderConfigurer;
-import fr.acn.claim169.DecodeResultData;
+import org.idpass.claim169.Claim169;
+import org.idpass.claim169.DecoderConfigurer;
+import org.idpass.claim169.DecodeResultData;
 
 byte[] publicKey = hexToByteArray("d75a980182b10ab7d54bfed3c964073a0ee172f3daa62325af021a68f707511a");
 
@@ -35,12 +35,12 @@ DecodeResultData result = Claim169.decode(qrData, (DecoderConfigurer) b -> {
 ## Encoder (signer Ed25519)
 
 ```java
-import fr.acn.claim169.Claim169;
-import fr.acn.claim169.Claim169DataConfigurer;
-import fr.acn.claim169.CwtMetaDataConfigurer;
-import fr.acn.claim169.EncoderConfigurer;
-import fr.acn.claim169.Claim169Data;
-import fr.acn.claim169.CwtMetaData;
+import org.idpass.claim169.Claim169;
+import org.idpass.claim169.Claim169DataConfigurer;
+import org.idpass.claim169.CwtMetaDataConfigurer;
+import org.idpass.claim169.EncoderConfigurer;
+import org.idpass.claim169.Claim169Data;
+import org.idpass.claim169.CwtMetaData;
 
 Claim169Data data = Claim169.claim169((Claim169DataConfigurer) b -> {
     b.setId("ID-12345");
@@ -65,7 +65,7 @@ System.out.println(qrData); // Base45 à mettre dans un QR code
 ## Gestion des erreurs
 
 ```java
-import fr.acn.claim169.Claim169Exception;
+import org.idpass.claim169.Claim169Exception;
 
 try {
     DecodeResultData result = Claim169.decode(qrData, (DecoderConfigurer) b -> {

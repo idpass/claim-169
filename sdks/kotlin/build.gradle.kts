@@ -7,7 +7,7 @@ plugins {
 }
 
 allprojects {
-    group = "fr.acn.claim169"
+    group = "org.idpass.claim169"
     version = "0.2.0-alpha"
 }
 

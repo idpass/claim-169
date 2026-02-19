@@ -22,7 +22,7 @@ Native library (linux-x86-64/libclaim169_core.so) not found
 1. Verify the dependency is correctly declared:
    ```kotlin
    dependencies {
-       implementation("fr.acn.claim169:claim169-core:0.2.0-alpha")
+       implementation("org.idpass.claim169:claim169-core:0.2.0-alpha")
    }
    ```
 
@@ -133,7 +133,7 @@ java.lang.UnsatisfiedLinkError: Native library (darwin-aarch64/libclaim169_core.
 ### Base45DecodeError
 
 ```
-fr.acn.claim169.Claim169Exception$Base45Decode: Invalid Base45 character at position 15
+org.idpass.claim169.Claim169Exception$Base45Decode: Invalid Base45 character at position 15
 ```
 
 **Causes:**
@@ -156,7 +156,7 @@ fr.acn.claim169.Claim169Exception$Base45Decode: Invalid Base45 character at posi
 ### DecompressError: Size Limit Exceeded
 
 ```
-fr.acn.claim169.Claim169Exception$Decompress: decompressed size 150000 exceeds limit 65536
+org.idpass.claim169.Claim169Exception$Decompress: decompressed size 150000 exceeds limit 65536
 ```
 
 **Cause:** Credential decompresses to larger than the limit (default 64KB).
@@ -173,7 +173,7 @@ val result = Claim169.decode(qrData) {
 ### SignatureError
 
 ```
-fr.acn.claim169.Claim169Exception$SignatureInvalid: Signature verification failed
+org.idpass.claim169.Claim169Exception$SignatureInvalid: Signature verification failed
 ```
 
 **Causes:**
@@ -197,7 +197,7 @@ fr.acn.claim169.Claim169Exception$SignatureInvalid: Signature verification faile
 ### TimestampValidationError
 
 ```
-fr.acn.claim169.Claim169Exception$Expired: Token expired at 1700000000
+org.idpass.claim169.Claim169Exception$Expired: Token expired at 1700000000
 ```
 
 **Cause:** The credential has expired or its `nbf` time is in the future.
@@ -232,7 +232,7 @@ fr.acn.claim169.Claim169Exception$Expired: Token expired at 1700000000
 ### DecryptionError
 
 ```
-fr.acn.claim169.Claim169Exception$DecryptionFailed: Decryption failed
+org.idpass.claim169.Claim169Exception$DecryptionFailed: Decryption failed
 ```
 
 **Causes:**
@@ -288,7 +288,7 @@ When using R8/ProGuard with the SDK, add these rules to your `proguard-rules.pro
 
 ```proguard
 # claim169 SDK - keep JNA and UniFFI bindings
--keep class fr.acn.claim169.** { *; }
+-keep class org.idpass.claim169.** { *; }
 -keep class com.sun.jna.** { *; }
 -keepclassmembers class * extends com.sun.jna.Structure {
     public *;
@@ -300,10 +300,10 @@ When using R8/ProGuard with the SDK, add these rules to your `proguard-rules.pro
 }
 
 # Keep UniFFI callback interfaces
--keep interface fr.acn.claim169.SignatureVerifier { *; }
--keep interface fr.acn.claim169.Signer { *; }
--keep interface fr.acn.claim169.Decryptor { *; }
--keep interface fr.acn.claim169.Encryptor { *; }
+-keep interface org.idpass.claim169.SignatureVerifier { *; }
+-keep interface org.idpass.claim169.Signer { *; }
+-keep interface org.idpass.claim169.Decryptor { *; }
+-keep interface org.idpass.claim169.Encryptor { *; }
 ```
 
 ---
@@ -435,7 +435,7 @@ If you encounter an issue not covered here:
 
 1. **Check the API reference** -- [api.md](api.md)
 2. **Review examples** -- Check test files in the repository
-3. **Open an issue** -- [GitHub Issues](https://github.com/jeremi/claim-169/issues)
+3. **Open an issue** -- [GitHub Issues](https://github.com/idpass/claim-169/issues)
 
 When reporting issues, include:
 
