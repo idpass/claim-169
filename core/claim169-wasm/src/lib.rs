@@ -35,7 +35,6 @@ use claim169_core::model::{
 };
 use claim169_core::{Decoder, Encoder};
 use coset::iana;
-use coset::iana::EnumI64;
 
 // Install panic hook on module load
 #[wasm_bindgen(start)]
@@ -59,16 +58,7 @@ extern "C" {
 
 /// Convert algorithm enum to JavaScript string
 fn algorithm_to_string(alg: iana::Algorithm) -> String {
-    match alg {
-        iana::Algorithm::EdDSA => "EdDSA".to_string(),
-        iana::Algorithm::ES256 => "ES256".to_string(),
-        iana::Algorithm::ES384 => "ES384".to_string(),
-        iana::Algorithm::ES512 => "ES512".to_string(),
-        iana::Algorithm::A128GCM => "A128GCM".to_string(),
-        iana::Algorithm::A192GCM => "A192GCM".to_string(),
-        iana::Algorithm::A256GCM => "A256GCM".to_string(),
-        other => format!("COSE_ALG_{}", other.to_i64()),
-    }
+    claim169_core::algorithm_to_string(alg)
 }
 
 /// JavaScript signature verifier callback wrapper.
@@ -534,22 +524,11 @@ pub struct JsWarning {
 }
 
 fn warning_code_to_string(code: claim169_core::WarningCode) -> &'static str {
-    match code {
-        claim169_core::WarningCode::ExpiringSoon => "expiring_soon",
-        claim169_core::WarningCode::UnknownFields => "unknown_fields",
-        claim169_core::WarningCode::TimestampValidationSkipped => "timestamp_validation_skipped",
-        claim169_core::WarningCode::BiometricsSkipped => "biometrics_skipped",
-        claim169_core::WarningCode::NonStandardCompression => "non_standard_compression",
-    }
+    code.as_str()
 }
 
-fn detected_compression_to_string(dc: &claim169_core::DetectedCompression) -> &'static str {
-    match dc {
-        claim169_core::DetectedCompression::Zlib => "zlib",
-        #[cfg(feature = "compression-brotli")]
-        claim169_core::DetectedCompression::Brotli => "brotli",
-        claim169_core::DetectedCompression::None => "none",
-    }
+fn detected_compression_to_string(dc: &claim169_core::DetectedCompression) -> String {
+    dc.to_string()
 }
 
 fn parse_compression(mode: &str) -> Result<claim169_core::Compression, JsError> {
@@ -911,45 +890,19 @@ struct JsBiometricInput {
 
 /// Convert a list of JS biometric inputs to core Biometric structs
 fn convert_biometrics_input(input: Option<Vec<JsBiometricInput>>) -> Option<Vec<CoreBiometric>> {
-    use claim169_core::model::{
-        BiometricFormat, BiometricSubFormat, ImageSubFormat, SoundSubFormat, TemplateSubFormat,
-    };
+    use claim169_core::model::{BiometricFormat, BiometricSubFormat};
 
     input.map(|v| {
         v.into_iter()
             .map(|b| {
-                let format = match b.format {
-                    0 => Some(BiometricFormat::Image),
-                    1 => Some(BiometricFormat::Template),
-                    2 => Some(BiometricFormat::Sound),
-                    3 => Some(BiometricFormat::BioHash),
+                let format = BiometricFormat::try_from(b.format).ok();
+                let sub_format = match (format, b.sub_format) {
+                    (Some(fmt), Some(sf)) => {
+                        Some(BiometricSubFormat::from_format_and_value(fmt, sf))
+                    }
+                    (None, Some(sf)) => Some(BiometricSubFormat::Raw(sf)),
                     _ => None,
                 };
-
-                let sub_format = b.sub_format.map(|sf| match format {
-                    Some(BiometricFormat::Image) => match sf {
-                        0 => BiometricSubFormat::Image(ImageSubFormat::Png),
-                        1 => BiometricSubFormat::Image(ImageSubFormat::Jpeg),
-                        2 => BiometricSubFormat::Image(ImageSubFormat::Jpeg2000),
-                        3 => BiometricSubFormat::Image(ImageSubFormat::Avif),
-                        4 => BiometricSubFormat::Image(ImageSubFormat::Webp),
-                        5 => BiometricSubFormat::Image(ImageSubFormat::Tiff),
-                        6 => BiometricSubFormat::Image(ImageSubFormat::Wsq),
-                        other => BiometricSubFormat::Raw(other),
-                    },
-                    Some(BiometricFormat::Template) => match sf {
-                        0 => BiometricSubFormat::Template(TemplateSubFormat::Ansi378),
-                        1 => BiometricSubFormat::Template(TemplateSubFormat::Iso19794_2),
-                        2 => BiometricSubFormat::Template(TemplateSubFormat::Nist),
-                        other => BiometricSubFormat::Raw(other),
-                    },
-                    Some(BiometricFormat::Sound) => match sf {
-                        0 => BiometricSubFormat::Sound(SoundSubFormat::Wav),
-                        1 => BiometricSubFormat::Sound(SoundSubFormat::Mp3),
-                        other => BiometricSubFormat::Raw(other),
-                    },
-                    _ => BiometricSubFormat::Raw(sf),
-                });
 
                 CoreBiometric {
                     data: b.data,
@@ -1021,31 +974,17 @@ impl From<JsClaim169Input> for CoreClaim169 {
             middle_name: js.middle_name,
             last_name: js.last_name,
             date_of_birth: js.date_of_birth,
-            gender: js.gender.and_then(|g| match g {
-                1 => Some(Gender::Male),
-                2 => Some(Gender::Female),
-                3 => Some(Gender::Other),
-                _ => None,
-            }),
+            gender: js.gender.and_then(|g| Gender::try_from(g).ok()),
             address: js.address,
             email: js.email,
             phone: js.phone,
             nationality: js.nationality,
-            marital_status: js.marital_status.and_then(|m| match m {
-                1 => Some(MaritalStatus::Unmarried),
-                2 => Some(MaritalStatus::Married),
-                3 => Some(MaritalStatus::Divorced),
-                _ => None,
-            }),
+            marital_status: js
+                .marital_status
+                .and_then(|m| MaritalStatus::try_from(m).ok()),
             guardian: js.guardian,
             photo: js.photo,
-            photo_format: js.photo_format.and_then(|f| match f {
-                1 => Some(PhotoFormat::Jpeg),
-                2 => Some(PhotoFormat::Jpeg2000),
-                3 => Some(PhotoFormat::Avif),
-                4 => Some(PhotoFormat::Webp),
-                _ => None,
-            }),
+            photo_format: js.photo_format.and_then(|f| PhotoFormat::try_from(f).ok()),
             secondary_full_name: js.secondary_full_name,
             secondary_language: js.secondary_language,
             location_code: js.location_code,

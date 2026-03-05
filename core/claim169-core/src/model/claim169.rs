@@ -558,49 +558,24 @@ impl Claim169 {
     /// assert_eq!(without_bio.id, claim.id);
     /// ```
     pub fn without_biometrics(&self) -> Self {
-        Self {
-            id: self.id.clone(),
-            version: self.version.clone(),
-            language: self.language.clone(),
-            full_name: self.full_name.clone(),
-            first_name: self.first_name.clone(),
-            middle_name: self.middle_name.clone(),
-            last_name: self.last_name.clone(),
-            date_of_birth: self.date_of_birth.clone(),
-            gender: self.gender,
-            address: self.address.clone(),
-            email: self.email.clone(),
-            phone: self.phone.clone(),
-            nationality: self.nationality.clone(),
-            marital_status: self.marital_status,
-            guardian: self.guardian.clone(),
-            photo: self.photo.clone(),
-            photo_format: self.photo_format,
-            best_quality_fingers: self.best_quality_fingers.clone(),
-            secondary_full_name: self.secondary_full_name.clone(),
-            secondary_language: self.secondary_language.clone(),
-            location_code: self.location_code.clone(),
-            legal_status: self.legal_status.clone(),
-            country_of_issuance: self.country_of_issuance.clone(),
-            unknown_fields: self.unknown_fields.clone(),
-            // All biometric fields are set to None
-            right_thumb: None,
-            right_pointer_finger: None,
-            right_middle_finger: None,
-            right_ring_finger: None,
-            right_little_finger: None,
-            left_thumb: None,
-            left_pointer_finger: None,
-            left_middle_finger: None,
-            left_ring_finger: None,
-            left_little_finger: None,
-            right_iris: None,
-            left_iris: None,
-            face: None,
-            right_palm: None,
-            left_palm: None,
-            voice: None,
-        }
+        let mut result = self.clone();
+        result.right_thumb = None;
+        result.right_pointer_finger = None;
+        result.right_middle_finger = None;
+        result.right_ring_finger = None;
+        result.right_little_finger = None;
+        result.left_thumb = None;
+        result.left_pointer_finger = None;
+        result.left_middle_finger = None;
+        result.left_ring_finger = None;
+        result.left_little_finger = None;
+        result.right_iris = None;
+        result.left_iris = None;
+        result.face = None;
+        result.right_palm = None;
+        result.left_palm = None;
+        result.voice = None;
+        result
     }
 }
 

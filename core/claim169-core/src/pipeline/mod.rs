@@ -8,7 +8,7 @@ pub mod encode;
 pub use self::base45::{decode as base45_decode, encode as base45_encode};
 pub use self::claim169::{to_cbor as claim169_to_cbor, transform as claim169_transform};
 pub use self::cose::{
-    inspect_headers as cose_inspect, parse_and_verify as cose_parse,
+    build_encrypt0_aad, inspect_headers as cose_inspect, parse_and_verify as cose_parse,
     parse_with_resolver as cose_parse_with_resolver, CoseInspectResult, CoseResult, CoseType,
 };
 pub use self::cwt::{encode as cwt_encode, parse as cwt_parse, CwtParseResult};

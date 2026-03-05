@@ -7,24 +7,12 @@
 //! ambiguous token (because the payload is signed). They are still useful as
 //! robustness tests to ensure the library fails closed on malformed inputs.
 
+mod common;
+
 use ciborium::{value::Integer, Value};
 use claim169_core::{Claim169Error, Decoder, Ed25519Signer, Signer};
+use common::{create_claim169_map, encode_cbor};
 use coset::{iana, CoseSign1Builder, HeaderBuilder, TaggedCborSerializable};
-
-fn encode_cbor(value: &Value) -> Vec<u8> {
-    let mut out = Vec::new();
-    ciborium::into_writer(value, &mut out).expect("CBOR encoding should not fail");
-    out
-}
-
-fn create_claim169_map(entries: Vec<(i64, Value)>) -> Value {
-    Value::Map(
-        entries
-            .into_iter()
-            .map(|(k, v)| (Value::Integer(k.into()), v))
-            .collect(),
-    )
-}
 
 fn create_signed_qr(cwt_bytes: Vec<u8>) -> (String, [u8; 32]) {
     let signer = Ed25519Signer::generate();

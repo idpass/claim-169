@@ -2,27 +2,15 @@
 //!
 //! These tests verify that security vulnerabilities and edge cases are properly handled.
 
+mod common;
+
 use ciborium::Value;
 use claim169_core::{
     Claim169Error, CwtMeta, Decoder, EcdsaP256Signer, EcdsaP256Verifier, Ed25519Signer,
     Ed25519Verifier, Signer,
 };
+use common::{create_claim169_map, encode_cwt};
 use coset::{iana, CoseSign1Builder, HeaderBuilder, TaggedCborSerializable};
-
-/// Helper to create claim 169 CBOR map
-fn create_claim169_map(fields: Vec<(i64, Value)>) -> Value {
-    Value::Map(
-        fields
-            .into_iter()
-            .map(|(k, v)| (Value::Integer(k.into()), v))
-            .collect(),
-    )
-}
-
-/// Helper to encode CWT
-fn encode_cwt(meta: &CwtMeta, claim_169: &Value) -> Vec<u8> {
-    claim169_core::pipeline::cwt::encode(meta, claim_169)
-}
 
 // ============================================================================
 // Signature Security Tests

@@ -58,27 +58,12 @@ fn to_py_err(e: Claim169Error) -> PyErr {
     }
 }
 
-fn detected_compression_to_string(dc: &claim169_core::DetectedCompression) -> &'static str {
-    match dc {
-        claim169_core::DetectedCompression::Zlib => "zlib",
-        #[cfg(feature = "compression-brotli")]
-        claim169_core::DetectedCompression::Brotli => "brotli",
-        claim169_core::DetectedCompression::None => "none",
-    }
+fn detected_compression_to_string(dc: &claim169_core::DetectedCompression) -> String {
+    dc.to_string()
 }
 
 fn algorithm_to_string(alg: &iana::Algorithm) -> String {
-    use coset::iana::EnumI64;
-    match alg {
-        iana::Algorithm::EdDSA => "EdDSA".to_string(),
-        iana::Algorithm::ES256 => "ES256".to_string(),
-        iana::Algorithm::ES384 => "ES384".to_string(),
-        iana::Algorithm::ES512 => "ES512".to_string(),
-        iana::Algorithm::A128GCM => "A128GCM".to_string(),
-        iana::Algorithm::A192GCM => "A192GCM".to_string(),
-        iana::Algorithm::A256GCM => "A256GCM".to_string(),
-        other => format!("COSE_ALG_{}", other.to_i64()),
-    }
+    claim169_core::algorithm_to_string(*alg)
 }
 
 fn core_decode_result_to_py(result: claim169_core::DecodeResult) -> DecodeResult {
@@ -92,6 +77,30 @@ fn core_decode_result_to_py(result: claim169_core::DecodeResult) -> DecodeResult
         key_id: result.key_id,
         algorithm: result.algorithm.as_ref().map(algorithm_to_string),
     }
+}
+
+/// Apply common decode options to a Decoder and execute the decode.
+fn apply_decode_options_and_run(
+    mut decoder: Decoder,
+    skip_biometrics: bool,
+    max_decompressed_bytes: usize,
+    validate_timestamps: bool,
+    clock_skew_tolerance_seconds: i64,
+) -> PyResult<DecodeResult> {
+    decoder = decoder
+        .max_decompressed_bytes(max_decompressed_bytes)
+        .clock_skew_tolerance(clock_skew_tolerance_seconds);
+
+    if skip_biometrics {
+        decoder = decoder.skip_biometrics();
+    }
+
+    if !validate_timestamps {
+        decoder = decoder.without_timestamp_validation();
+    }
+
+    let result = decoder.decode().map_err(to_py_err)?;
+    Ok(core_decode_result_to_py(result))
 }
 
 // ============================================================================
@@ -998,22 +1007,14 @@ fn decode_unverified(
     validate_timestamps: bool,
     clock_skew_tolerance_seconds: i64,
 ) -> PyResult<DecodeResult> {
-    let mut decoder = Decoder::new(qr_text)
-        .allow_unverified()
-        .max_decompressed_bytes(max_decompressed_bytes)
-        .clock_skew_tolerance(clock_skew_tolerance_seconds);
-
-    if skip_biometrics {
-        decoder = decoder.skip_biometrics();
-    }
-
-    if !validate_timestamps {
-        decoder = decoder.without_timestamp_validation();
-    }
-
-    let result = decoder.decode().map_err(to_py_err)?;
-
-    Ok(core_decode_result_to_py(result))
+    let decoder = Decoder::new(qr_text).allow_unverified();
+    apply_decode_options_and_run(
+        decoder,
+        skip_biometrics,
+        max_decompressed_bytes,
+        validate_timestamps,
+        clock_skew_tolerance_seconds,
+    )
 }
 
 /// Decode a Claim 169 QR code with Ed25519 signature verification
@@ -1041,23 +1042,16 @@ fn decode_with_ed25519(
     validate_timestamps: bool,
     clock_skew_tolerance_seconds: i64,
 ) -> PyResult<DecodeResult> {
-    let mut decoder = Decoder::new(qr_text)
+    let decoder = Decoder::new(qr_text)
         .verify_with_ed25519(public_key)
-        .map_err(|e| SignatureError::new_err(e.to_string()))?
-        .max_decompressed_bytes(max_decompressed_bytes)
-        .clock_skew_tolerance(clock_skew_tolerance_seconds);
-
-    if skip_biometrics {
-        decoder = decoder.skip_biometrics();
-    }
-
-    if !validate_timestamps {
-        decoder = decoder.without_timestamp_validation();
-    }
-
-    let result = decoder.decode().map_err(to_py_err)?;
-
-    Ok(core_decode_result_to_py(result))
+        .map_err(|e| SignatureError::new_err(e.to_string()))?;
+    apply_decode_options_and_run(
+        decoder,
+        skip_biometrics,
+        max_decompressed_bytes,
+        validate_timestamps,
+        clock_skew_tolerance_seconds,
+    )
 }
 
 /// Decode a Claim 169 QR code with ECDSA P-256 signature verification
@@ -1085,23 +1079,16 @@ fn decode_with_ecdsa_p256(
     validate_timestamps: bool,
     clock_skew_tolerance_seconds: i64,
 ) -> PyResult<DecodeResult> {
-    let mut decoder = Decoder::new(qr_text)
+    let decoder = Decoder::new(qr_text)
         .verify_with_ecdsa_p256(public_key)
-        .map_err(|e| SignatureError::new_err(e.to_string()))?
-        .max_decompressed_bytes(max_decompressed_bytes)
-        .clock_skew_tolerance(clock_skew_tolerance_seconds);
-
-    if skip_biometrics {
-        decoder = decoder.skip_biometrics();
-    }
-
-    if !validate_timestamps {
-        decoder = decoder.without_timestamp_validation();
-    }
-
-    let result = decoder.decode().map_err(to_py_err)?;
-
-    Ok(core_decode_result_to_py(result))
+        .map_err(|e| SignatureError::new_err(e.to_string()))?;
+    apply_decode_options_and_run(
+        decoder,
+        skip_biometrics,
+        max_decompressed_bytes,
+        validate_timestamps,
+        clock_skew_tolerance_seconds,
+    )
 }
 
 /// Decode a Claim 169 QR code with Ed25519 signature verification using PEM format
@@ -1129,23 +1116,16 @@ fn decode_with_ed25519_pem(
     validate_timestamps: bool,
     clock_skew_tolerance_seconds: i64,
 ) -> PyResult<DecodeResult> {
-    let mut decoder = Decoder::new(qr_text)
+    let decoder = Decoder::new(qr_text)
         .verify_with_ed25519_pem(pem)
-        .map_err(|e| SignatureError::new_err(e.to_string()))?
-        .max_decompressed_bytes(max_decompressed_bytes)
-        .clock_skew_tolerance(clock_skew_tolerance_seconds);
-
-    if skip_biometrics {
-        decoder = decoder.skip_biometrics();
-    }
-
-    if !validate_timestamps {
-        decoder = decoder.without_timestamp_validation();
-    }
-
-    let result = decoder.decode().map_err(to_py_err)?;
-
-    Ok(core_decode_result_to_py(result))
+        .map_err(|e| SignatureError::new_err(e.to_string()))?;
+    apply_decode_options_and_run(
+        decoder,
+        skip_biometrics,
+        max_decompressed_bytes,
+        validate_timestamps,
+        clock_skew_tolerance_seconds,
+    )
 }
 
 /// Decode a Claim 169 QR code with ECDSA P-256 signature verification using PEM format
@@ -1173,23 +1153,16 @@ fn decode_with_ecdsa_p256_pem(
     validate_timestamps: bool,
     clock_skew_tolerance_seconds: i64,
 ) -> PyResult<DecodeResult> {
-    let mut decoder = Decoder::new(qr_text)
+    let decoder = Decoder::new(qr_text)
         .verify_with_ecdsa_p256_pem(pem)
-        .map_err(|e| SignatureError::new_err(e.to_string()))?
-        .max_decompressed_bytes(max_decompressed_bytes)
-        .clock_skew_tolerance(clock_skew_tolerance_seconds);
-
-    if skip_biometrics {
-        decoder = decoder.skip_biometrics();
-    }
-
-    if !validate_timestamps {
-        decoder = decoder.without_timestamp_validation();
-    }
-
-    let result = decoder.decode().map_err(to_py_err)?;
-
-    Ok(core_decode_result_to_py(result))
+        .map_err(|e| SignatureError::new_err(e.to_string()))?;
+    apply_decode_options_and_run(
+        decoder,
+        skip_biometrics,
+        max_decompressed_bytes,
+        validate_timestamps,
+        clock_skew_tolerance_seconds,
+    )
 }
 
 /// Decode a Claim 169 QR code with a custom verifier callback
@@ -1230,22 +1203,14 @@ fn py_decode_with_verifier(
     clock_skew_tolerance_seconds: i64,
 ) -> PyResult<DecodeResult> {
     let py_verifier = PySignatureVerifier::new(verifier);
-    let mut decoder = Decoder::new(qr_text)
-        .verify_with(py_verifier)
-        .max_decompressed_bytes(max_decompressed_bytes)
-        .clock_skew_tolerance(clock_skew_tolerance_seconds);
-
-    if skip_biometrics {
-        decoder = decoder.skip_biometrics();
-    }
-
-    if !validate_timestamps {
-        decoder = decoder.without_timestamp_validation();
-    }
-
-    let result = decoder.decode().map_err(to_py_err)?;
-
-    Ok(core_decode_result_to_py(result))
+    let decoder = Decoder::new(qr_text).verify_with(py_verifier);
+    apply_decode_options_and_run(
+        decoder,
+        skip_biometrics,
+        max_decompressed_bytes,
+        validate_timestamps,
+        clock_skew_tolerance_seconds,
+    )
 }
 
 /// Decode an encrypted Claim 169 QR code with AES-GCM
@@ -1666,31 +1631,17 @@ impl From<&Claim169Input> for CoreClaim169 {
             middle_name: py.middle_name.clone(),
             last_name: py.last_name.clone(),
             date_of_birth: py.date_of_birth.clone(),
-            gender: py.gender.and_then(|g| match g {
-                1 => Some(Gender::Male),
-                2 => Some(Gender::Female),
-                3 => Some(Gender::Other),
-                _ => None,
-            }),
+            gender: py.gender.and_then(|g| Gender::try_from(g).ok()),
             address: py.address.clone(),
             email: py.email.clone(),
             phone: py.phone.clone(),
             nationality: py.nationality.clone(),
-            marital_status: py.marital_status.and_then(|m| match m {
-                1 => Some(MaritalStatus::Unmarried),
-                2 => Some(MaritalStatus::Married),
-                3 => Some(MaritalStatus::Divorced),
-                _ => None,
-            }),
+            marital_status: py
+                .marital_status
+                .and_then(|m| MaritalStatus::try_from(m).ok()),
             guardian: py.guardian.clone(),
             photo: py.photo.clone(),
-            photo_format: py.photo_format.and_then(|f| match f {
-                1 => Some(PhotoFormat::Jpeg),
-                2 => Some(PhotoFormat::Jpeg2000),
-                3 => Some(PhotoFormat::Avif),
-                4 => Some(PhotoFormat::Webp),
-                _ => None,
-            }),
+            photo_format: py.photo_format.and_then(|f| PhotoFormat::try_from(f).ok()),
             secondary_full_name: py.secondary_full_name.clone(),
             secondary_language: py.secondary_language.clone(),
             location_code: py.location_code.clone(),

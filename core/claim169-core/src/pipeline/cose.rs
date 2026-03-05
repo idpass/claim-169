@@ -166,17 +166,12 @@ pub fn inspect_headers(data: &[u8]) -> Result<CoseInspectResult> {
 
 /// Process a COSE_Sign1 message using a KeyResolver
 fn process_sign1_with_resolver<R: KeyResolver + ?Sized>(
-    sign1: CoseSign1,
+    mut sign1: CoseSign1,
     resolver: &R,
 ) -> Result<CoseResult> {
     let algorithm = get_algorithm(&sign1.protected.header);
     let key_id = get_key_id(&sign1.protected.header, &sign1.unprotected);
     let x509_headers = get_x509_headers(&sign1.protected.header, &sign1.unprotected);
-
-    let payload = sign1
-        .payload
-        .clone()
-        .ok_or_else(|| Claim169Error::CoseParse("COSE_Sign1 has no payload".to_string()))?;
 
     // Require explicit algorithm
     let alg = algorithm.ok_or_else(|| {
@@ -190,7 +185,7 @@ fn process_sign1_with_resolver<R: KeyResolver + ?Sized>(
         .resolve_verifier(key_id.as_deref(), alg)
         .map_err(|e| Claim169Error::Crypto(e.to_string()))?;
 
-    // Build the Sig_structure for verification
+    // Build the Sig_structure for verification (must happen before taking payload)
     let sig_structure = sign1.tbs_data(&[]);
 
     let verification_status =
@@ -199,6 +194,11 @@ fn process_sign1_with_resolver<R: KeyResolver + ?Sized>(
             Err(CryptoError::VerificationFailed) => VerificationStatus::Failed,
             Err(e) => return Err(e.into()),
         };
+
+    let payload = sign1
+        .payload
+        .take()
+        .ok_or_else(|| Claim169Error::CoseParse("COSE_Sign1 has no payload".to_string()))?;
 
     Ok(CoseResult {
         payload,
@@ -211,7 +211,7 @@ fn process_sign1_with_resolver<R: KeyResolver + ?Sized>(
 
 /// Process a COSE_Encrypt0 message using a KeyResolver
 fn process_encrypt0_with_resolver<R: KeyResolver + ?Sized>(
-    encrypt0: CoseEncrypt0,
+    mut encrypt0: CoseEncrypt0,
     resolver: &R,
 ) -> Result<CoseResult> {
     let algorithm = get_algorithm(&encrypt0.protected.header);
@@ -230,24 +230,30 @@ fn process_encrypt0_with_resolver<R: KeyResolver + ?Sized>(
         .resolve_decryptor(key_id.as_deref(), alg)
         .map_err(|e| Claim169Error::Crypto(e.to_string()))?;
 
-    // Get IV/nonce from header
+    // Get IV/nonce from header (take ownership to avoid cloning)
     let nonce = if !encrypt0.unprotected.iv.is_empty() {
-        encrypt0.unprotected.iv.clone()
+        std::mem::take(&mut encrypt0.unprotected.iv)
     } else if !encrypt0.protected.header.iv.is_empty() {
-        encrypt0.protected.header.iv.clone()
+        std::mem::take(&mut encrypt0.protected.header.iv)
     } else {
         return Err(Claim169Error::DecryptionFailed(
             "no IV in COSE_Encrypt0".to_string(),
         ));
     };
 
-    // Get ciphertext
-    let ciphertext = encrypt0.ciphertext.clone().ok_or_else(|| {
+    // Get ciphertext (take ownership to avoid cloning)
+    let ciphertext = encrypt0.ciphertext.take().ok_or_else(|| {
         Claim169Error::DecryptionFailed("COSE_Encrypt0 has no ciphertext".to_string())
     })?;
 
     // Build AAD
-    let aad = build_encrypt0_aad(&encrypt0.protected.original_data.clone().unwrap_or_default())?;
+    let aad = build_encrypt0_aad(
+        encrypt0
+            .protected
+            .original_data
+            .as_deref()
+            .unwrap_or_default(),
+    )?;
 
     // Decrypt
     let plaintext = decryptor
@@ -301,15 +307,13 @@ fn process_encrypt0_with_resolver<R: KeyResolver + ?Sized>(
 }
 
 /// Process a COSE_Sign1 message
-fn process_sign1(sign1: CoseSign1, verifier: Option<&dyn SignatureVerifier>) -> Result<CoseResult> {
+fn process_sign1(
+    mut sign1: CoseSign1,
+    verifier: Option<&dyn SignatureVerifier>,
+) -> Result<CoseResult> {
     let algorithm = get_algorithm(&sign1.protected.header);
     let key_id = get_key_id(&sign1.protected.header, &sign1.unprotected);
     let x509_headers = get_x509_headers(&sign1.protected.header, &sign1.unprotected);
-
-    let payload = sign1
-        .payload
-        .clone()
-        .ok_or_else(|| Claim169Error::CoseParse("COSE_Sign1 has no payload".to_string()))?;
 
     let verification_status = match verifier {
         Some(v) => {
@@ -321,7 +325,7 @@ fn process_sign1(sign1: CoseSign1, verifier: Option<&dyn SignatureVerifier>) -> 
                 )
             })?;
 
-            // Build the Sig_structure for verification
+            // Build the Sig_structure for verification (must happen before taking payload)
             let sig_structure = sign1.tbs_data(&[]);
 
             match v.verify(alg, key_id.as_deref(), &sig_structure, &sign1.signature) {
@@ -332,6 +336,11 @@ fn process_sign1(sign1: CoseSign1, verifier: Option<&dyn SignatureVerifier>) -> 
         }
         None => VerificationStatus::Skipped,
     };
+
+    let payload = sign1
+        .payload
+        .take()
+        .ok_or_else(|| Claim169Error::CoseParse("COSE_Sign1 has no payload".to_string()))?;
 
     Ok(CoseResult {
         payload,
@@ -344,7 +353,7 @@ fn process_sign1(sign1: CoseSign1, verifier: Option<&dyn SignatureVerifier>) -> 
 
 /// Process a COSE_Encrypt0 message
 fn process_encrypt0(
-    encrypt0: CoseEncrypt0,
+    mut encrypt0: CoseEncrypt0,
     decryptor: Option<&dyn Decryptor>,
     verifier: Option<&dyn SignatureVerifier>,
 ) -> Result<CoseResult> {
@@ -355,25 +364,31 @@ fn process_encrypt0(
     let decryptor = decryptor
         .ok_or_else(|| Claim169Error::DecryptionFailed("no decryptor provided".to_string()))?;
 
-    // Get IV/nonce from header - check unprotected first, then protected
+    // Get IV/nonce from header (take ownership to avoid cloning)
     let nonce = if !encrypt0.unprotected.iv.is_empty() {
-        encrypt0.unprotected.iv.clone()
+        std::mem::take(&mut encrypt0.unprotected.iv)
     } else if !encrypt0.protected.header.iv.is_empty() {
-        encrypt0.protected.header.iv.clone()
+        std::mem::take(&mut encrypt0.protected.header.iv)
     } else {
         return Err(Claim169Error::DecryptionFailed(
             "no IV in COSE_Encrypt0".to_string(),
         ));
     };
 
-    // Get ciphertext
-    let ciphertext = encrypt0.ciphertext.clone().ok_or_else(|| {
+    // Get ciphertext (take ownership to avoid cloning)
+    let ciphertext = encrypt0.ciphertext.take().ok_or_else(|| {
         Claim169Error::DecryptionFailed("COSE_Encrypt0 has no ciphertext".to_string())
     })?;
 
     // Build AAD (Additional Authenticated Data) - Enc_structure
     // For COSE_Encrypt0, this is ["Encrypt0", protected, external_aad]
-    let aad = build_encrypt0_aad(&encrypt0.protected.original_data.clone().unwrap_or_default())?;
+    let aad = build_encrypt0_aad(
+        encrypt0
+            .protected
+            .original_data
+            .as_deref()
+            .unwrap_or_default(),
+    )?;
 
     // Require explicit algorithm when decryption is requested - no defaults allowed
     // This prevents algorithm confusion attacks
@@ -435,9 +450,10 @@ fn process_encrypt0(
     })
 }
 
-/// Build the Enc_structure AAD for COSE_Encrypt0
-/// Structure: ["Encrypt0", protected, external_aad]
-fn build_encrypt0_aad(protected_bytes: &[u8]) -> Result<Vec<u8>> {
+/// Build the Enc_structure AAD for COSE_Encrypt0.
+///
+/// Structure: `["Encrypt0", protected, external_aad]`
+pub fn build_encrypt0_aad(protected_bytes: &[u8]) -> Result<Vec<u8>> {
     let enc_structure = Value::Array(vec![
         Value::Text("Encrypt0".to_string()),
         Value::Bytes(protected_bytes.to_vec()),

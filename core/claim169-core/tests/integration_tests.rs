@@ -2,30 +2,18 @@
 //!
 //! These tests verify the full decode pipeline from Base45 QR data to Claim169 structs.
 
+mod common;
+
 use ciborium::Value;
 use claim169_core::{
     AesGcmDecryptor, AesGcmEncryptor, Claim169Error, CwtMeta, Decoder, Ed25519Signer, Encryptor,
     Signer, VerificationStatus,
 };
+use common::{build_encrypt0_aad, create_claim169_map, encode_cwt};
 use coset::{
     iana, CborSerializable, CoseEncrypt0Builder, CoseSign1Builder, HeaderBuilder,
     TaggedCborSerializable,
 };
-
-/// Helper to create claim 169 CBOR map
-fn create_claim169_map(fields: Vec<(i64, Value)>) -> Value {
-    Value::Map(
-        fields
-            .into_iter()
-            .map(|(k, v)| (Value::Integer(k.into()), v))
-            .collect(),
-    )
-}
-
-/// Helper to encode CWT
-fn encode_cwt(meta: &CwtMeta, claim_169: &Value) -> Vec<u8> {
-    claim169_core::pipeline::cwt::encode(meta, claim_169)
-}
 
 /// Helper to encode unsigned QR data (with algorithm header for security)
 fn encode_unsigned_qr(meta: &CwtMeta, claim_169: &Value) -> String {
@@ -67,19 +55,6 @@ fn encode_signed_qr(meta: &CwtMeta, claim_169: &Value, signer: &Ed25519Signer) -
     let cose_bytes = sign1.to_tagged_vec().unwrap();
     let compressed = claim169_core::pipeline::decompress::compress_zlib(&cose_bytes);
     claim169_core::pipeline::base45::encode(&compressed)
-}
-
-/// Helper to build Enc_structure AAD for COSE_Encrypt0
-fn build_encrypt0_aad(protected_bytes: &[u8]) -> Vec<u8> {
-    let enc_structure = Value::Array(vec![
-        Value::Text("Encrypt0".to_string()),
-        Value::Bytes(protected_bytes.to_vec()),
-        Value::Bytes(vec![]),
-    ]);
-
-    let mut aad = Vec::new();
-    ciborium::into_writer(&enc_structure, &mut aad).expect("CBOR encoding should not fail");
-    aad
 }
 
 /// Helper to encode encrypted QR data

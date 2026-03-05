@@ -6,7 +6,7 @@
 use std::sync::Mutex;
 
 use claim169_core as claim169;
-use coset::iana::{self, EnumI64};
+use coset::iana;
 
 uniffi::setup_scaffolding!();
 
@@ -302,27 +302,15 @@ pub struct WarningData {
 
 impl From<&claim169::Warning> for WarningData {
     fn from(w: &claim169::Warning) -> Self {
-        let code = match w.code {
-            claim169::WarningCode::ExpiringSoon => "expiring_soon",
-            claim169::WarningCode::UnknownFields => "unknown_fields",
-            claim169::WarningCode::TimestampValidationSkipped => "timestamp_validation_skipped",
-            claim169::WarningCode::BiometricsSkipped => "biometrics_skipped",
-            claim169::WarningCode::NonStandardCompression => "non_standard_compression",
-        };
         Self {
-            code: code.to_string(),
+            code: w.code.as_str().to_string(),
             message: w.message.clone(),
         }
     }
 }
 
-fn detected_compression_to_string(dc: &claim169::DetectedCompression) -> &'static str {
-    match dc {
-        claim169::DetectedCompression::Zlib => "zlib",
-        #[cfg(feature = "compression-brotli")]
-        claim169::DetectedCompression::Brotli => "brotli",
-        claim169::DetectedCompression::None => "none",
-    }
+fn detected_compression_to_string(dc: &claim169::DetectedCompression) -> String {
+    dc.to_string()
 }
 
 /// CWT (CBOR Web Token) metadata.
@@ -665,46 +653,12 @@ pub trait EncryptorCallback: Send + Sync {
 // ============================================================
 
 fn algorithm_to_string(algorithm: iana::Algorithm) -> String {
-    match algorithm {
-        iana::Algorithm::EdDSA => "EdDSA".to_string(),
-        iana::Algorithm::ES256 => "ES256".to_string(),
-        iana::Algorithm::ES384 => "ES384".to_string(),
-        iana::Algorithm::ES512 => "ES512".to_string(),
-        iana::Algorithm::A128GCM => "A128GCM".to_string(),
-        iana::Algorithm::A192GCM => "A192GCM".to_string(),
-        iana::Algorithm::A256GCM => "A256GCM".to_string(),
-        other => format!("COSE_ALG_{}", other.to_i64()),
-    }
+    claim169::algorithm_to_string(algorithm)
 }
 
 fn algorithm_from_string(s: &str) -> Result<iana::Algorithm, Claim169Exception> {
-    match s {
-        "EdDSA" => Ok(iana::Algorithm::EdDSA),
-        "ES256" => Ok(iana::Algorithm::ES256),
-        "ES384" => Ok(iana::Algorithm::ES384),
-        "ES512" => Ok(iana::Algorithm::ES512),
-        "A128GCM" => Ok(iana::Algorithm::A128GCM),
-        "A192GCM" => Ok(iana::Algorithm::A192GCM),
-        "A256GCM" => Ok(iana::Algorithm::A256GCM),
-        _ => {
-            if let Some(id_str) = s.strip_prefix("COSE_ALG_") {
-                let id: i64 = id_str.parse().map_err(|_| {
-                    Claim169Exception::UnsupportedAlgorithm(format!(
-                        "invalid numeric algorithm ID: {}",
-                        s
-                    ))
-                })?;
-                iana::Algorithm::from_i64(id).ok_or_else(|| {
-                    Claim169Exception::UnsupportedAlgorithm(format!(
-                        "unknown COSE algorithm ID: {}",
-                        id
-                    ))
-                })
-            } else {
-                Err(Claim169Exception::UnsupportedAlgorithm(s.to_string()))
-            }
-        }
-    }
+    claim169::algorithm_from_string(s)
+        .map_err(|e| Claim169Exception::UnsupportedAlgorithm(e.to_string()))
 }
 
 // ============================================================

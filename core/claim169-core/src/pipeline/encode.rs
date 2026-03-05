@@ -222,7 +222,7 @@ fn create_encrypted_cose(
         .map_err(|e| Claim169Error::CborEncode(e.to_string()))?;
 
     // Build AAD (Enc_structure)
-    let aad = build_encrypt0_aad(&protected_bytes);
+    let aad = super::cose::build_encrypt0_aad(&protected_bytes)?;
 
     // Encrypt the plaintext
     let ciphertext = encryptor
@@ -240,23 +240,6 @@ fn create_encrypted_cose(
     encrypt0
         .to_tagged_vec()
         .map_err(|e| Claim169Error::CborEncode(e.to_string()))
-}
-
-/// Build the Enc_structure AAD for COSE_Encrypt0.
-///
-/// Structure: ["Encrypt0", protected, external_aad]
-fn build_encrypt0_aad(protected_bytes: &[u8]) -> Vec<u8> {
-    use ciborium::Value;
-
-    let enc_structure = Value::Array(vec![
-        Value::Text("Encrypt0".to_string()),
-        Value::Bytes(protected_bytes.to_vec()),
-        Value::Bytes(vec![]), // external_aad is empty
-    ]);
-
-    let mut aad = Vec::new();
-    ciborium::into_writer(&enc_structure, &mut aad).expect("CBOR encoding should not fail");
-    aad
 }
 
 #[cfg(test)]

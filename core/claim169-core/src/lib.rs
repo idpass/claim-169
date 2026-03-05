@@ -164,6 +164,9 @@ pub use model::{
 // Re-export compression types
 pub use pipeline::{Compression, DetectedCompression};
 
+// Re-export COSE AAD builder for Encrypt0 (shared between decode and encode pipelines)
+pub use pipeline::cose::build_encrypt0_aad;
+
 // Re-export software crypto implementations when feature is enabled
 #[cfg(feature = "software-crypto")]
 pub use crypto::{
@@ -289,6 +292,76 @@ pub enum WarningCode {
     NonStandardCompression,
 }
 
+impl WarningCode {
+    /// Returns the snake_case string representation of this warning code.
+    pub fn as_str(self) -> &'static str {
+        match self {
+            WarningCode::ExpiringSoon => "expiring_soon",
+            WarningCode::UnknownFields => "unknown_fields",
+            WarningCode::TimestampValidationSkipped => "timestamp_validation_skipped",
+            WarningCode::BiometricsSkipped => "biometrics_skipped",
+            WarningCode::NonStandardCompression => "non_standard_compression",
+        }
+    }
+}
+
+impl std::fmt::Display for WarningCode {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.write_str(self.as_str())
+    }
+}
+
+/// Returns the standard string name for a COSE algorithm.
+///
+/// Maps well-known IANA COSE algorithm identifiers to their standard names
+/// (e.g., `EdDSA`, `ES256`, `A256GCM`). Unknown algorithms are formatted
+/// as `COSE_ALG_<id>`.
+pub fn algorithm_to_string(alg: coset::iana::Algorithm) -> String {
+    use coset::iana::EnumI64;
+    match alg {
+        coset::iana::Algorithm::EdDSA => "EdDSA".to_string(),
+        coset::iana::Algorithm::ES256 => "ES256".to_string(),
+        coset::iana::Algorithm::ES384 => "ES384".to_string(),
+        coset::iana::Algorithm::ES512 => "ES512".to_string(),
+        coset::iana::Algorithm::A128GCM => "A128GCM".to_string(),
+        coset::iana::Algorithm::A192GCM => "A192GCM".to_string(),
+        coset::iana::Algorithm::A256GCM => "A256GCM".to_string(),
+        other => format!("COSE_ALG_{}", other.to_i64()),
+    }
+}
+
+/// Parses a COSE algorithm string name back to its enum representation.
+///
+/// Accepts standard names (`EdDSA`, `ES256`, etc.) and the fallback format
+/// `COSE_ALG_<id>` for numeric algorithm identifiers.
+pub fn algorithm_from_string(s: &str) -> Result<coset::iana::Algorithm> {
+    use coset::iana::EnumI64;
+    match s {
+        "EdDSA" => Ok(coset::iana::Algorithm::EdDSA),
+        "ES256" => Ok(coset::iana::Algorithm::ES256),
+        "ES384" => Ok(coset::iana::Algorithm::ES384),
+        "ES512" => Ok(coset::iana::Algorithm::ES512),
+        "A128GCM" => Ok(coset::iana::Algorithm::A128GCM),
+        "A192GCM" => Ok(coset::iana::Algorithm::A192GCM),
+        "A256GCM" => Ok(coset::iana::Algorithm::A256GCM),
+        _ => {
+            if let Some(id_str) = s.strip_prefix("COSE_ALG_") {
+                let id: i64 = id_str.parse().map_err(|_| {
+                    Claim169Error::CoseParse(format!("invalid numeric algorithm ID: {}", s))
+                })?;
+                coset::iana::Algorithm::from_i64(id).ok_or_else(|| {
+                    Claim169Error::CoseParse(format!("unknown COSE algorithm ID: {}", id))
+                })
+            } else {
+                Err(Claim169Error::CoseParse(format!(
+                    "unknown algorithm: {}",
+                    s
+                )))
+            }
+        }
+    }
+}
+
 /// Metadata extracted from a credential without full verification or decoding.
 ///
 /// Useful for determining which key to use before calling `Decoder::decode()`.
@@ -395,6 +468,89 @@ mod tests {
         let cloned = warning.clone();
         assert_eq!(cloned.code, warning.code);
         assert_eq!(cloned.message, warning.message);
+    }
+
+    #[test]
+    fn test_warning_code_as_str() {
+        assert_eq!(WarningCode::ExpiringSoon.as_str(), "expiring_soon");
+        assert_eq!(WarningCode::UnknownFields.as_str(), "unknown_fields");
+        assert_eq!(
+            WarningCode::TimestampValidationSkipped.as_str(),
+            "timestamp_validation_skipped"
+        );
+        assert_eq!(
+            WarningCode::BiometricsSkipped.as_str(),
+            "biometrics_skipped"
+        );
+        assert_eq!(
+            WarningCode::NonStandardCompression.as_str(),
+            "non_standard_compression"
+        );
+    }
+
+    #[test]
+    fn test_warning_code_display() {
+        assert_eq!(format!("{}", WarningCode::ExpiringSoon), "expiring_soon");
+        assert_eq!(
+            format!("{}", WarningCode::NonStandardCompression),
+            "non_standard_compression"
+        );
+    }
+
+    #[test]
+    fn test_algorithm_to_string_known() {
+        assert_eq!(algorithm_to_string(coset::iana::Algorithm::EdDSA), "EdDSA");
+        assert_eq!(algorithm_to_string(coset::iana::Algorithm::ES256), "ES256");
+        assert_eq!(
+            algorithm_to_string(coset::iana::Algorithm::A256GCM),
+            "A256GCM"
+        );
+    }
+
+    #[test]
+    fn test_algorithm_to_string_unknown() {
+        let s = algorithm_to_string(coset::iana::Algorithm::ES384);
+        assert_eq!(s, "ES384");
+    }
+
+    #[test]
+    fn test_algorithm_from_string_known() {
+        assert_eq!(
+            algorithm_from_string("EdDSA").unwrap(),
+            coset::iana::Algorithm::EdDSA
+        );
+        assert_eq!(
+            algorithm_from_string("ES256").unwrap(),
+            coset::iana::Algorithm::ES256
+        );
+        assert_eq!(
+            algorithm_from_string("A256GCM").unwrap(),
+            coset::iana::Algorithm::A256GCM
+        );
+    }
+
+    #[test]
+    fn test_algorithm_from_string_roundtrip() {
+        let algs = [
+            coset::iana::Algorithm::EdDSA,
+            coset::iana::Algorithm::ES256,
+            coset::iana::Algorithm::ES384,
+            coset::iana::Algorithm::ES512,
+            coset::iana::Algorithm::A128GCM,
+            coset::iana::Algorithm::A192GCM,
+            coset::iana::Algorithm::A256GCM,
+        ];
+        for alg in algs {
+            let s = algorithm_to_string(alg);
+            let parsed = algorithm_from_string(&s).unwrap();
+            assert_eq!(parsed, alg, "roundtrip failed for {}", s);
+        }
+    }
+
+    #[test]
+    fn test_algorithm_from_string_invalid() {
+        assert!(algorithm_from_string("INVALID").is_err());
+        assert!(algorithm_from_string("COSE_ALG_abc").is_err());
     }
 
     #[cfg(feature = "software-crypto")]
