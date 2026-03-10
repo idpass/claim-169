@@ -7,7 +7,7 @@ Complete API documentation for the claim169 TypeScript SDK, auto-generated from 
 
 # Class: Decoder
 
-Defined in: [src/index.ts:523](https://github.com/jeremi/claim-169/blob/dd0d92962d1f8c89290080bdf695d1304de8a76f/sdks/typescript/src/index.ts#L523)
+Defined in: [src/index.ts:523](https://github.com/idpass/claim-169/blob/6ef76abee1f6003b7ded54fe70a14df5a86d2ae7/sdks/typescript/src/index.ts#L523)
 
 Builder-pattern decoder for Claim 169 QR codes.
 
@@ -48,7 +48,7 @@ const result = new Decoder(qrText)
 new Decoder(qrText): Decoder;
 ```
 
-Defined in: [src/index.ts:532](https://github.com/jeremi/claim-169/blob/dd0d92962d1f8c89290080bdf695d1304de8a76f/sdks/typescript/src/index.ts#L532)
+Defined in: [src/index.ts:532](https://github.com/idpass/claim-169/blob/6ef76abee1f6003b7ded54fe70a14df5a86d2ae7/sdks/typescript/src/index.ts#L532)
 
 Create a new Decoder instance.
 
@@ -72,7 +72,7 @@ The QR code text content (Base45 encoded)
 allowUnverified(): Decoder;
 ```
 
-Defined in: [src/index.ts:596](https://github.com/jeremi/claim-169/blob/dd0d92962d1f8c89290080bdf695d1304de8a76f/sdks/typescript/src/index.ts#L596)
+Defined in: [src/index.ts:596](https://github.com/idpass/claim-169/blob/6ef76abee1f6003b7ded54fe70a14df5a86d2ae7/sdks/typescript/src/index.ts#L596)
 
 Allow decoding without signature verification.
 WARNING: Credentials decoded with verification skipped (`verificationStatus === "skipped"`)
@@ -96,7 +96,7 @@ The decoder instance for chaining
 clockSkewTolerance(seconds): Decoder;
 ```
 
-Defined in: [src/index.ts:664](https://github.com/jeremi/claim-169/blob/dd0d92962d1f8c89290080bdf695d1304de8a76f/sdks/typescript/src/index.ts#L664)
+Defined in: [src/index.ts:664](https://github.com/idpass/claim-169/blob/6ef76abee1f6003b7ded54fe70a14df5a86d2ae7/sdks/typescript/src/index.ts#L664)
 
 Set clock skew tolerance in seconds.
 Allows credentials to be accepted when clocks are slightly out of sync.
@@ -128,7 +128,7 @@ The decoder instance for chaining
 decode(): DecodeResult;
 ```
 
-Defined in: [src/index.ts:735](https://github.com/jeremi/claim-169/blob/dd0d92962d1f8c89290080bdf695d1304de8a76f/sdks/typescript/src/index.ts#L735)
+Defined in: [src/index.ts:735](https://github.com/idpass/claim-169/blob/6ef76abee1f6003b7ded54fe70a14df5a86d2ae7/sdks/typescript/src/index.ts#L735)
 
 Decode the QR code with the configured options.
 Requires either a verifier (verifyWithEd25519/verifyWithEcdsaP256) or
@@ -156,7 +156,7 @@ If decoding fails or no verification method specified
 decryptWith(decryptor): Decoder;
 ```
 
-Defined in: [src/index.ts:721](https://github.com/jeremi/claim-169/blob/dd0d92962d1f8c89290080bdf695d1304de8a76f/sdks/typescript/src/index.ts#L721)
+Defined in: [src/index.ts:721](https://github.com/idpass/claim-169/blob/6ef76abee1f6003b7ded54fe70a14df5a86d2ae7/sdks/typescript/src/index.ts#L721)
 
 Decrypt with a custom decryptor callback.
 Use for external crypto providers (HSM, cloud KMS, etc.)
@@ -198,7 +198,7 @@ const result = new Decoder(qrText)
 decryptWithAes128(key): Decoder;
 ```
 
-Defined in: [src/index.ts:620](https://github.com/jeremi/claim-169/blob/dd0d92962d1f8c89290080bdf695d1304de8a76f/sdks/typescript/src/index.ts#L620)
+Defined in: [src/index.ts:620](https://github.com/idpass/claim-169/blob/6ef76abee1f6003b7ded54fe70a14df5a86d2ae7/sdks/typescript/src/index.ts#L620)
 
 Decrypt with AES-128-GCM.
 
@@ -232,7 +232,7 @@ If the key is invalid
 decryptWithAes256(key): Decoder;
 ```
 
-Defined in: [src/index.ts:607](https://github.com/jeremi/claim-169/blob/dd0d92962d1f8c89290080bdf695d1304de8a76f/sdks/typescript/src/index.ts#L607)
+Defined in: [src/index.ts:607](https://github.com/idpass/claim-169/blob/6ef76abee1f6003b7ded54fe70a14df5a86d2ae7/sdks/typescript/src/index.ts#L607)
 
 Decrypt with AES-256-GCM.
 
@@ -266,7 +266,7 @@ If the key is invalid
 maxDecompressedBytes(bytes): Decoder;
 ```
 
-Defined in: [src/index.ts:675](https://github.com/jeremi/claim-169/blob/dd0d92962d1f8c89290080bdf695d1304de8a76f/sdks/typescript/src/index.ts#L675)
+Defined in: [src/index.ts:675](https://github.com/idpass/claim-169/blob/6ef76abee1f6003b7ded54fe70a14df5a86d2ae7/sdks/typescript/src/index.ts#L675)
 
 Set maximum decompressed size in bytes.
 Protects against decompression bomb attacks.
@@ -297,7 +297,7 @@ The decoder instance for chaining
 skipBiometrics(): Decoder;
 ```
 
-Defined in: [src/index.ts:632](https://github.com/jeremi/claim-169/blob/dd0d92962d1f8c89290080bdf695d1304de8a76f/sdks/typescript/src/index.ts#L632)
+Defined in: [src/index.ts:632](https://github.com/idpass/claim-169/blob/6ef76abee1f6003b7ded54fe70a14df5a86d2ae7/sdks/typescript/src/index.ts#L632)
 
 Skip biometric data during decoding.
 Useful when only demographic data is needed for faster parsing.
@@ -320,7 +320,7 @@ The decoder instance for chaining
 verifyWith(verifier): Decoder;
 ```
 
-Defined in: [src/index.ts:697](https://github.com/jeremi/claim-169/blob/dd0d92962d1f8c89290080bdf695d1304de8a76f/sdks/typescript/src/index.ts#L697)
+Defined in: [src/index.ts:697](https://github.com/idpass/claim-169/blob/6ef76abee1f6003b7ded54fe70a14df5a86d2ae7/sdks/typescript/src/index.ts#L697)
 
 Verify signature with a custom verifier callback.
 Use for external crypto providers (HSM, cloud KMS, remote signing, etc.)
@@ -362,7 +362,7 @@ const result = new Decoder(qrText)
 verifyWithEcdsaP256(publicKey): Decoder;
 ```
 
-Defined in: [src/index.ts:555](https://github.com/jeremi/claim-169/blob/dd0d92962d1f8c89290080bdf695d1304de8a76f/sdks/typescript/src/index.ts#L555)
+Defined in: [src/index.ts:555](https://github.com/idpass/claim-169/blob/6ef76abee1f6003b7ded54fe70a14df5a86d2ae7/sdks/typescript/src/index.ts#L555)
 
 Verify signature with ECDSA P-256 public key.
 
@@ -396,7 +396,7 @@ If the public key is invalid
 verifyWithEcdsaP256Pem(pem): Decoder;
 ```
 
-Defined in: [src/index.ts:583](https://github.com/jeremi/claim-169/blob/dd0d92962d1f8c89290080bdf695d1304de8a76f/sdks/typescript/src/index.ts#L583)
+Defined in: [src/index.ts:583](https://github.com/idpass/claim-169/blob/6ef76abee1f6003b7ded54fe70a14df5a86d2ae7/sdks/typescript/src/index.ts#L583)
 
 Verify signature with ECDSA P-256 public key in PEM format.
 Supports SPKI format with "BEGIN PUBLIC KEY" headers.
@@ -431,7 +431,7 @@ If the PEM is invalid
 verifyWithEd25519(publicKey): Decoder;
 ```
 
-Defined in: [src/index.ts:542](https://github.com/jeremi/claim-169/blob/dd0d92962d1f8c89290080bdf695d1304de8a76f/sdks/typescript/src/index.ts#L542)
+Defined in: [src/index.ts:542](https://github.com/idpass/claim-169/blob/6ef76abee1f6003b7ded54fe70a14df5a86d2ae7/sdks/typescript/src/index.ts#L542)
 
 Verify signature with Ed25519 public key.
 
@@ -465,7 +465,7 @@ If the public key is invalid
 verifyWithEd25519Pem(pem): Decoder;
 ```
 
-Defined in: [src/index.ts:569](https://github.com/jeremi/claim-169/blob/dd0d92962d1f8c89290080bdf695d1304de8a76f/sdks/typescript/src/index.ts#L569)
+Defined in: [src/index.ts:569](https://github.com/idpass/claim-169/blob/6ef76abee1f6003b7ded54fe70a14df5a86d2ae7/sdks/typescript/src/index.ts#L569)
 
 Verify signature with Ed25519 public key in PEM format.
 Supports SPKI format with "BEGIN PUBLIC KEY" headers.
@@ -500,7 +500,7 @@ If the PEM is invalid
 withoutTimestampValidation(): Decoder;
 ```
 
-Defined in: [src/index.ts:652](https://github.com/jeremi/claim-169/blob/dd0d92962d1f8c89290080bdf695d1304de8a76f/sdks/typescript/src/index.ts#L652)
+Defined in: [src/index.ts:652](https://github.com/idpass/claim-169/blob/6ef76abee1f6003b7ded54fe70a14df5a86d2ae7/sdks/typescript/src/index.ts#L652)
 
 Disable timestamp validation.
 
@@ -522,7 +522,7 @@ The decoder instance for chaining
 withTimestampValidation(): Decoder;
 ```
 
-Defined in: [src/index.ts:643](https://github.com/jeremi/claim-169/blob/dd0d92962d1f8c89290080bdf695d1304de8a76f/sdks/typescript/src/index.ts#L643)
+Defined in: [src/index.ts:643](https://github.com/idpass/claim-169/blob/6ef76abee1f6003b7ded54fe70a14df5a86d2ae7/sdks/typescript/src/index.ts#L643)
 
 Re-enable timestamp validation (enabled by default).
 When enabled, expired or not-yet-valid credentials will throw an error.
@@ -542,7 +542,7 @@ The decoder instance for chaining
 
 # Class: Encoder
 
-Defined in: [src/index.ts:850](https://github.com/jeremi/claim-169/blob/dd0d92962d1f8c89290080bdf695d1304de8a76f/sdks/typescript/src/index.ts#L850)
+Defined in: [src/index.ts:850](https://github.com/idpass/claim-169/blob/6ef76abee1f6003b7ded54fe70a14df5a86d2ae7/sdks/typescript/src/index.ts#L850)
 
 Builder-pattern encoder for Claim 169 QR codes.
 
@@ -580,7 +580,7 @@ const qrData = new Encoder(claim169, cwtMeta)
 new Encoder(claim169, cwtMeta): Encoder;
 ```
 
-Defined in: [src/index.ts:858](https://github.com/jeremi/claim-169/blob/dd0d92962d1f8c89290080bdf695d1304de8a76f/sdks/typescript/src/index.ts#L858)
+Defined in: [src/index.ts:858](https://github.com/idpass/claim-169/blob/6ef76abee1f6003b7ded54fe70a14df5a86d2ae7/sdks/typescript/src/index.ts#L858)
 
 Create a new Encoder instance.
 
@@ -610,7 +610,7 @@ CWT metadata including issuer, expiration, etc.
 allowUnsigned(): Encoder;
 ```
 
-Defined in: [src/index.ts:917](https://github.com/jeremi/claim-169/blob/dd0d92962d1f8c89290080bdf695d1304de8a76f/sdks/typescript/src/index.ts#L917)
+Defined in: [src/index.ts:917](https://github.com/idpass/claim-169/blob/6ef76abee1f6003b7ded54fe70a14df5a86d2ae7/sdks/typescript/src/index.ts#L917)
 
 Allow encoding without a signature.
 WARNING: Unsigned credentials cannot be verified. Use for testing only.
@@ -633,7 +633,7 @@ The encoder instance for chaining
 compression(mode): Encoder;
 ```
 
-Defined in: [src/index.ts:999](https://github.com/jeremi/claim-169/blob/dd0d92962d1f8c89290080bdf695d1304de8a76f/sdks/typescript/src/index.ts#L999)
+Defined in: [src/index.ts:999](https://github.com/idpass/claim-169/blob/6ef76abee1f6003b7ded54fe70a14df5a86d2ae7/sdks/typescript/src/index.ts#L999)
 
 Set compression mode for encoding.
 
@@ -667,7 +667,7 @@ If the mode is invalid or unsupported by the WASM build
 encode(): EncodeResult;
 ```
 
-Defined in: [src/index.ts:1011](https://github.com/jeremi/claim-169/blob/dd0d92962d1f8c89290080bdf695d1304de8a76f/sdks/typescript/src/index.ts#L1011)
+Defined in: [src/index.ts:1011](https://github.com/idpass/claim-169/blob/6ef76abee1f6003b7ded54fe70a14df5a86d2ae7/sdks/typescript/src/index.ts#L1011)
 
 Encode the credential to a QR-ready result object.
 
@@ -693,7 +693,7 @@ If encoding fails
 encryptWith(encryptor, algorithm): Encoder;
 ```
 
-Defined in: [src/index.ts:983](https://github.com/jeremi/claim-169/blob/dd0d92962d1f8c89290080bdf695d1304de8a76f/sdks/typescript/src/index.ts#L983)
+Defined in: [src/index.ts:983](https://github.com/idpass/claim-169/blob/6ef76abee1f6003b7ded54fe70a14df5a86d2ae7/sdks/typescript/src/index.ts#L983)
 
 Encrypt with a custom encryptor callback.
 Use for external crypto providers (HSM, cloud KMS, etc.)
@@ -741,7 +741,7 @@ const qrData = new Encoder(claim169, cwtMeta)
 encryptWithAes128(key): Encoder;
 ```
 
-Defined in: [src/index.ts:905](https://github.com/jeremi/claim-169/blob/dd0d92962d1f8c89290080bdf695d1304de8a76f/sdks/typescript/src/index.ts#L905)
+Defined in: [src/index.ts:905](https://github.com/idpass/claim-169/blob/6ef76abee1f6003b7ded54fe70a14df5a86d2ae7/sdks/typescript/src/index.ts#L905)
 
 Encrypt with AES-128-GCM.
 
@@ -771,7 +771,7 @@ The encoder instance for chaining
 encryptWithAes256(key): Encoder;
 ```
 
-Defined in: [src/index.ts:893](https://github.com/jeremi/claim-169/blob/dd0d92962d1f8c89290080bdf695d1304de8a76f/sdks/typescript/src/index.ts#L893)
+Defined in: [src/index.ts:893](https://github.com/idpass/claim-169/blob/6ef76abee1f6003b7ded54fe70a14df5a86d2ae7/sdks/typescript/src/index.ts#L893)
 
 Encrypt with AES-256-GCM.
 
@@ -804,7 +804,7 @@ signWith(
    keyId?): Encoder;
 ```
 
-Defined in: [src/index.ts:949](https://github.com/jeremi/claim-169/blob/dd0d92962d1f8c89290080bdf695d1304de8a76f/sdks/typescript/src/index.ts#L949)
+Defined in: [src/index.ts:949](https://github.com/idpass/claim-169/blob/6ef76abee1f6003b7ded54fe70a14df5a86d2ae7/sdks/typescript/src/index.ts#L949)
 
 Sign with a custom signer callback.
 Use for external crypto providers (HSM, cloud KMS, remote signing, etc.)
@@ -857,7 +857,7 @@ const qrData = new Encoder(claim169, cwtMeta)
 signWithEcdsaP256(privateKey): Encoder;
 ```
 
-Defined in: [src/index.ts:881](https://github.com/jeremi/claim-169/blob/dd0d92962d1f8c89290080bdf695d1304de8a76f/sdks/typescript/src/index.ts#L881)
+Defined in: [src/index.ts:881](https://github.com/idpass/claim-169/blob/6ef76abee1f6003b7ded54fe70a14df5a86d2ae7/sdks/typescript/src/index.ts#L881)
 
 Sign with ECDSA P-256 private key.
 
@@ -887,7 +887,7 @@ The encoder instance for chaining
 signWithEd25519(privateKey): Encoder;
 ```
 
-Defined in: [src/index.ts:869](https://github.com/jeremi/claim-169/blob/dd0d92962d1f8c89290080bdf695d1304de8a76f/sdks/typescript/src/index.ts#L869)
+Defined in: [src/index.ts:869](https://github.com/idpass/claim-169/blob/6ef76abee1f6003b7ded54fe70a14df5a86d2ae7/sdks/typescript/src/index.ts#L869)
 
 Sign with Ed25519 private key.
 
@@ -917,7 +917,7 @@ The encoder instance for chaining
 skipBiometrics(): Encoder;
 ```
 
-Defined in: [src/index.ts:926](https://github.com/jeremi/claim-169/blob/dd0d92962d1f8c89290080bdf695d1304de8a76f/sdks/typescript/src/index.ts#L926)
+Defined in: [src/index.ts:926](https://github.com/idpass/claim-169/blob/6ef76abee1f6003b7ded54fe70a14df5a86d2ae7/sdks/typescript/src/index.ts#L926)
 
 Skip biometric fields during encoding.
 
@@ -939,7 +939,7 @@ The encoder instance for chaining
 function bytesToHex(bytes): string;
 ```
 
-Defined in: [src/index.ts:208](https://github.com/jeremi/claim-169/blob/dd0d92962d1f8c89290080bdf695d1304de8a76f/sdks/typescript/src/index.ts#L208)
+Defined in: [src/index.ts:208](https://github.com/idpass/claim-169/blob/6ef76abee1f6003b7ded54fe70a14df5a86d2ae7/sdks/typescript/src/index.ts#L208)
 
 Convert bytes to a lowercase hex string.
 
@@ -961,7 +961,7 @@ Convert bytes to a lowercase hex string.
 function decode(qrText, options): DecodeResult;
 ```
 
-Defined in: [src/index.ts:782](https://github.com/jeremi/claim-169/blob/dd0d92962d1f8c89290080bdf695d1304de8a76f/sdks/typescript/src/index.ts#L782)
+Defined in: [src/index.ts:782](https://github.com/idpass/claim-169/blob/6ef76abee1f6003b7ded54fe70a14df5a86d2ae7/sdks/typescript/src/index.ts#L782)
 
 Decode a Claim 169 QR string.
 
@@ -991,7 +991,7 @@ Security:
 function generateNonce(): Uint8Array;
 ```
 
-Defined in: [src/index.ts:1031](https://github.com/jeremi/claim-169/blob/dd0d92962d1f8c89290080bdf695d1304de8a76f/sdks/typescript/src/index.ts#L1031)
+Defined in: [src/index.ts:1031](https://github.com/idpass/claim-169/blob/6ef76abee1f6003b7ded54fe70a14df5a86d2ae7/sdks/typescript/src/index.ts#L1031)
 
 Generate a random 12-byte nonce for AES-GCM encryption.
 
@@ -1009,7 +1009,7 @@ A 12-byte Uint8Array suitable for use as a nonce
 function hexToBytes(hex): Uint8Array;
 ```
 
-Defined in: [src/index.ts:182](https://github.com/jeremi/claim-169/blob/dd0d92962d1f8c89290080bdf695d1304de8a76f/sdks/typescript/src/index.ts#L182)
+Defined in: [src/index.ts:182](https://github.com/idpass/claim-169/blob/6ef76abee1f6003b7ded54fe70a14df5a86d2ae7/sdks/typescript/src/index.ts#L182)
 
 Convert a hex string to bytes.
 
@@ -1037,7 +1037,7 @@ If the input is not valid hex
 function inspect(qrText): InspectResult;
 ```
 
-Defined in: [src/index.ts:1085](https://github.com/jeremi/claim-169/blob/dd0d92962d1f8c89290080bdf695d1304de8a76f/sdks/typescript/src/index.ts#L1085)
+Defined in: [src/index.ts:1085](https://github.com/idpass/claim-169/blob/6ef76abee1f6003b7ded54fe70a14df5a86d2ae7/sdks/typescript/src/index.ts#L1085)
 
 Inspect credential metadata without full decoding or verification.
 
@@ -1084,7 +1084,7 @@ console.log(meta.coseType);   // "Sign1"
 function isLoaded(): boolean;
 ```
 
-Defined in: [src/index.ts:171](https://github.com/jeremi/claim-169/blob/dd0d92962d1f8c89290080bdf695d1304de8a76f/sdks/typescript/src/index.ts#L171)
+Defined in: [src/index.ts:171](https://github.com/idpass/claim-169/blob/6ef76abee1f6003b7ded54fe70a14df5a86d2ae7/sdks/typescript/src/index.ts#L171)
 
 Check if the WASM module is loaded correctly
 
@@ -1100,7 +1100,7 @@ Check if the WASM module is loaded correctly
 function version(): string;
 ```
 
-Defined in: [src/index.ts:164](https://github.com/jeremi/claim-169/blob/dd0d92962d1f8c89290080bdf695d1304de8a76f/sdks/typescript/src/index.ts#L164)
+Defined in: [src/index.ts:164](https://github.com/idpass/claim-169/blob/6ef76abee1f6003b7ded54fe70a14df5a86d2ae7/sdks/typescript/src/index.ts#L164)
 
 Get the library version
 
@@ -1112,7 +1112,7 @@ Get the library version
 
 # Interface: DecodeOptions
 
-Defined in: [src/index.ts:763](https://github.com/jeremi/claim-169/blob/dd0d92962d1f8c89290080bdf695d1304de8a76f/sdks/typescript/src/index.ts#L763)
+Defined in: [src/index.ts:763](https://github.com/idpass/claim-169/blob/6ef76abee1f6003b7ded54fe70a14df5a86d2ae7/sdks/typescript/src/index.ts#L763)
 
 Options for the `decode()` convenience function.
 
@@ -1130,7 +1130,7 @@ Notes:
 optional allowUnverified: boolean;
 ```
 
-Defined in: [src/index.ts:768](https://github.com/jeremi/claim-169/blob/dd0d92962d1f8c89290080bdf695d1304de8a76f/sdks/typescript/src/index.ts#L768)
+Defined in: [src/index.ts:768](https://github.com/idpass/claim-169/blob/6ef76abee1f6003b7ded54fe70a14df5a86d2ae7/sdks/typescript/src/index.ts#L768)
 
 ***
 
@@ -1140,7 +1140,7 @@ Defined in: [src/index.ts:768](https://github.com/jeremi/claim-169/blob/dd0d9296
 optional clockSkewToleranceSeconds: number;
 ```
 
-Defined in: [src/index.ts:771](https://github.com/jeremi/claim-169/blob/dd0d92962d1f8c89290080bdf695d1304de8a76f/sdks/typescript/src/index.ts#L771)
+Defined in: [src/index.ts:771](https://github.com/idpass/claim-169/blob/6ef76abee1f6003b7ded54fe70a14df5a86d2ae7/sdks/typescript/src/index.ts#L771)
 
 ***
 
@@ -1150,7 +1150,7 @@ Defined in: [src/index.ts:771](https://github.com/jeremi/claim-169/blob/dd0d9296
 optional decryptWithAes128: Uint8Array<ArrayBufferLike>;
 ```
 
-Defined in: [src/index.ts:767](https://github.com/jeremi/claim-169/blob/dd0d92962d1f8c89290080bdf695d1304de8a76f/sdks/typescript/src/index.ts#L767)
+Defined in: [src/index.ts:767](https://github.com/idpass/claim-169/blob/6ef76abee1f6003b7ded54fe70a14df5a86d2ae7/sdks/typescript/src/index.ts#L767)
 
 ***
 
@@ -1160,7 +1160,7 @@ Defined in: [src/index.ts:767](https://github.com/jeremi/claim-169/blob/dd0d9296
 optional decryptWithAes256: Uint8Array<ArrayBufferLike>;
 ```
 
-Defined in: [src/index.ts:766](https://github.com/jeremi/claim-169/blob/dd0d92962d1f8c89290080bdf695d1304de8a76f/sdks/typescript/src/index.ts#L766)
+Defined in: [src/index.ts:766](https://github.com/idpass/claim-169/blob/6ef76abee1f6003b7ded54fe70a14df5a86d2ae7/sdks/typescript/src/index.ts#L766)
 
 ***
 
@@ -1170,7 +1170,7 @@ Defined in: [src/index.ts:766](https://github.com/jeremi/claim-169/blob/dd0d9296
 optional maxDecompressedBytes: number;
 ```
 
-Defined in: [src/index.ts:772](https://github.com/jeremi/claim-169/blob/dd0d92962d1f8c89290080bdf695d1304de8a76f/sdks/typescript/src/index.ts#L772)
+Defined in: [src/index.ts:772](https://github.com/idpass/claim-169/blob/6ef76abee1f6003b7ded54fe70a14df5a86d2ae7/sdks/typescript/src/index.ts#L772)
 
 ***
 
@@ -1180,7 +1180,7 @@ Defined in: [src/index.ts:772](https://github.com/jeremi/claim-169/blob/dd0d9296
 optional skipBiometrics: boolean;
 ```
 
-Defined in: [src/index.ts:769](https://github.com/jeremi/claim-169/blob/dd0d92962d1f8c89290080bdf695d1304de8a76f/sdks/typescript/src/index.ts#L769)
+Defined in: [src/index.ts:769](https://github.com/idpass/claim-169/blob/6ef76abee1f6003b7ded54fe70a14df5a86d2ae7/sdks/typescript/src/index.ts#L769)
 
 ***
 
@@ -1190,7 +1190,7 @@ Defined in: [src/index.ts:769](https://github.com/jeremi/claim-169/blob/dd0d9296
 optional validateTimestamps: boolean;
 ```
 
-Defined in: [src/index.ts:770](https://github.com/jeremi/claim-169/blob/dd0d92962d1f8c89290080bdf695d1304de8a76f/sdks/typescript/src/index.ts#L770)
+Defined in: [src/index.ts:770](https://github.com/idpass/claim-169/blob/6ef76abee1f6003b7ded54fe70a14df5a86d2ae7/sdks/typescript/src/index.ts#L770)
 
 ***
 
@@ -1200,7 +1200,7 @@ Defined in: [src/index.ts:770](https://github.com/jeremi/claim-169/blob/dd0d9296
 optional verifyWithEcdsaP256: Uint8Array<ArrayBufferLike>;
 ```
 
-Defined in: [src/index.ts:765](https://github.com/jeremi/claim-169/blob/dd0d92962d1f8c89290080bdf695d1304de8a76f/sdks/typescript/src/index.ts#L765)
+Defined in: [src/index.ts:765](https://github.com/idpass/claim-169/blob/6ef76abee1f6003b7ded54fe70a14df5a86d2ae7/sdks/typescript/src/index.ts#L765)
 
 ***
 
@@ -1210,7 +1210,7 @@ Defined in: [src/index.ts:765](https://github.com/jeremi/claim-169/blob/dd0d9296
 optional verifyWithEd25519: Uint8Array<ArrayBufferLike>;
 ```
 
-Defined in: [src/index.ts:764](https://github.com/jeremi/claim-169/blob/dd0d92962d1f8c89290080bdf695d1304de8a76f/sdks/typescript/src/index.ts#L764)
+Defined in: [src/index.ts:764](https://github.com/idpass/claim-169/blob/6ef76abee1f6003b7ded54fe70a14df5a86d2ae7/sdks/typescript/src/index.ts#L764)
 
 ---
 
@@ -1495,7 +1495,7 @@ Re-exports X509Headers
 
 # Class: Claim169Error
 
-Defined in: [src/types.ts:652](https://github.com/jeremi/claim-169/blob/dd0d92962d1f8c89290080bdf695d1304de8a76f/sdks/typescript/src/types.ts#L652)
+Defined in: [src/types.ts:652](https://github.com/idpass/claim-169/blob/6ef76abee1f6003b7ded54fe70a14df5a86d2ae7/sdks/typescript/src/types.ts#L652)
 
 ## Extends
 
@@ -1509,7 +1509,7 @@ Defined in: [src/types.ts:652](https://github.com/jeremi/claim-169/blob/dd0d9296
 new Claim169Error(message, code?): Claim169Error;
 ```
 
-Defined in: [src/types.ts:656](https://github.com/jeremi/claim-169/blob/dd0d92962d1f8c89290080bdf695d1304de8a76f/sdks/typescript/src/types.ts#L656)
+Defined in: [src/types.ts:656](https://github.com/idpass/claim-169/blob/6ef76abee1f6003b7ded54fe70a14df5a86d2ae7/sdks/typescript/src/types.ts#L656)
 
 #### Parameters
 
@@ -1539,7 +1539,7 @@ Error.constructor
 readonly code: Claim169ErrorCode;
 ```
 
-Defined in: [src/types.ts:654](https://github.com/jeremi/claim-169/blob/dd0d92962d1f8c89290080bdf695d1304de8a76f/sdks/typescript/src/types.ts#L654)
+Defined in: [src/types.ts:654](https://github.com/idpass/claim-169/blob/6ef76abee1f6003b7ded54fe70a14df5a86d2ae7/sdks/typescript/src/types.ts#L654)
 
 Programmatic error code for matching error types.
 
@@ -1595,7 +1595,7 @@ Error.stack
 
 # Interface: Biometric
 
-Defined in: [src/types.ts:26](https://github.com/jeremi/claim-169/blob/dd0d92962d1f8c89290080bdf695d1304de8a76f/sdks/typescript/src/types.ts#L26)
+Defined in: [src/types.ts:26](https://github.com/idpass/claim-169/blob/6ef76abee1f6003b7ded54fe70a14df5a86d2ae7/sdks/typescript/src/types.ts#L26)
 
 A single biometric data entry from a Claim 169 credential.
 
@@ -1621,7 +1621,7 @@ if (claim.face && claim.face.length > 0) {
 data: Uint8Array;
 ```
 
-Defined in: [src/types.ts:28](https://github.com/jeremi/claim-169/blob/dd0d92962d1f8c89290080bdf695d1304de8a76f/sdks/typescript/src/types.ts#L28)
+Defined in: [src/types.ts:28](https://github.com/idpass/claim-169/blob/6ef76abee1f6003b7ded54fe70a14df5a86d2ae7/sdks/typescript/src/types.ts#L28)
 
 Raw biometric data bytes (image, template, or audio)
 
@@ -1633,7 +1633,7 @@ Raw biometric data bytes (image, template, or audio)
 format: number;
 ```
 
-Defined in: [src/types.ts:36](https://github.com/jeremi/claim-169/blob/dd0d92962d1f8c89290080bdf695d1304de8a76f/sdks/typescript/src/types.ts#L36)
+Defined in: [src/types.ts:36](https://github.com/idpass/claim-169/blob/6ef76abee1f6003b7ded54fe70a14df5a86d2ae7/sdks/typescript/src/types.ts#L36)
 
 Biometric format code:
 - 0: Image
@@ -1649,7 +1649,7 @@ Biometric format code:
 optional issuer: string;
 ```
 
-Defined in: [src/types.ts:45](https://github.com/jeremi/claim-169/blob/dd0d92962d1f8c89290080bdf695d1304de8a76f/sdks/typescript/src/types.ts#L45)
+Defined in: [src/types.ts:45](https://github.com/idpass/claim-169/blob/6ef76abee1f6003b7ded54fe70a14df5a86d2ae7/sdks/typescript/src/types.ts#L45)
 
 Biometric data issuer/provider identifier
 
@@ -1661,7 +1661,7 @@ Biometric data issuer/provider identifier
 optional subFormat: number;
 ```
 
-Defined in: [src/types.ts:43](https://github.com/jeremi/claim-169/blob/dd0d92962d1f8c89290080bdf695d1304de8a76f/sdks/typescript/src/types.ts#L43)
+Defined in: [src/types.ts:43](https://github.com/idpass/claim-169/blob/6ef76abee1f6003b7ded54fe70a14df5a86d2ae7/sdks/typescript/src/types.ts#L43)
 
 Sub-format code (depends on format type):
 - For Image: 0=PNG, 1=JPEG, 2=JPEG2000, 3=AVIF, 4=WebP, 5=TIFF, 6=WSQ
@@ -1672,7 +1672,7 @@ Sub-format code (depends on format type):
 
 # Interface: CertificateHash
 
-Defined in: [src/types.ts:87](https://github.com/jeremi/claim-169/blob/dd0d92962d1f8c89290080bdf695d1304de8a76f/sdks/typescript/src/types.ts#L87)
+Defined in: [src/types.ts:87](https://github.com/idpass/claim-169/blob/6ef76abee1f6003b7ded54fe70a14df5a86d2ae7/sdks/typescript/src/types.ts#L87)
 
 X.509 certificate hash (COSE_CertHash).
 
@@ -1687,7 +1687,7 @@ Used in the x5t (thumbprint) header parameter.
 algorithm: string;
 ```
 
-Defined in: [src/types.ts:92](https://github.com/jeremi/claim-169/blob/dd0d92962d1f8c89290080bdf695d1304de8a76f/sdks/typescript/src/types.ts#L92)
+Defined in: [src/types.ts:92](https://github.com/idpass/claim-169/blob/6ef76abee1f6003b7ded54fe70a14df5a86d2ae7/sdks/typescript/src/types.ts#L92)
 
 Hash algorithm identifier.
 Can be a numeric COSE algorithm ID (e.g., "-16" for SHA-256) or a named algorithm.
@@ -1700,7 +1700,7 @@ Can be a numeric COSE algorithm ID (e.g., "-16" for SHA-256) or a named algorith
 hashValue: Uint8Array;
 ```
 
-Defined in: [src/types.ts:94](https://github.com/jeremi/claim-169/blob/dd0d92962d1f8c89290080bdf695d1304de8a76f/sdks/typescript/src/types.ts#L94)
+Defined in: [src/types.ts:94](https://github.com/idpass/claim-169/blob/6ef76abee1f6003b7ded54fe70a14df5a86d2ae7/sdks/typescript/src/types.ts#L94)
 
 Hash value bytes
 
@@ -1708,7 +1708,7 @@ Hash value bytes
 
 # Interface: Claim169
 
-Defined in: [src/types.ts:166](https://github.com/jeremi/claim-169/blob/dd0d92962d1f8c89290080bdf695d1304de8a76f/sdks/typescript/src/types.ts#L166)
+Defined in: [src/types.ts:166](https://github.com/idpass/claim-169/blob/6ef76abee1f6003b7ded54fe70a14df5a86d2ae7/sdks/typescript/src/types.ts#L166)
 
 Decoded Claim 169 identity data.
 
@@ -1740,7 +1740,7 @@ const hasFingerprints = claim.rightThumb || claim.leftThumb;
 optional address: string;
 ```
 
-Defined in: [src/types.ts:186](https://github.com/jeremi/claim-169/blob/dd0d92962d1f8c89290080bdf695d1304de8a76f/sdks/typescript/src/types.ts#L186)
+Defined in: [src/types.ts:186](https://github.com/idpass/claim-169/blob/6ef76abee1f6003b7ded54fe70a14df5a86d2ae7/sdks/typescript/src/types.ts#L186)
 
 Address
 
@@ -1752,7 +1752,7 @@ Address
 optional bestQualityFingers: Uint8Array<ArrayBufferLike>;
 ```
 
-Defined in: [src/types.ts:202](https://github.com/jeremi/claim-169/blob/dd0d92962d1f8c89290080bdf695d1304de8a76f/sdks/typescript/src/types.ts#L202)
+Defined in: [src/types.ts:202](https://github.com/idpass/claim-169/blob/6ef76abee1f6003b7ded54fe70a14df5a86d2ae7/sdks/typescript/src/types.ts#L202)
 
 Best quality fingers indicator
 
@@ -1764,7 +1764,7 @@ Best quality fingers indicator
 optional countryOfIssuance: string;
 ```
 
-Defined in: [src/types.ts:212](https://github.com/jeremi/claim-169/blob/dd0d92962d1f8c89290080bdf695d1304de8a76f/sdks/typescript/src/types.ts#L212)
+Defined in: [src/types.ts:212](https://github.com/idpass/claim-169/blob/6ef76abee1f6003b7ded54fe70a14df5a86d2ae7/sdks/typescript/src/types.ts#L212)
 
 Country of issuance
 
@@ -1776,7 +1776,7 @@ Country of issuance
 optional dateOfBirth: string;
 ```
 
-Defined in: [src/types.ts:182](https://github.com/jeremi/claim-169/blob/dd0d92962d1f8c89290080bdf695d1304de8a76f/sdks/typescript/src/types.ts#L182)
+Defined in: [src/types.ts:182](https://github.com/idpass/claim-169/blob/6ef76abee1f6003b7ded54fe70a14df5a86d2ae7/sdks/typescript/src/types.ts#L182)
 
 Date of birth (ISO 8601 format)
 
@@ -1788,7 +1788,7 @@ Date of birth (ISO 8601 format)
 optional email: string;
 ```
 
-Defined in: [src/types.ts:188](https://github.com/jeremi/claim-169/blob/dd0d92962d1f8c89290080bdf695d1304de8a76f/sdks/typescript/src/types.ts#L188)
+Defined in: [src/types.ts:188](https://github.com/idpass/claim-169/blob/6ef76abee1f6003b7ded54fe70a14df5a86d2ae7/sdks/typescript/src/types.ts#L188)
 
 Email address
 
@@ -1800,7 +1800,7 @@ Email address
 optional face: Biometric[];
 ```
 
-Defined in: [src/types.ts:239](https://github.com/jeremi/claim-169/blob/dd0d92962d1f8c89290080bdf695d1304de8a76f/sdks/typescript/src/types.ts#L239)
+Defined in: [src/types.ts:239](https://github.com/idpass/claim-169/blob/6ef76abee1f6003b7ded54fe70a14df5a86d2ae7/sdks/typescript/src/types.ts#L239)
 
 Face biometrics
 
@@ -1812,7 +1812,7 @@ Face biometrics
 optional firstName: string;
 ```
 
-Defined in: [src/types.ts:176](https://github.com/jeremi/claim-169/blob/dd0d92962d1f8c89290080bdf695d1304de8a76f/sdks/typescript/src/types.ts#L176)
+Defined in: [src/types.ts:176](https://github.com/idpass/claim-169/blob/6ef76abee1f6003b7ded54fe70a14df5a86d2ae7/sdks/typescript/src/types.ts#L176)
 
 First name
 
@@ -1824,7 +1824,7 @@ First name
 optional fullName: string;
 ```
 
-Defined in: [src/types.ts:174](https://github.com/jeremi/claim-169/blob/dd0d92962d1f8c89290080bdf695d1304de8a76f/sdks/typescript/src/types.ts#L174)
+Defined in: [src/types.ts:174](https://github.com/idpass/claim-169/blob/6ef76abee1f6003b7ded54fe70a14df5a86d2ae7/sdks/typescript/src/types.ts#L174)
 
 Full name
 
@@ -1836,7 +1836,7 @@ Full name
 optional gender: number;
 ```
 
-Defined in: [src/types.ts:184](https://github.com/jeremi/claim-169/blob/dd0d92962d1f8c89290080bdf695d1304de8a76f/sdks/typescript/src/types.ts#L184)
+Defined in: [src/types.ts:184](https://github.com/idpass/claim-169/blob/6ef76abee1f6003b7ded54fe70a14df5a86d2ae7/sdks/typescript/src/types.ts#L184)
 
 Gender code (1=Male, 2=Female, 3=Other)
 
@@ -1848,7 +1848,7 @@ Gender code (1=Male, 2=Female, 3=Other)
 optional guardian: string;
 ```
 
-Defined in: [src/types.ts:196](https://github.com/jeremi/claim-169/blob/dd0d92962d1f8c89290080bdf695d1304de8a76f/sdks/typescript/src/types.ts#L196)
+Defined in: [src/types.ts:196](https://github.com/idpass/claim-169/blob/6ef76abee1f6003b7ded54fe70a14df5a86d2ae7/sdks/typescript/src/types.ts#L196)
 
 Guardian name
 
@@ -1860,7 +1860,7 @@ Guardian name
 optional id: string;
 ```
 
-Defined in: [src/types.ts:168](https://github.com/jeremi/claim-169/blob/dd0d92962d1f8c89290080bdf695d1304de8a76f/sdks/typescript/src/types.ts#L168)
+Defined in: [src/types.ts:168](https://github.com/idpass/claim-169/blob/6ef76abee1f6003b7ded54fe70a14df5a86d2ae7/sdks/typescript/src/types.ts#L168)
 
 Unique identifier (CBOR key 1)
 
@@ -1872,7 +1872,7 @@ Unique identifier (CBOR key 1)
 optional language: string;
 ```
 
-Defined in: [src/types.ts:172](https://github.com/jeremi/claim-169/blob/dd0d92962d1f8c89290080bdf695d1304de8a76f/sdks/typescript/src/types.ts#L172)
+Defined in: [src/types.ts:172](https://github.com/idpass/claim-169/blob/6ef76abee1f6003b7ded54fe70a14df5a86d2ae7/sdks/typescript/src/types.ts#L172)
 
 Primary language code
 
@@ -1884,7 +1884,7 @@ Primary language code
 optional lastName: string;
 ```
 
-Defined in: [src/types.ts:180](https://github.com/jeremi/claim-169/blob/dd0d92962d1f8c89290080bdf695d1304de8a76f/sdks/typescript/src/types.ts#L180)
+Defined in: [src/types.ts:180](https://github.com/idpass/claim-169/blob/6ef76abee1f6003b7ded54fe70a14df5a86d2ae7/sdks/typescript/src/types.ts#L180)
 
 Last name
 
@@ -1896,7 +1896,7 @@ Last name
 optional leftIris: Biometric[];
 ```
 
-Defined in: [src/types.ts:237](https://github.com/jeremi/claim-169/blob/dd0d92962d1f8c89290080bdf695d1304de8a76f/sdks/typescript/src/types.ts#L237)
+Defined in: [src/types.ts:237](https://github.com/idpass/claim-169/blob/6ef76abee1f6003b7ded54fe70a14df5a86d2ae7/sdks/typescript/src/types.ts#L237)
 
 Left iris biometrics
 
@@ -1908,7 +1908,7 @@ Left iris biometrics
 optional leftLittleFinger: Biometric[];
 ```
 
-Defined in: [src/types.ts:233](https://github.com/jeremi/claim-169/blob/dd0d92962d1f8c89290080bdf695d1304de8a76f/sdks/typescript/src/types.ts#L233)
+Defined in: [src/types.ts:233](https://github.com/idpass/claim-169/blob/6ef76abee1f6003b7ded54fe70a14df5a86d2ae7/sdks/typescript/src/types.ts#L233)
 
 Left little finger biometrics
 
@@ -1920,7 +1920,7 @@ Left little finger biometrics
 optional leftMiddleFinger: Biometric[];
 ```
 
-Defined in: [src/types.ts:229](https://github.com/jeremi/claim-169/blob/dd0d92962d1f8c89290080bdf695d1304de8a76f/sdks/typescript/src/types.ts#L229)
+Defined in: [src/types.ts:229](https://github.com/idpass/claim-169/blob/6ef76abee1f6003b7ded54fe70a14df5a86d2ae7/sdks/typescript/src/types.ts#L229)
 
 Left middle finger biometrics
 
@@ -1932,7 +1932,7 @@ Left middle finger biometrics
 optional leftPalm: Biometric[];
 ```
 
-Defined in: [src/types.ts:243](https://github.com/jeremi/claim-169/blob/dd0d92962d1f8c89290080bdf695d1304de8a76f/sdks/typescript/src/types.ts#L243)
+Defined in: [src/types.ts:243](https://github.com/idpass/claim-169/blob/6ef76abee1f6003b7ded54fe70a14df5a86d2ae7/sdks/typescript/src/types.ts#L243)
 
 Left palm biometrics
 
@@ -1944,7 +1944,7 @@ Left palm biometrics
 optional leftPointerFinger: Biometric[];
 ```
 
-Defined in: [src/types.ts:227](https://github.com/jeremi/claim-169/blob/dd0d92962d1f8c89290080bdf695d1304de8a76f/sdks/typescript/src/types.ts#L227)
+Defined in: [src/types.ts:227](https://github.com/idpass/claim-169/blob/6ef76abee1f6003b7ded54fe70a14df5a86d2ae7/sdks/typescript/src/types.ts#L227)
 
 Left pointer finger biometrics
 
@@ -1956,7 +1956,7 @@ Left pointer finger biometrics
 optional leftRingFinger: Biometric[];
 ```
 
-Defined in: [src/types.ts:231](https://github.com/jeremi/claim-169/blob/dd0d92962d1f8c89290080bdf695d1304de8a76f/sdks/typescript/src/types.ts#L231)
+Defined in: [src/types.ts:231](https://github.com/idpass/claim-169/blob/6ef76abee1f6003b7ded54fe70a14df5a86d2ae7/sdks/typescript/src/types.ts#L231)
 
 Left ring finger biometrics
 
@@ -1968,7 +1968,7 @@ Left ring finger biometrics
 optional leftThumb: Biometric[];
 ```
 
-Defined in: [src/types.ts:225](https://github.com/jeremi/claim-169/blob/dd0d92962d1f8c89290080bdf695d1304de8a76f/sdks/typescript/src/types.ts#L225)
+Defined in: [src/types.ts:225](https://github.com/idpass/claim-169/blob/6ef76abee1f6003b7ded54fe70a14df5a86d2ae7/sdks/typescript/src/types.ts#L225)
 
 Left thumb biometrics
 
@@ -1980,7 +1980,7 @@ Left thumb biometrics
 optional legalStatus: string;
 ```
 
-Defined in: [src/types.ts:210](https://github.com/jeremi/claim-169/blob/dd0d92962d1f8c89290080bdf695d1304de8a76f/sdks/typescript/src/types.ts#L210)
+Defined in: [src/types.ts:210](https://github.com/idpass/claim-169/blob/6ef76abee1f6003b7ded54fe70a14df5a86d2ae7/sdks/typescript/src/types.ts#L210)
 
 Legal status
 
@@ -1992,7 +1992,7 @@ Legal status
 optional locationCode: string;
 ```
 
-Defined in: [src/types.ts:208](https://github.com/jeremi/claim-169/blob/dd0d92962d1f8c89290080bdf695d1304de8a76f/sdks/typescript/src/types.ts#L208)
+Defined in: [src/types.ts:208](https://github.com/idpass/claim-169/blob/6ef76abee1f6003b7ded54fe70a14df5a86d2ae7/sdks/typescript/src/types.ts#L208)
 
 Location code
 
@@ -2004,7 +2004,7 @@ Location code
 optional maritalStatus: number;
 ```
 
-Defined in: [src/types.ts:194](https://github.com/jeremi/claim-169/blob/dd0d92962d1f8c89290080bdf695d1304de8a76f/sdks/typescript/src/types.ts#L194)
+Defined in: [src/types.ts:194](https://github.com/idpass/claim-169/blob/6ef76abee1f6003b7ded54fe70a14df5a86d2ae7/sdks/typescript/src/types.ts#L194)
 
 Marital status code
 
@@ -2016,7 +2016,7 @@ Marital status code
 optional middleName: string;
 ```
 
-Defined in: [src/types.ts:178](https://github.com/jeremi/claim-169/blob/dd0d92962d1f8c89290080bdf695d1304de8a76f/sdks/typescript/src/types.ts#L178)
+Defined in: [src/types.ts:178](https://github.com/idpass/claim-169/blob/6ef76abee1f6003b7ded54fe70a14df5a86d2ae7/sdks/typescript/src/types.ts#L178)
 
 Middle name
 
@@ -2028,7 +2028,7 @@ Middle name
 optional nationality: string;
 ```
 
-Defined in: [src/types.ts:192](https://github.com/jeremi/claim-169/blob/dd0d92962d1f8c89290080bdf695d1304de8a76f/sdks/typescript/src/types.ts#L192)
+Defined in: [src/types.ts:192](https://github.com/idpass/claim-169/blob/6ef76abee1f6003b7ded54fe70a14df5a86d2ae7/sdks/typescript/src/types.ts#L192)
 
 Nationality
 
@@ -2040,7 +2040,7 @@ Nationality
 optional phone: string;
 ```
 
-Defined in: [src/types.ts:190](https://github.com/jeremi/claim-169/blob/dd0d92962d1f8c89290080bdf695d1304de8a76f/sdks/typescript/src/types.ts#L190)
+Defined in: [src/types.ts:190](https://github.com/idpass/claim-169/blob/6ef76abee1f6003b7ded54fe70a14df5a86d2ae7/sdks/typescript/src/types.ts#L190)
 
 Phone number
 
@@ -2052,7 +2052,7 @@ Phone number
 optional photo: Uint8Array<ArrayBufferLike>;
 ```
 
-Defined in: [src/types.ts:198](https://github.com/jeremi/claim-169/blob/dd0d92962d1f8c89290080bdf695d1304de8a76f/sdks/typescript/src/types.ts#L198)
+Defined in: [src/types.ts:198](https://github.com/idpass/claim-169/blob/6ef76abee1f6003b7ded54fe70a14df5a86d2ae7/sdks/typescript/src/types.ts#L198)
 
 Photo data
 
@@ -2064,7 +2064,7 @@ Photo data
 optional photoFormat: number;
 ```
 
-Defined in: [src/types.ts:200](https://github.com/jeremi/claim-169/blob/dd0d92962d1f8c89290080bdf695d1304de8a76f/sdks/typescript/src/types.ts#L200)
+Defined in: [src/types.ts:200](https://github.com/idpass/claim-169/blob/6ef76abee1f6003b7ded54fe70a14df5a86d2ae7/sdks/typescript/src/types.ts#L200)
 
 Photo format code
 
@@ -2076,7 +2076,7 @@ Photo format code
 optional rightIris: Biometric[];
 ```
 
-Defined in: [src/types.ts:235](https://github.com/jeremi/claim-169/blob/dd0d92962d1f8c89290080bdf695d1304de8a76f/sdks/typescript/src/types.ts#L235)
+Defined in: [src/types.ts:235](https://github.com/idpass/claim-169/blob/6ef76abee1f6003b7ded54fe70a14df5a86d2ae7/sdks/typescript/src/types.ts#L235)
 
 Right iris biometrics
 
@@ -2088,7 +2088,7 @@ Right iris biometrics
 optional rightLittleFinger: Biometric[];
 ```
 
-Defined in: [src/types.ts:223](https://github.com/jeremi/claim-169/blob/dd0d92962d1f8c89290080bdf695d1304de8a76f/sdks/typescript/src/types.ts#L223)
+Defined in: [src/types.ts:223](https://github.com/idpass/claim-169/blob/6ef76abee1f6003b7ded54fe70a14df5a86d2ae7/sdks/typescript/src/types.ts#L223)
 
 Right little finger biometrics
 
@@ -2100,7 +2100,7 @@ Right little finger biometrics
 optional rightMiddleFinger: Biometric[];
 ```
 
-Defined in: [src/types.ts:219](https://github.com/jeremi/claim-169/blob/dd0d92962d1f8c89290080bdf695d1304de8a76f/sdks/typescript/src/types.ts#L219)
+Defined in: [src/types.ts:219](https://github.com/idpass/claim-169/blob/6ef76abee1f6003b7ded54fe70a14df5a86d2ae7/sdks/typescript/src/types.ts#L219)
 
 Right middle finger biometrics
 
@@ -2112,7 +2112,7 @@ Right middle finger biometrics
 optional rightPalm: Biometric[];
 ```
 
-Defined in: [src/types.ts:241](https://github.com/jeremi/claim-169/blob/dd0d92962d1f8c89290080bdf695d1304de8a76f/sdks/typescript/src/types.ts#L241)
+Defined in: [src/types.ts:241](https://github.com/idpass/claim-169/blob/6ef76abee1f6003b7ded54fe70a14df5a86d2ae7/sdks/typescript/src/types.ts#L241)
 
 Right palm biometrics
 
@@ -2124,7 +2124,7 @@ Right palm biometrics
 optional rightPointerFinger: Biometric[];
 ```
 
-Defined in: [src/types.ts:217](https://github.com/jeremi/claim-169/blob/dd0d92962d1f8c89290080bdf695d1304de8a76f/sdks/typescript/src/types.ts#L217)
+Defined in: [src/types.ts:217](https://github.com/idpass/claim-169/blob/6ef76abee1f6003b7ded54fe70a14df5a86d2ae7/sdks/typescript/src/types.ts#L217)
 
 Right pointer finger biometrics
 
@@ -2136,7 +2136,7 @@ Right pointer finger biometrics
 optional rightRingFinger: Biometric[];
 ```
 
-Defined in: [src/types.ts:221](https://github.com/jeremi/claim-169/blob/dd0d92962d1f8c89290080bdf695d1304de8a76f/sdks/typescript/src/types.ts#L221)
+Defined in: [src/types.ts:221](https://github.com/idpass/claim-169/blob/6ef76abee1f6003b7ded54fe70a14df5a86d2ae7/sdks/typescript/src/types.ts#L221)
 
 Right ring finger biometrics
 
@@ -2148,7 +2148,7 @@ Right ring finger biometrics
 optional rightThumb: Biometric[];
 ```
 
-Defined in: [src/types.ts:215](https://github.com/jeremi/claim-169/blob/dd0d92962d1f8c89290080bdf695d1304de8a76f/sdks/typescript/src/types.ts#L215)
+Defined in: [src/types.ts:215](https://github.com/idpass/claim-169/blob/6ef76abee1f6003b7ded54fe70a14df5a86d2ae7/sdks/typescript/src/types.ts#L215)
 
 Right thumb biometrics
 
@@ -2160,7 +2160,7 @@ Right thumb biometrics
 optional secondaryFullName: string;
 ```
 
-Defined in: [src/types.ts:204](https://github.com/jeremi/claim-169/blob/dd0d92962d1f8c89290080bdf695d1304de8a76f/sdks/typescript/src/types.ts#L204)
+Defined in: [src/types.ts:204](https://github.com/idpass/claim-169/blob/6ef76abee1f6003b7ded54fe70a14df5a86d2ae7/sdks/typescript/src/types.ts#L204)
 
 Secondary full name
 
@@ -2172,7 +2172,7 @@ Secondary full name
 optional secondaryLanguage: string;
 ```
 
-Defined in: [src/types.ts:206](https://github.com/jeremi/claim-169/blob/dd0d92962d1f8c89290080bdf695d1304de8a76f/sdks/typescript/src/types.ts#L206)
+Defined in: [src/types.ts:206](https://github.com/idpass/claim-169/blob/6ef76abee1f6003b7ded54fe70a14df5a86d2ae7/sdks/typescript/src/types.ts#L206)
 
 Secondary language code
 
@@ -2184,7 +2184,7 @@ Secondary language code
 optional version: string;
 ```
 
-Defined in: [src/types.ts:170](https://github.com/jeremi/claim-169/blob/dd0d92962d1f8c89290080bdf695d1304de8a76f/sdks/typescript/src/types.ts#L170)
+Defined in: [src/types.ts:170](https://github.com/idpass/claim-169/blob/6ef76abee1f6003b7ded54fe70a14df5a86d2ae7/sdks/typescript/src/types.ts#L170)
 
 Claim version
 
@@ -2196,7 +2196,7 @@ Claim version
 optional voice: Biometric[];
 ```
 
-Defined in: [src/types.ts:245](https://github.com/jeremi/claim-169/blob/dd0d92962d1f8c89290080bdf695d1304de8a76f/sdks/typescript/src/types.ts#L245)
+Defined in: [src/types.ts:245](https://github.com/idpass/claim-169/blob/6ef76abee1f6003b7ded54fe70a14df5a86d2ae7/sdks/typescript/src/types.ts#L245)
 
 Voice biometrics
 
@@ -2204,7 +2204,7 @@ Voice biometrics
 
 # Interface: Claim169Input
 
-Defined in: [src/types.ts:683](https://github.com/jeremi/claim-169/blob/dd0d92962d1f8c89290080bdf695d1304de8a76f/sdks/typescript/src/types.ts#L683)
+Defined in: [src/types.ts:683](https://github.com/idpass/claim-169/blob/6ef76abee1f6003b7ded54fe70a14df5a86d2ae7/sdks/typescript/src/types.ts#L683)
 
 Input data for creating a Claim 169 credential.
 
@@ -2230,7 +2230,7 @@ const claim169: Claim169Input = {
 optional address: string;
 ```
 
-Defined in: [src/types.ts:703](https://github.com/jeremi/claim-169/blob/dd0d92962d1f8c89290080bdf695d1304de8a76f/sdks/typescript/src/types.ts#L703)
+Defined in: [src/types.ts:703](https://github.com/idpass/claim-169/blob/6ef76abee1f6003b7ded54fe70a14df5a86d2ae7/sdks/typescript/src/types.ts#L703)
 
 Address
 
@@ -2242,7 +2242,7 @@ Address
 optional countryOfIssuance: string;
 ```
 
-Defined in: [src/types.ts:727](https://github.com/jeremi/claim-169/blob/dd0d92962d1f8c89290080bdf695d1304de8a76f/sdks/typescript/src/types.ts#L727)
+Defined in: [src/types.ts:727](https://github.com/idpass/claim-169/blob/6ef76abee1f6003b7ded54fe70a14df5a86d2ae7/sdks/typescript/src/types.ts#L727)
 
 Country of issuance
 
@@ -2254,7 +2254,7 @@ Country of issuance
 optional dateOfBirth: string;
 ```
 
-Defined in: [src/types.ts:699](https://github.com/jeremi/claim-169/blob/dd0d92962d1f8c89290080bdf695d1304de8a76f/sdks/typescript/src/types.ts#L699)
+Defined in: [src/types.ts:699](https://github.com/idpass/claim-169/blob/6ef76abee1f6003b7ded54fe70a14df5a86d2ae7/sdks/typescript/src/types.ts#L699)
 
 Date of birth (ISO 8601 format)
 
@@ -2266,7 +2266,7 @@ Date of birth (ISO 8601 format)
 optional email: string;
 ```
 
-Defined in: [src/types.ts:705](https://github.com/jeremi/claim-169/blob/dd0d92962d1f8c89290080bdf695d1304de8a76f/sdks/typescript/src/types.ts#L705)
+Defined in: [src/types.ts:705](https://github.com/idpass/claim-169/blob/6ef76abee1f6003b7ded54fe70a14df5a86d2ae7/sdks/typescript/src/types.ts#L705)
 
 Email address
 
@@ -2278,7 +2278,7 @@ Email address
 optional face: Biometric[];
 ```
 
-Defined in: [src/types.ts:754](https://github.com/jeremi/claim-169/blob/dd0d92962d1f8c89290080bdf695d1304de8a76f/sdks/typescript/src/types.ts#L754)
+Defined in: [src/types.ts:754](https://github.com/idpass/claim-169/blob/6ef76abee1f6003b7ded54fe70a14df5a86d2ae7/sdks/typescript/src/types.ts#L754)
 
 Face biometrics
 
@@ -2290,7 +2290,7 @@ Face biometrics
 optional firstName: string;
 ```
 
-Defined in: [src/types.ts:693](https://github.com/jeremi/claim-169/blob/dd0d92962d1f8c89290080bdf695d1304de8a76f/sdks/typescript/src/types.ts#L693)
+Defined in: [src/types.ts:693](https://github.com/idpass/claim-169/blob/6ef76abee1f6003b7ded54fe70a14df5a86d2ae7/sdks/typescript/src/types.ts#L693)
 
 First name
 
@@ -2302,7 +2302,7 @@ First name
 optional fullName: string;
 ```
 
-Defined in: [src/types.ts:691](https://github.com/jeremi/claim-169/blob/dd0d92962d1f8c89290080bdf695d1304de8a76f/sdks/typescript/src/types.ts#L691)
+Defined in: [src/types.ts:691](https://github.com/idpass/claim-169/blob/6ef76abee1f6003b7ded54fe70a14df5a86d2ae7/sdks/typescript/src/types.ts#L691)
 
 Full name
 
@@ -2314,7 +2314,7 @@ Full name
 optional gender: number;
 ```
 
-Defined in: [src/types.ts:701](https://github.com/jeremi/claim-169/blob/dd0d92962d1f8c89290080bdf695d1304de8a76f/sdks/typescript/src/types.ts#L701)
+Defined in: [src/types.ts:701](https://github.com/idpass/claim-169/blob/6ef76abee1f6003b7ded54fe70a14df5a86d2ae7/sdks/typescript/src/types.ts#L701)
 
 Gender code (1=Male, 2=Female, 3=Other)
 
@@ -2326,7 +2326,7 @@ Gender code (1=Male, 2=Female, 3=Other)
 optional guardian: string;
 ```
 
-Defined in: [src/types.ts:713](https://github.com/jeremi/claim-169/blob/dd0d92962d1f8c89290080bdf695d1304de8a76f/sdks/typescript/src/types.ts#L713)
+Defined in: [src/types.ts:713](https://github.com/idpass/claim-169/blob/6ef76abee1f6003b7ded54fe70a14df5a86d2ae7/sdks/typescript/src/types.ts#L713)
 
 Guardian name
 
@@ -2338,7 +2338,7 @@ Guardian name
 optional id: string;
 ```
 
-Defined in: [src/types.ts:685](https://github.com/jeremi/claim-169/blob/dd0d92962d1f8c89290080bdf695d1304de8a76f/sdks/typescript/src/types.ts#L685)
+Defined in: [src/types.ts:685](https://github.com/idpass/claim-169/blob/6ef76abee1f6003b7ded54fe70a14df5a86d2ae7/sdks/typescript/src/types.ts#L685)
 
 Unique identifier
 
@@ -2350,7 +2350,7 @@ Unique identifier
 optional language: string;
 ```
 
-Defined in: [src/types.ts:689](https://github.com/jeremi/claim-169/blob/dd0d92962d1f8c89290080bdf695d1304de8a76f/sdks/typescript/src/types.ts#L689)
+Defined in: [src/types.ts:689](https://github.com/idpass/claim-169/blob/6ef76abee1f6003b7ded54fe70a14df5a86d2ae7/sdks/typescript/src/types.ts#L689)
 
 Primary language code
 
@@ -2362,7 +2362,7 @@ Primary language code
 optional lastName: string;
 ```
 
-Defined in: [src/types.ts:697](https://github.com/jeremi/claim-169/blob/dd0d92962d1f8c89290080bdf695d1304de8a76f/sdks/typescript/src/types.ts#L697)
+Defined in: [src/types.ts:697](https://github.com/idpass/claim-169/blob/6ef76abee1f6003b7ded54fe70a14df5a86d2ae7/sdks/typescript/src/types.ts#L697)
 
 Last name
 
@@ -2374,7 +2374,7 @@ Last name
 optional leftIris: Biometric[];
 ```
 
-Defined in: [src/types.ts:752](https://github.com/jeremi/claim-169/blob/dd0d92962d1f8c89290080bdf695d1304de8a76f/sdks/typescript/src/types.ts#L752)
+Defined in: [src/types.ts:752](https://github.com/idpass/claim-169/blob/6ef76abee1f6003b7ded54fe70a14df5a86d2ae7/sdks/typescript/src/types.ts#L752)
 
 Left iris biometrics
 
@@ -2386,7 +2386,7 @@ Left iris biometrics
 optional leftLittleFinger: Biometric[];
 ```
 
-Defined in: [src/types.ts:748](https://github.com/jeremi/claim-169/blob/dd0d92962d1f8c89290080bdf695d1304de8a76f/sdks/typescript/src/types.ts#L748)
+Defined in: [src/types.ts:748](https://github.com/idpass/claim-169/blob/6ef76abee1f6003b7ded54fe70a14df5a86d2ae7/sdks/typescript/src/types.ts#L748)
 
 Left little finger biometrics
 
@@ -2398,7 +2398,7 @@ Left little finger biometrics
 optional leftMiddleFinger: Biometric[];
 ```
 
-Defined in: [src/types.ts:744](https://github.com/jeremi/claim-169/blob/dd0d92962d1f8c89290080bdf695d1304de8a76f/sdks/typescript/src/types.ts#L744)
+Defined in: [src/types.ts:744](https://github.com/idpass/claim-169/blob/6ef76abee1f6003b7ded54fe70a14df5a86d2ae7/sdks/typescript/src/types.ts#L744)
 
 Left middle finger biometrics
 
@@ -2410,7 +2410,7 @@ Left middle finger biometrics
 optional leftPalm: Biometric[];
 ```
 
-Defined in: [src/types.ts:758](https://github.com/jeremi/claim-169/blob/dd0d92962d1f8c89290080bdf695d1304de8a76f/sdks/typescript/src/types.ts#L758)
+Defined in: [src/types.ts:758](https://github.com/idpass/claim-169/blob/6ef76abee1f6003b7ded54fe70a14df5a86d2ae7/sdks/typescript/src/types.ts#L758)
 
 Left palm biometrics
 
@@ -2422,7 +2422,7 @@ Left palm biometrics
 optional leftPointerFinger: Biometric[];
 ```
 
-Defined in: [src/types.ts:742](https://github.com/jeremi/claim-169/blob/dd0d92962d1f8c89290080bdf695d1304de8a76f/sdks/typescript/src/types.ts#L742)
+Defined in: [src/types.ts:742](https://github.com/idpass/claim-169/blob/6ef76abee1f6003b7ded54fe70a14df5a86d2ae7/sdks/typescript/src/types.ts#L742)
 
 Left pointer finger biometrics
 
@@ -2434,7 +2434,7 @@ Left pointer finger biometrics
 optional leftRingFinger: Biometric[];
 ```
 
-Defined in: [src/types.ts:746](https://github.com/jeremi/claim-169/blob/dd0d92962d1f8c89290080bdf695d1304de8a76f/sdks/typescript/src/types.ts#L746)
+Defined in: [src/types.ts:746](https://github.com/idpass/claim-169/blob/6ef76abee1f6003b7ded54fe70a14df5a86d2ae7/sdks/typescript/src/types.ts#L746)
 
 Left ring finger biometrics
 
@@ -2446,7 +2446,7 @@ Left ring finger biometrics
 optional leftThumb: Biometric[];
 ```
 
-Defined in: [src/types.ts:740](https://github.com/jeremi/claim-169/blob/dd0d92962d1f8c89290080bdf695d1304de8a76f/sdks/typescript/src/types.ts#L740)
+Defined in: [src/types.ts:740](https://github.com/idpass/claim-169/blob/6ef76abee1f6003b7ded54fe70a14df5a86d2ae7/sdks/typescript/src/types.ts#L740)
 
 Left thumb biometrics
 
@@ -2458,7 +2458,7 @@ Left thumb biometrics
 optional legalStatus: string;
 ```
 
-Defined in: [src/types.ts:725](https://github.com/jeremi/claim-169/blob/dd0d92962d1f8c89290080bdf695d1304de8a76f/sdks/typescript/src/types.ts#L725)
+Defined in: [src/types.ts:725](https://github.com/idpass/claim-169/blob/6ef76abee1f6003b7ded54fe70a14df5a86d2ae7/sdks/typescript/src/types.ts#L725)
 
 Legal status
 
@@ -2470,7 +2470,7 @@ Legal status
 optional locationCode: string;
 ```
 
-Defined in: [src/types.ts:723](https://github.com/jeremi/claim-169/blob/dd0d92962d1f8c89290080bdf695d1304de8a76f/sdks/typescript/src/types.ts#L723)
+Defined in: [src/types.ts:723](https://github.com/idpass/claim-169/blob/6ef76abee1f6003b7ded54fe70a14df5a86d2ae7/sdks/typescript/src/types.ts#L723)
 
 Location code
 
@@ -2482,7 +2482,7 @@ Location code
 optional maritalStatus: number;
 ```
 
-Defined in: [src/types.ts:711](https://github.com/jeremi/claim-169/blob/dd0d92962d1f8c89290080bdf695d1304de8a76f/sdks/typescript/src/types.ts#L711)
+Defined in: [src/types.ts:711](https://github.com/idpass/claim-169/blob/6ef76abee1f6003b7ded54fe70a14df5a86d2ae7/sdks/typescript/src/types.ts#L711)
 
 Marital status code (1=Unmarried, 2=Married, 3=Divorced)
 
@@ -2494,7 +2494,7 @@ Marital status code (1=Unmarried, 2=Married, 3=Divorced)
 optional middleName: string;
 ```
 
-Defined in: [src/types.ts:695](https://github.com/jeremi/claim-169/blob/dd0d92962d1f8c89290080bdf695d1304de8a76f/sdks/typescript/src/types.ts#L695)
+Defined in: [src/types.ts:695](https://github.com/idpass/claim-169/blob/6ef76abee1f6003b7ded54fe70a14df5a86d2ae7/sdks/typescript/src/types.ts#L695)
 
 Middle name
 
@@ -2506,7 +2506,7 @@ Middle name
 optional nationality: string;
 ```
 
-Defined in: [src/types.ts:709](https://github.com/jeremi/claim-169/blob/dd0d92962d1f8c89290080bdf695d1304de8a76f/sdks/typescript/src/types.ts#L709)
+Defined in: [src/types.ts:709](https://github.com/idpass/claim-169/blob/6ef76abee1f6003b7ded54fe70a14df5a86d2ae7/sdks/typescript/src/types.ts#L709)
 
 Nationality
 
@@ -2518,7 +2518,7 @@ Nationality
 optional phone: string;
 ```
 
-Defined in: [src/types.ts:707](https://github.com/jeremi/claim-169/blob/dd0d92962d1f8c89290080bdf695d1304de8a76f/sdks/typescript/src/types.ts#L707)
+Defined in: [src/types.ts:707](https://github.com/idpass/claim-169/blob/6ef76abee1f6003b7ded54fe70a14df5a86d2ae7/sdks/typescript/src/types.ts#L707)
 
 Phone number
 
@@ -2530,7 +2530,7 @@ Phone number
 optional photo: Uint8Array<ArrayBufferLike>;
 ```
 
-Defined in: [src/types.ts:715](https://github.com/jeremi/claim-169/blob/dd0d92962d1f8c89290080bdf695d1304de8a76f/sdks/typescript/src/types.ts#L715)
+Defined in: [src/types.ts:715](https://github.com/idpass/claim-169/blob/6ef76abee1f6003b7ded54fe70a14df5a86d2ae7/sdks/typescript/src/types.ts#L715)
 
 Photo data
 
@@ -2542,7 +2542,7 @@ Photo data
 optional photoFormat: number;
 ```
 
-Defined in: [src/types.ts:717](https://github.com/jeremi/claim-169/blob/dd0d92962d1f8c89290080bdf695d1304de8a76f/sdks/typescript/src/types.ts#L717)
+Defined in: [src/types.ts:717](https://github.com/idpass/claim-169/blob/6ef76abee1f6003b7ded54fe70a14df5a86d2ae7/sdks/typescript/src/types.ts#L717)
 
 Photo format code (1=JPEG, 2=JPEG2000, 3=AVIF, 4=WebP)
 
@@ -2554,7 +2554,7 @@ Photo format code (1=JPEG, 2=JPEG2000, 3=AVIF, 4=WebP)
 optional rightIris: Biometric[];
 ```
 
-Defined in: [src/types.ts:750](https://github.com/jeremi/claim-169/blob/dd0d92962d1f8c89290080bdf695d1304de8a76f/sdks/typescript/src/types.ts#L750)
+Defined in: [src/types.ts:750](https://github.com/idpass/claim-169/blob/6ef76abee1f6003b7ded54fe70a14df5a86d2ae7/sdks/typescript/src/types.ts#L750)
 
 Right iris biometrics
 
@@ -2566,7 +2566,7 @@ Right iris biometrics
 optional rightLittleFinger: Biometric[];
 ```
 
-Defined in: [src/types.ts:738](https://github.com/jeremi/claim-169/blob/dd0d92962d1f8c89290080bdf695d1304de8a76f/sdks/typescript/src/types.ts#L738)
+Defined in: [src/types.ts:738](https://github.com/idpass/claim-169/blob/6ef76abee1f6003b7ded54fe70a14df5a86d2ae7/sdks/typescript/src/types.ts#L738)
 
 Right little finger biometrics
 
@@ -2578,7 +2578,7 @@ Right little finger biometrics
 optional rightMiddleFinger: Biometric[];
 ```
 
-Defined in: [src/types.ts:734](https://github.com/jeremi/claim-169/blob/dd0d92962d1f8c89290080bdf695d1304de8a76f/sdks/typescript/src/types.ts#L734)
+Defined in: [src/types.ts:734](https://github.com/idpass/claim-169/blob/6ef76abee1f6003b7ded54fe70a14df5a86d2ae7/sdks/typescript/src/types.ts#L734)
 
 Right middle finger biometrics
 
@@ -2590,7 +2590,7 @@ Right middle finger biometrics
 optional rightPalm: Biometric[];
 ```
 
-Defined in: [src/types.ts:756](https://github.com/jeremi/claim-169/blob/dd0d92962d1f8c89290080bdf695d1304de8a76f/sdks/typescript/src/types.ts#L756)
+Defined in: [src/types.ts:756](https://github.com/idpass/claim-169/blob/6ef76abee1f6003b7ded54fe70a14df5a86d2ae7/sdks/typescript/src/types.ts#L756)
 
 Right palm biometrics
 
@@ -2602,7 +2602,7 @@ Right palm biometrics
 optional rightPointerFinger: Biometric[];
 ```
 
-Defined in: [src/types.ts:732](https://github.com/jeremi/claim-169/blob/dd0d92962d1f8c89290080bdf695d1304de8a76f/sdks/typescript/src/types.ts#L732)
+Defined in: [src/types.ts:732](https://github.com/idpass/claim-169/blob/6ef76abee1f6003b7ded54fe70a14df5a86d2ae7/sdks/typescript/src/types.ts#L732)
 
 Right pointer finger biometrics
 
@@ -2614,7 +2614,7 @@ Right pointer finger biometrics
 optional rightRingFinger: Biometric[];
 ```
 
-Defined in: [src/types.ts:736](https://github.com/jeremi/claim-169/blob/dd0d92962d1f8c89290080bdf695d1304de8a76f/sdks/typescript/src/types.ts#L736)
+Defined in: [src/types.ts:736](https://github.com/idpass/claim-169/blob/6ef76abee1f6003b7ded54fe70a14df5a86d2ae7/sdks/typescript/src/types.ts#L736)
 
 Right ring finger biometrics
 
@@ -2626,7 +2626,7 @@ Right ring finger biometrics
 optional rightThumb: Biometric[];
 ```
 
-Defined in: [src/types.ts:730](https://github.com/jeremi/claim-169/blob/dd0d92962d1f8c89290080bdf695d1304de8a76f/sdks/typescript/src/types.ts#L730)
+Defined in: [src/types.ts:730](https://github.com/idpass/claim-169/blob/6ef76abee1f6003b7ded54fe70a14df5a86d2ae7/sdks/typescript/src/types.ts#L730)
 
 Right thumb biometrics
 
@@ -2638,7 +2638,7 @@ Right thumb biometrics
 optional secondaryFullName: string;
 ```
 
-Defined in: [src/types.ts:719](https://github.com/jeremi/claim-169/blob/dd0d92962d1f8c89290080bdf695d1304de8a76f/sdks/typescript/src/types.ts#L719)
+Defined in: [src/types.ts:719](https://github.com/idpass/claim-169/blob/6ef76abee1f6003b7ded54fe70a14df5a86d2ae7/sdks/typescript/src/types.ts#L719)
 
 Secondary full name
 
@@ -2650,7 +2650,7 @@ Secondary full name
 optional secondaryLanguage: string;
 ```
 
-Defined in: [src/types.ts:721](https://github.com/jeremi/claim-169/blob/dd0d92962d1f8c89290080bdf695d1304de8a76f/sdks/typescript/src/types.ts#L721)
+Defined in: [src/types.ts:721](https://github.com/idpass/claim-169/blob/6ef76abee1f6003b7ded54fe70a14df5a86d2ae7/sdks/typescript/src/types.ts#L721)
 
 Secondary language code
 
@@ -2662,7 +2662,7 @@ Secondary language code
 optional version: string;
 ```
 
-Defined in: [src/types.ts:687](https://github.com/jeremi/claim-169/blob/dd0d92962d1f8c89290080bdf695d1304de8a76f/sdks/typescript/src/types.ts#L687)
+Defined in: [src/types.ts:687](https://github.com/idpass/claim-169/blob/6ef76abee1f6003b7ded54fe70a14df5a86d2ae7/sdks/typescript/src/types.ts#L687)
 
 Claim version
 
@@ -2674,7 +2674,7 @@ Claim version
 optional voice: Biometric[];
 ```
 
-Defined in: [src/types.ts:760](https://github.com/jeremi/claim-169/blob/dd0d92962d1f8c89290080bdf695d1304de8a76f/sdks/typescript/src/types.ts#L760)
+Defined in: [src/types.ts:760](https://github.com/idpass/claim-169/blob/6ef76abee1f6003b7ded54fe70a14df5a86d2ae7/sdks/typescript/src/types.ts#L760)
 
 Voice biometrics
 
@@ -2682,7 +2682,7 @@ Voice biometrics
 
 # Interface: CwtMeta
 
-Defined in: [src/types.ts:68](https://github.com/jeremi/claim-169/blob/dd0d92962d1f8c89290080bdf695d1304de8a76f/sdks/typescript/src/types.ts#L68)
+Defined in: [src/types.ts:68](https://github.com/idpass/claim-169/blob/6ef76abee1f6003b7ded54fe70a14df5a86d2ae7/sdks/typescript/src/types.ts#L68)
 
 CWT (CBOR Web Token) metadata from the credential.
 
@@ -2712,7 +2712,7 @@ if (result.cwtMeta.issuer === 'https://mosip.io') {
 optional expiresAt: number;
 ```
 
-Defined in: [src/types.ts:74](https://github.com/jeremi/claim-169/blob/dd0d92962d1f8c89290080bdf695d1304de8a76f/sdks/typescript/src/types.ts#L74)
+Defined in: [src/types.ts:74](https://github.com/idpass/claim-169/blob/6ef76abee1f6003b7ded54fe70a14df5a86d2ae7/sdks/typescript/src/types.ts#L74)
 
 Expiration timestamp (Unix seconds) - credential invalid after this time
 
@@ -2724,7 +2724,7 @@ Expiration timestamp (Unix seconds) - credential invalid after this time
 optional issuedAt: number;
 ```
 
-Defined in: [src/types.ts:78](https://github.com/jeremi/claim-169/blob/dd0d92962d1f8c89290080bdf695d1304de8a76f/sdks/typescript/src/types.ts#L78)
+Defined in: [src/types.ts:78](https://github.com/idpass/claim-169/blob/6ef76abee1f6003b7ded54fe70a14df5a86d2ae7/sdks/typescript/src/types.ts#L78)
 
 Issued-at timestamp (Unix seconds) - when the credential was created
 
@@ -2736,7 +2736,7 @@ Issued-at timestamp (Unix seconds) - when the credential was created
 optional issuer: string;
 ```
 
-Defined in: [src/types.ts:70](https://github.com/jeremi/claim-169/blob/dd0d92962d1f8c89290080bdf695d1304de8a76f/sdks/typescript/src/types.ts#L70)
+Defined in: [src/types.ts:70](https://github.com/idpass/claim-169/blob/6ef76abee1f6003b7ded54fe70a14df5a86d2ae7/sdks/typescript/src/types.ts#L70)
 
 Token issuer (typically a URL or identifier)
 
@@ -2748,7 +2748,7 @@ Token issuer (typically a URL or identifier)
 optional notBefore: number;
 ```
 
-Defined in: [src/types.ts:76](https://github.com/jeremi/claim-169/blob/dd0d92962d1f8c89290080bdf695d1304de8a76f/sdks/typescript/src/types.ts#L76)
+Defined in: [src/types.ts:76](https://github.com/idpass/claim-169/blob/6ef76abee1f6003b7ded54fe70a14df5a86d2ae7/sdks/typescript/src/types.ts#L76)
 
 Not-before timestamp (Unix seconds) - credential invalid before this time
 
@@ -2760,7 +2760,7 @@ Not-before timestamp (Unix seconds) - credential invalid before this time
 optional subject: string;
 ```
 
-Defined in: [src/types.ts:72](https://github.com/jeremi/claim-169/blob/dd0d92962d1f8c89290080bdf695d1304de8a76f/sdks/typescript/src/types.ts#L72)
+Defined in: [src/types.ts:72](https://github.com/idpass/claim-169/blob/6ef76abee1f6003b7ded54fe70a14df5a86d2ae7/sdks/typescript/src/types.ts#L72)
 
 Token subject (typically the credential holder's ID)
 
@@ -2768,7 +2768,7 @@ Token subject (typically the credential holder's ID)
 
 # Interface: CwtMetaInput
 
-Defined in: [src/types.ts:774](https://github.com/jeremi/claim-169/blob/dd0d92962d1f8c89290080bdf695d1304de8a76f/sdks/typescript/src/types.ts#L774)
+Defined in: [src/types.ts:774](https://github.com/idpass/claim-169/blob/6ef76abee1f6003b7ded54fe70a14df5a86d2ae7/sdks/typescript/src/types.ts#L774)
 
 CWT metadata input for creating a Claim 169 credential.
 
@@ -2789,7 +2789,7 @@ const cwtMeta: CwtMetaInput = {
 optional expiresAt: number;
 ```
 
-Defined in: [src/types.ts:780](https://github.com/jeremi/claim-169/blob/dd0d92962d1f8c89290080bdf695d1304de8a76f/sdks/typescript/src/types.ts#L780)
+Defined in: [src/types.ts:780](https://github.com/idpass/claim-169/blob/6ef76abee1f6003b7ded54fe70a14df5a86d2ae7/sdks/typescript/src/types.ts#L780)
 
 Expiration timestamp (Unix seconds)
 
@@ -2801,7 +2801,7 @@ Expiration timestamp (Unix seconds)
 optional issuedAt: number;
 ```
 
-Defined in: [src/types.ts:784](https://github.com/jeremi/claim-169/blob/dd0d92962d1f8c89290080bdf695d1304de8a76f/sdks/typescript/src/types.ts#L784)
+Defined in: [src/types.ts:784](https://github.com/idpass/claim-169/blob/6ef76abee1f6003b7ded54fe70a14df5a86d2ae7/sdks/typescript/src/types.ts#L784)
 
 Issued-at timestamp (Unix seconds)
 
@@ -2813,7 +2813,7 @@ Issued-at timestamp (Unix seconds)
 optional issuer: string;
 ```
 
-Defined in: [src/types.ts:776](https://github.com/jeremi/claim-169/blob/dd0d92962d1f8c89290080bdf695d1304de8a76f/sdks/typescript/src/types.ts#L776)
+Defined in: [src/types.ts:776](https://github.com/idpass/claim-169/blob/6ef76abee1f6003b7ded54fe70a14df5a86d2ae7/sdks/typescript/src/types.ts#L776)
 
 Token issuer (typically a URL or identifier)
 
@@ -2825,7 +2825,7 @@ Token issuer (typically a URL or identifier)
 optional notBefore: number;
 ```
 
-Defined in: [src/types.ts:782](https://github.com/jeremi/claim-169/blob/dd0d92962d1f8c89290080bdf695d1304de8a76f/sdks/typescript/src/types.ts#L782)
+Defined in: [src/types.ts:782](https://github.com/idpass/claim-169/blob/6ef76abee1f6003b7ded54fe70a14df5a86d2ae7/sdks/typescript/src/types.ts#L782)
 
 Not-before timestamp (Unix seconds)
 
@@ -2837,7 +2837,7 @@ Not-before timestamp (Unix seconds)
 optional subject: string;
 ```
 
-Defined in: [src/types.ts:778](https://github.com/jeremi/claim-169/blob/dd0d92962d1f8c89290080bdf695d1304de8a76f/sdks/typescript/src/types.ts#L778)
+Defined in: [src/types.ts:778](https://github.com/idpass/claim-169/blob/6ef76abee1f6003b7ded54fe70a14df5a86d2ae7/sdks/typescript/src/types.ts#L778)
 
 Token subject (typically the credential holder's ID)
 
@@ -2845,7 +2845,7 @@ Token subject (typically the credential holder's ID)
 
 # Interface: DecodeResult
 
-Defined in: [src/types.ts:424](https://github.com/jeremi/claim-169/blob/dd0d92962d1f8c89290080bdf695d1304de8a76f/sdks/typescript/src/types.ts#L424)
+Defined in: [src/types.ts:424](https://github.com/idpass/claim-169/blob/6ef76abee1f6003b7ded54fe70a14df5a86d2ae7/sdks/typescript/src/types.ts#L424)
 
 Result of decoding a Claim 169 QR code.
 
@@ -2877,7 +2877,7 @@ console.log(result.verificationStatus); // "verified", "skipped", or "failed"
 optional algorithm: string;
 ```
 
-Defined in: [src/types.ts:448](https://github.com/jeremi/claim-169/blob/dd0d92962d1f8c89290080bdf695d1304de8a76f/sdks/typescript/src/types.ts#L448)
+Defined in: [src/types.ts:448](https://github.com/idpass/claim-169/blob/6ef76abee1f6003b7ded54fe70a14df5a86d2ae7/sdks/typescript/src/types.ts#L448)
 
 COSE algorithm name (e.g., "EdDSA", "ES256"), if present.
 
@@ -2889,7 +2889,7 @@ COSE algorithm name (e.g., "EdDSA", "ES256"), if present.
 claim169: Claim169;
 ```
 
-Defined in: [src/types.ts:426](https://github.com/jeremi/claim-169/blob/dd0d92962d1f8c89290080bdf695d1304de8a76f/sdks/typescript/src/types.ts#L426)
+Defined in: [src/types.ts:426](https://github.com/idpass/claim-169/blob/6ef76abee1f6003b7ded54fe70a14df5a86d2ae7/sdks/typescript/src/types.ts#L426)
 
 Decoded Claim 169 identity data
 
@@ -2901,7 +2901,7 @@ Decoded Claim 169 identity data
 cwtMeta: CwtMeta;
 ```
 
-Defined in: [src/types.ts:428](https://github.com/jeremi/claim-169/blob/dd0d92962d1f8c89290080bdf695d1304de8a76f/sdks/typescript/src/types.ts#L428)
+Defined in: [src/types.ts:428](https://github.com/idpass/claim-169/blob/6ef76abee1f6003b7ded54fe70a14df5a86d2ae7/sdks/typescript/src/types.ts#L428)
 
 CWT metadata (issuer, expiration, etc.)
 
@@ -2913,7 +2913,7 @@ CWT metadata (issuer, expiration, etc.)
 detectedCompression: DetectedCompression;
 ```
 
-Defined in: [src/types.ts:442](https://github.com/jeremi/claim-169/blob/dd0d92962d1f8c89290080bdf695d1304de8a76f/sdks/typescript/src/types.ts#L442)
+Defined in: [src/types.ts:442](https://github.com/idpass/claim-169/blob/6ef76abee1f6003b7ded54fe70a14df5a86d2ae7/sdks/typescript/src/types.ts#L442)
 
 Compression format detected during decoding (e.g., "zlib", "brotli", "none")
 
@@ -2925,7 +2925,7 @@ Compression format detected during decoding (e.g., "zlib", "brotli", "none")
 optional keyId: Uint8Array<ArrayBufferLike>;
 ```
 
-Defined in: [src/types.ts:446](https://github.com/jeremi/claim-169/blob/dd0d92962d1f8c89290080bdf695d1304de8a76f/sdks/typescript/src/types.ts#L446)
+Defined in: [src/types.ts:446](https://github.com/idpass/claim-169/blob/6ef76abee1f6003b7ded54fe70a14df5a86d2ae7/sdks/typescript/src/types.ts#L446)
 
 Key ID from the COSE header, if present.
 
@@ -2937,7 +2937,7 @@ Key ID from the COSE header, if present.
 verificationStatus: VerificationStatus;
 ```
 
-Defined in: [src/types.ts:435](https://github.com/jeremi/claim-169/blob/dd0d92962d1f8c89290080bdf695d1304de8a76f/sdks/typescript/src/types.ts#L435)
+Defined in: [src/types.ts:435](https://github.com/idpass/claim-169/blob/6ef76abee1f6003b7ded54fe70a14df5a86d2ae7/sdks/typescript/src/types.ts#L435)
 
 Signature verification status.
 - "verified": Signature verified successfully with provided public key
@@ -2952,7 +2952,7 @@ Signature verification status.
 warnings: EncodeWarning[];
 ```
 
-Defined in: [src/types.ts:444](https://github.com/jeremi/claim-169/blob/dd0d92962d1f8c89290080bdf695d1304de8a76f/sdks/typescript/src/types.ts#L444)
+Defined in: [src/types.ts:444](https://github.com/idpass/claim-169/blob/6ef76abee1f6003b7ded54fe70a14df5a86d2ae7/sdks/typescript/src/types.ts#L444)
 
 Warnings generated during decoding
 
@@ -2964,7 +2964,7 @@ Warnings generated during decoding
 x509Headers: X509Headers;
 ```
 
-Defined in: [src/types.ts:440](https://github.com/jeremi/claim-169/blob/dd0d92962d1f8c89290080bdf695d1304de8a76f/sdks/typescript/src/types.ts#L440)
+Defined in: [src/types.ts:440](https://github.com/idpass/claim-169/blob/6ef76abee1f6003b7ded54fe70a14df5a86d2ae7/sdks/typescript/src/types.ts#L440)
 
 X.509 headers from COSE protected/unprotected headers.
 Contains certificate information for signature verification.
@@ -2973,7 +2973,7 @@ Contains certificate information for signature verification.
 
 # Interface: EncodeResult
 
-Defined in: [src/types.ts:504](https://github.com/jeremi/claim-169/blob/dd0d92962d1f8c89290080bdf695d1304de8a76f/sdks/typescript/src/types.ts#L504)
+Defined in: [src/types.ts:504](https://github.com/idpass/claim-169/blob/6ef76abee1f6003b7ded54fe70a14df5a86d2ae7/sdks/typescript/src/types.ts#L504)
 
 Result of encoding a Claim 169 credential.
 
@@ -3001,7 +3001,7 @@ console.log(result.warnings);         // []
 compressionUsed: string;
 ```
 
-Defined in: [src/types.ts:508](https://github.com/jeremi/claim-169/blob/dd0d92962d1f8c89290080bdf695d1304de8a76f/sdks/typescript/src/types.ts#L508)
+Defined in: [src/types.ts:508](https://github.com/idpass/claim-169/blob/6ef76abee1f6003b7ded54fe70a14df5a86d2ae7/sdks/typescript/src/types.ts#L508)
 
 Compression method that was actually used (e.g., "zlib", "brotli", "none")
 
@@ -3013,7 +3013,7 @@ Compression method that was actually used (e.g., "zlib", "brotli", "none")
 qrData: string;
 ```
 
-Defined in: [src/types.ts:506](https://github.com/jeremi/claim-169/blob/dd0d92962d1f8c89290080bdf695d1304de8a76f/sdks/typescript/src/types.ts#L506)
+Defined in: [src/types.ts:506](https://github.com/idpass/claim-169/blob/6ef76abee1f6003b7ded54fe70a14df5a86d2ae7/sdks/typescript/src/types.ts#L506)
 
 Base45-encoded string suitable for QR code generation
 
@@ -3025,7 +3025,7 @@ Base45-encoded string suitable for QR code generation
 warnings: EncodeWarning[];
 ```
 
-Defined in: [src/types.ts:510](https://github.com/jeremi/claim-169/blob/dd0d92962d1f8c89290080bdf695d1304de8a76f/sdks/typescript/src/types.ts#L510)
+Defined in: [src/types.ts:510](https://github.com/idpass/claim-169/blob/6ef76abee1f6003b7ded54fe70a14df5a86d2ae7/sdks/typescript/src/types.ts#L510)
 
 Warnings generated during encoding
 
@@ -3033,7 +3033,7 @@ Warnings generated during encoding
 
 # Interface: EncodeWarning
 
-Defined in: [src/types.ts:479](https://github.com/jeremi/claim-169/blob/dd0d92962d1f8c89290080bdf695d1304de8a76f/sdks/typescript/src/types.ts#L479)
+Defined in: [src/types.ts:479](https://github.com/idpass/claim-169/blob/6ef76abee1f6003b7ded54fe70a14df5a86d2ae7/sdks/typescript/src/types.ts#L479)
 
 Warning from the encode/decode pipeline.
 
@@ -3045,7 +3045,7 @@ Warning from the encode/decode pipeline.
 code: string;
 ```
 
-Defined in: [src/types.ts:481](https://github.com/jeremi/claim-169/blob/dd0d92962d1f8c89290080bdf695d1304de8a76f/sdks/typescript/src/types.ts#L481)
+Defined in: [src/types.ts:481](https://github.com/idpass/claim-169/blob/6ef76abee1f6003b7ded54fe70a14df5a86d2ae7/sdks/typescript/src/types.ts#L481)
 
 Warning code (e.g., "non_standard_compression")
 
@@ -3057,7 +3057,7 @@ Warning code (e.g., "non_standard_compression")
 message: string;
 ```
 
-Defined in: [src/types.ts:483](https://github.com/jeremi/claim-169/blob/dd0d92962d1f8c89290080bdf695d1304de8a76f/sdks/typescript/src/types.ts#L483)
+Defined in: [src/types.ts:483](https://github.com/idpass/claim-169/blob/6ef76abee1f6003b7ded54fe70a14df5a86d2ae7/sdks/typescript/src/types.ts#L483)
 
 Human-readable warning message
 
@@ -3065,7 +3065,7 @@ Human-readable warning message
 
 # Interface: IDecoder
 
-Defined in: [src/types.ts:933](https://github.com/jeremi/claim-169/blob/dd0d92962d1f8c89290080bdf695d1304de8a76f/sdks/typescript/src/types.ts#L933)
+Defined in: [src/types.ts:933](https://github.com/idpass/claim-169/blob/6ef76abee1f6003b7ded54fe70a14df5a86d2ae7/sdks/typescript/src/types.ts#L933)
 
 Interface for the Decoder builder class.
 
@@ -3100,7 +3100,7 @@ const result = new Decoder(qrText)
 allowUnverified(): IDecoder;
 ```
 
-Defined in: [src/types.ts:974](https://github.com/jeremi/claim-169/blob/dd0d92962d1f8c89290080bdf695d1304de8a76f/sdks/typescript/src/types.ts#L974)
+Defined in: [src/types.ts:974](https://github.com/idpass/claim-169/blob/6ef76abee1f6003b7ded54fe70a14df5a86d2ae7/sdks/typescript/src/types.ts#L974)
 
 Allow decoding without signature verification.
 WARNING: Credentials decoded with verification skipped (`verificationStatus === "skipped"`)
@@ -3120,7 +3120,7 @@ The decoder instance for chaining
 clockSkewTolerance(seconds): IDecoder;
 ```
 
-Defined in: [src/types.ts:1019](https://github.com/jeremi/claim-169/blob/dd0d92962d1f8c89290080bdf695d1304de8a76f/sdks/typescript/src/types.ts#L1019)
+Defined in: [src/types.ts:1019](https://github.com/idpass/claim-169/blob/6ef76abee1f6003b7ded54fe70a14df5a86d2ae7/sdks/typescript/src/types.ts#L1019)
 
 Set clock skew tolerance in seconds.
 Allows credentials to be accepted when clocks are slightly out of sync.
@@ -3148,7 +3148,7 @@ The decoder instance for chaining
 decode(): DecodeResult;
 ```
 
-Defined in: [src/types.ts:1074](https://github.com/jeremi/claim-169/blob/dd0d92962d1f8c89290080bdf695d1304de8a76f/sdks/typescript/src/types.ts#L1074)
+Defined in: [src/types.ts:1074](https://github.com/idpass/claim-169/blob/6ef76abee1f6003b7ded54fe70a14df5a86d2ae7/sdks/typescript/src/types.ts#L1074)
 
 Decode the QR code with the configured options.
 Requires either a verifier (verifyWithEd25519/verifyWithEcdsaP256) or
@@ -3172,7 +3172,7 @@ If decoding fails or no verification method specified
 decryptWith(decryptor): IDecoder;
 ```
 
-Defined in: [src/types.ts:1065](https://github.com/jeremi/claim-169/blob/dd0d92962d1f8c89290080bdf695d1304de8a76f/sdks/typescript/src/types.ts#L1065)
+Defined in: [src/types.ts:1065](https://github.com/idpass/claim-169/blob/6ef76abee1f6003b7ded54fe70a14df5a86d2ae7/sdks/typescript/src/types.ts#L1065)
 
 Decrypt with a custom decryptor callback.
 Use for external crypto providers (HSM, cloud KMS, etc.)
@@ -3210,7 +3210,7 @@ const result = new Decoder(qrText)
 decryptWithAes128(key): IDecoder;
 ```
 
-Defined in: [src/types.ts:990](https://github.com/jeremi/claim-169/blob/dd0d92962d1f8c89290080bdf695d1304de8a76f/sdks/typescript/src/types.ts#L990)
+Defined in: [src/types.ts:990](https://github.com/idpass/claim-169/blob/6ef76abee1f6003b7ded54fe70a14df5a86d2ae7/sdks/typescript/src/types.ts#L990)
 
 Decrypt with AES-128-GCM.
 
@@ -3240,7 +3240,7 @@ If the key is invalid
 decryptWithAes256(key): IDecoder;
 ```
 
-Defined in: [src/types.ts:982](https://github.com/jeremi/claim-169/blob/dd0d92962d1f8c89290080bdf695d1304de8a76f/sdks/typescript/src/types.ts#L982)
+Defined in: [src/types.ts:982](https://github.com/idpass/claim-169/blob/6ef76abee1f6003b7ded54fe70a14df5a86d2ae7/sdks/typescript/src/types.ts#L982)
 
 Decrypt with AES-256-GCM.
 
@@ -3270,7 +3270,7 @@ If the key is invalid
 maxDecompressedBytes(bytes): IDecoder;
 ```
 
-Defined in: [src/types.ts:1027](https://github.com/jeremi/claim-169/blob/dd0d92962d1f8c89290080bdf695d1304de8a76f/sdks/typescript/src/types.ts#L1027)
+Defined in: [src/types.ts:1027](https://github.com/idpass/claim-169/blob/6ef76abee1f6003b7ded54fe70a14df5a86d2ae7/sdks/typescript/src/types.ts#L1027)
 
 Set maximum decompressed size in bytes.
 Protects against decompression bomb attacks.
@@ -3297,7 +3297,7 @@ The decoder instance for chaining
 skipBiometrics(): IDecoder;
 ```
 
-Defined in: [src/types.ts:997](https://github.com/jeremi/claim-169/blob/dd0d92962d1f8c89290080bdf695d1304de8a76f/sdks/typescript/src/types.ts#L997)
+Defined in: [src/types.ts:997](https://github.com/idpass/claim-169/blob/6ef76abee1f6003b7ded54fe70a14df5a86d2ae7/sdks/typescript/src/types.ts#L997)
 
 Skip biometric data during decoding.
 Useful when only demographic data is needed.
@@ -3316,7 +3316,7 @@ The decoder instance for chaining
 verifyWith(verifier): IDecoder;
 ```
 
-Defined in: [src/types.ts:1046](https://github.com/jeremi/claim-169/blob/dd0d92962d1f8c89290080bdf695d1304de8a76f/sdks/typescript/src/types.ts#L1046)
+Defined in: [src/types.ts:1046](https://github.com/idpass/claim-169/blob/6ef76abee1f6003b7ded54fe70a14df5a86d2ae7/sdks/typescript/src/types.ts#L1046)
 
 Verify signature with a custom verifier callback.
 Use for external crypto providers (HSM, cloud KMS, remote signing, etc.)
@@ -3354,7 +3354,7 @@ const result = new Decoder(qrText)
 verifyWithEcdsaP256(publicKey): IDecoder;
 ```
 
-Defined in: [src/types.ts:948](https://github.com/jeremi/claim-169/blob/dd0d92962d1f8c89290080bdf695d1304de8a76f/sdks/typescript/src/types.ts#L948)
+Defined in: [src/types.ts:948](https://github.com/idpass/claim-169/blob/6ef76abee1f6003b7ded54fe70a14df5a86d2ae7/sdks/typescript/src/types.ts#L948)
 
 Verify signature with ECDSA P-256 public key.
 
@@ -3384,7 +3384,7 @@ If the public key is invalid
 verifyWithEcdsaP256Pem(pem): IDecoder;
 ```
 
-Defined in: [src/types.ts:966](https://github.com/jeremi/claim-169/blob/dd0d92962d1f8c89290080bdf695d1304de8a76f/sdks/typescript/src/types.ts#L966)
+Defined in: [src/types.ts:966](https://github.com/idpass/claim-169/blob/6ef76abee1f6003b7ded54fe70a14df5a86d2ae7/sdks/typescript/src/types.ts#L966)
 
 Verify signature with ECDSA P-256 public key in PEM format.
 Supports SPKI format with "BEGIN PUBLIC KEY" headers.
@@ -3415,7 +3415,7 @@ If the PEM is invalid
 verifyWithEd25519(publicKey): IDecoder;
 ```
 
-Defined in: [src/types.ts:940](https://github.com/jeremi/claim-169/blob/dd0d92962d1f8c89290080bdf695d1304de8a76f/sdks/typescript/src/types.ts#L940)
+Defined in: [src/types.ts:940](https://github.com/idpass/claim-169/blob/6ef76abee1f6003b7ded54fe70a14df5a86d2ae7/sdks/typescript/src/types.ts#L940)
 
 Verify signature with Ed25519 public key.
 
@@ -3445,7 +3445,7 @@ If the public key is invalid
 verifyWithEd25519Pem(pem): IDecoder;
 ```
 
-Defined in: [src/types.ts:957](https://github.com/jeremi/claim-169/blob/dd0d92962d1f8c89290080bdf695d1304de8a76f/sdks/typescript/src/types.ts#L957)
+Defined in: [src/types.ts:957](https://github.com/idpass/claim-169/blob/6ef76abee1f6003b7ded54fe70a14df5a86d2ae7/sdks/typescript/src/types.ts#L957)
 
 Verify signature with Ed25519 public key in PEM format.
 Supports SPKI format with "BEGIN PUBLIC KEY" headers.
@@ -3476,7 +3476,7 @@ If the PEM is invalid
 withoutTimestampValidation(): IDecoder;
 ```
 
-Defined in: [src/types.ts:1010](https://github.com/jeremi/claim-169/blob/dd0d92962d1f8c89290080bdf695d1304de8a76f/sdks/typescript/src/types.ts#L1010)
+Defined in: [src/types.ts:1010](https://github.com/idpass/claim-169/blob/6ef76abee1f6003b7ded54fe70a14df5a86d2ae7/sdks/typescript/src/types.ts#L1010)
 
 Disable timestamp validation.
 
@@ -3494,7 +3494,7 @@ The decoder instance for chaining
 withTimestampValidation(): IDecoder;
 ```
 
-Defined in: [src/types.ts:1004](https://github.com/jeremi/claim-169/blob/dd0d92962d1f8c89290080bdf695d1304de8a76f/sdks/typescript/src/types.ts#L1004)
+Defined in: [src/types.ts:1004](https://github.com/idpass/claim-169/blob/6ef76abee1f6003b7ded54fe70a14df5a86d2ae7/sdks/typescript/src/types.ts#L1004)
 
 Re-enable timestamp validation (enabled by default).
 When enabled, expired or not-yet-valid credentials will throw an error.
@@ -3509,7 +3509,7 @@ The decoder instance for chaining
 
 # Interface: IEncoder
 
-Defined in: [src/types.ts:799](https://github.com/jeremi/claim-169/blob/dd0d92962d1f8c89290080bdf695d1304de8a76f/sdks/typescript/src/types.ts#L799)
+Defined in: [src/types.ts:799](https://github.com/idpass/claim-169/blob/6ef76abee1f6003b7ded54fe70a14df5a86d2ae7/sdks/typescript/src/types.ts#L799)
 
 Interface for the Encoder builder class.
 
@@ -3531,7 +3531,7 @@ const qrData = new Encoder(claim169, cwtMeta)
 allowUnsigned(): IEncoder;
 ```
 
-Defined in: [src/types.ts:833](https://github.com/jeremi/claim-169/blob/dd0d92962d1f8c89290080bdf695d1304de8a76f/sdks/typescript/src/types.ts#L833)
+Defined in: [src/types.ts:833](https://github.com/idpass/claim-169/blob/6ef76abee1f6003b7ded54fe70a14df5a86d2ae7/sdks/typescript/src/types.ts#L833)
 
 Allow encoding without a signature.
 WARNING: Unsigned credentials cannot be verified. Use for testing only.
@@ -3550,7 +3550,7 @@ The encoder instance for chaining
 compression(mode): IEncoder;
 ```
 
-Defined in: [src/types.ts:894](https://github.com/jeremi/claim-169/blob/dd0d92962d1f8c89290080bdf695d1304de8a76f/sdks/typescript/src/types.ts#L894)
+Defined in: [src/types.ts:894](https://github.com/idpass/claim-169/blob/6ef76abee1f6003b7ded54fe70a14df5a86d2ae7/sdks/typescript/src/types.ts#L894)
 
 Set compression mode for encoding.
 
@@ -3580,7 +3580,7 @@ If the mode is invalid or unsupported by the WASM build
 encode(): EncodeResult;
 ```
 
-Defined in: [src/types.ts:901](https://github.com/jeremi/claim-169/blob/dd0d92962d1f8c89290080bdf695d1304de8a76f/sdks/typescript/src/types.ts#L901)
+Defined in: [src/types.ts:901](https://github.com/idpass/claim-169/blob/6ef76abee1f6003b7ded54fe70a14df5a86d2ae7/sdks/typescript/src/types.ts#L901)
 
 Encode the credential to a QR-ready result object.
 
@@ -3602,7 +3602,7 @@ If encoding fails
 encryptWith(encryptor, algorithm): IEncoder;
 ```
 
-Defined in: [src/types.ts:883](https://github.com/jeremi/claim-169/blob/dd0d92962d1f8c89290080bdf695d1304de8a76f/sdks/typescript/src/types.ts#L883)
+Defined in: [src/types.ts:883](https://github.com/idpass/claim-169/blob/6ef76abee1f6003b7ded54fe70a14df5a86d2ae7/sdks/typescript/src/types.ts#L883)
 
 Encrypt with a custom encryptor callback.
 Use for external crypto providers (HSM, cloud KMS, etc.)
@@ -3646,7 +3646,7 @@ const qrData = new Encoder(claim169, cwtMeta)
 encryptWithAes128(key): IEncoder;
 ```
 
-Defined in: [src/types.ts:826](https://github.com/jeremi/claim-169/blob/dd0d92962d1f8c89290080bdf695d1304de8a76f/sdks/typescript/src/types.ts#L826)
+Defined in: [src/types.ts:826](https://github.com/idpass/claim-169/blob/6ef76abee1f6003b7ded54fe70a14df5a86d2ae7/sdks/typescript/src/types.ts#L826)
 
 Encrypt with AES-128-GCM.
 
@@ -3672,7 +3672,7 @@ The encoder instance for chaining
 encryptWithAes256(key): IEncoder;
 ```
 
-Defined in: [src/types.ts:819](https://github.com/jeremi/claim-169/blob/dd0d92962d1f8c89290080bdf695d1304de8a76f/sdks/typescript/src/types.ts#L819)
+Defined in: [src/types.ts:819](https://github.com/idpass/claim-169/blob/6ef76abee1f6003b7ded54fe70a14df5a86d2ae7/sdks/typescript/src/types.ts#L819)
 
 Encrypt with AES-256-GCM.
 
@@ -3701,7 +3701,7 @@ signWith(
    keyId?): IEncoder;
 ```
 
-Defined in: [src/types.ts:859](https://github.com/jeremi/claim-169/blob/dd0d92962d1f8c89290080bdf695d1304de8a76f/sdks/typescript/src/types.ts#L859)
+Defined in: [src/types.ts:859](https://github.com/idpass/claim-169/blob/6ef76abee1f6003b7ded54fe70a14df5a86d2ae7/sdks/typescript/src/types.ts#L859)
 
 Sign with a custom signer callback.
 Use for external crypto providers (HSM, cloud KMS, remote signing, etc.)
@@ -3750,7 +3750,7 @@ const qrData = new Encoder(claim169, cwtMeta)
 signWithEcdsaP256(privateKey): IEncoder;
 ```
 
-Defined in: [src/types.ts:812](https://github.com/jeremi/claim-169/blob/dd0d92962d1f8c89290080bdf695d1304de8a76f/sdks/typescript/src/types.ts#L812)
+Defined in: [src/types.ts:812](https://github.com/idpass/claim-169/blob/6ef76abee1f6003b7ded54fe70a14df5a86d2ae7/sdks/typescript/src/types.ts#L812)
 
 Sign with ECDSA P-256 private key.
 
@@ -3776,7 +3776,7 @@ The encoder instance for chaining
 signWithEd25519(privateKey): IEncoder;
 ```
 
-Defined in: [src/types.ts:805](https://github.com/jeremi/claim-169/blob/dd0d92962d1f8c89290080bdf695d1304de8a76f/sdks/typescript/src/types.ts#L805)
+Defined in: [src/types.ts:805](https://github.com/idpass/claim-169/blob/6ef76abee1f6003b7ded54fe70a14df5a86d2ae7/sdks/typescript/src/types.ts#L805)
 
 Sign with Ed25519 private key.
 
@@ -3802,7 +3802,7 @@ The encoder instance for chaining
 skipBiometrics(): IEncoder;
 ```
 
-Defined in: [src/types.ts:839](https://github.com/jeremi/claim-169/blob/dd0d92962d1f8c89290080bdf695d1304de8a76f/sdks/typescript/src/types.ts#L839)
+Defined in: [src/types.ts:839](https://github.com/idpass/claim-169/blob/6ef76abee1f6003b7ded54fe70a14df5a86d2ae7/sdks/typescript/src/types.ts#L839)
 
 Skip biometric fields during encoding.
 
@@ -3816,7 +3816,7 @@ The encoder instance for chaining
 
 # Interface: InspectResult
 
-Defined in: [src/types.ts:459](https://github.com/jeremi/claim-169/blob/dd0d92962d1f8c89290080bdf695d1304de8a76f/sdks/typescript/src/types.ts#L459)
+Defined in: [src/types.ts:459](https://github.com/idpass/claim-169/blob/6ef76abee1f6003b7ded54fe70a14df5a86d2ae7/sdks/typescript/src/types.ts#L459)
 
 Metadata extracted from a credential without full verification or decoding.
 
@@ -3830,7 +3830,7 @@ Useful for determining which key to use in multi-issuer scenarios.
 optional algorithm: string;
 ```
 
-Defined in: [src/types.ts:467](https://github.com/jeremi/claim-169/blob/dd0d92962d1f8c89290080bdf695d1304de8a76f/sdks/typescript/src/types.ts#L467)
+Defined in: [src/types.ts:467](https://github.com/idpass/claim-169/blob/6ef76abee1f6003b7ded54fe70a14df5a86d2ae7/sdks/typescript/src/types.ts#L467)
 
 COSE algorithm name (e.g., "EdDSA", "ES256"). `undefined` if not present.
 
@@ -3842,7 +3842,7 @@ COSE algorithm name (e.g., "EdDSA", "ES256"). `undefined` if not present.
 coseType: CoseType;
 ```
 
-Defined in: [src/types.ts:473](https://github.com/jeremi/claim-169/blob/dd0d92962d1f8c89290080bdf695d1304de8a76f/sdks/typescript/src/types.ts#L473)
+Defined in: [src/types.ts:473](https://github.com/idpass/claim-169/blob/6ef76abee1f6003b7ded54fe70a14df5a86d2ae7/sdks/typescript/src/types.ts#L473)
 
 COSE structure type.
 
@@ -3854,7 +3854,7 @@ COSE structure type.
 optional expiresAt: number;
 ```
 
-Defined in: [src/types.ts:471](https://github.com/jeremi/claim-169/blob/dd0d92962d1f8c89290080bdf695d1304de8a76f/sdks/typescript/src/types.ts#L471)
+Defined in: [src/types.ts:471](https://github.com/idpass/claim-169/blob/6ef76abee1f6003b7ded54fe70a14df5a86d2ae7/sdks/typescript/src/types.ts#L471)
 
 Expiration time (Unix epoch seconds). `undefined` if not present or encrypted.
 
@@ -3866,7 +3866,7 @@ Expiration time (Unix epoch seconds). `undefined` if not present or encrypted.
 optional issuer: string;
 ```
 
-Defined in: [src/types.ts:461](https://github.com/jeremi/claim-169/blob/dd0d92962d1f8c89290080bdf695d1304de8a76f/sdks/typescript/src/types.ts#L461)
+Defined in: [src/types.ts:461](https://github.com/idpass/claim-169/blob/6ef76abee1f6003b7ded54fe70a14df5a86d2ae7/sdks/typescript/src/types.ts#L461)
 
 Issuer from CWT claims. `undefined` if not present or encrypted.
 
@@ -3878,7 +3878,7 @@ Issuer from CWT claims. `undefined` if not present or encrypted.
 optional keyId: Uint8Array<ArrayBufferLike>;
 ```
 
-Defined in: [src/types.ts:465](https://github.com/jeremi/claim-169/blob/dd0d92962d1f8c89290080bdf695d1304de8a76f/sdks/typescript/src/types.ts#L465)
+Defined in: [src/types.ts:465](https://github.com/idpass/claim-169/blob/6ef76abee1f6003b7ded54fe70a14df5a86d2ae7/sdks/typescript/src/types.ts#L465)
 
 Key ID from the COSE header. `undefined` if not present.
 
@@ -3890,7 +3890,7 @@ Key ID from the COSE header. `undefined` if not present.
 optional subject: string;
 ```
 
-Defined in: [src/types.ts:463](https://github.com/jeremi/claim-169/blob/dd0d92962d1f8c89290080bdf695d1304de8a76f/sdks/typescript/src/types.ts#L463)
+Defined in: [src/types.ts:463](https://github.com/idpass/claim-169/blob/6ef76abee1f6003b7ded54fe70a14df5a86d2ae7/sdks/typescript/src/types.ts#L463)
 
 Subject from CWT claims. `undefined` if not present or encrypted.
 
@@ -3902,7 +3902,7 @@ Subject from CWT claims. `undefined` if not present or encrypted.
 x509Headers: X509Headers;
 ```
 
-Defined in: [src/types.ts:469](https://github.com/jeremi/claim-169/blob/dd0d92962d1f8c89290080bdf695d1304de8a76f/sdks/typescript/src/types.ts#L469)
+Defined in: [src/types.ts:469](https://github.com/idpass/claim-169/blob/6ef76abee1f6003b7ded54fe70a14df5a86d2ae7/sdks/typescript/src/types.ts#L469)
 
 X.509 certificate headers from the COSE structure.
 
@@ -3910,7 +3910,7 @@ X.509 certificate headers from the COSE structure.
 
 # Interface: X509Headers
 
-Defined in: [src/types.ts:120](https://github.com/jeremi/claim-169/blob/dd0d92962d1f8c89290080bdf695d1304de8a76f/sdks/typescript/src/types.ts#L120)
+Defined in: [src/types.ts:120](https://github.com/idpass/claim-169/blob/6ef76abee1f6003b7ded54fe70a14df5a86d2ae7/sdks/typescript/src/types.ts#L120)
 
 X.509 headers extracted from COSE protected/unprotected headers.
 
@@ -3943,7 +3943,7 @@ if (result.x509Headers.x5u) {
 optional x5bag: Uint8Array<ArrayBufferLike>[];
 ```
 
-Defined in: [src/types.ts:125](https://github.com/jeremi/claim-169/blob/dd0d92962d1f8c89290080bdf695d1304de8a76f/sdks/typescript/src/types.ts#L125)
+Defined in: [src/types.ts:125](https://github.com/idpass/claim-169/blob/6ef76abee1f6003b7ded54fe70a14df5a86d2ae7/sdks/typescript/src/types.ts#L125)
 
 x5bag (COSE label 32): Unordered bag of X.509 certificates.
 Each certificate is DER-encoded.
@@ -3956,7 +3956,7 @@ Each certificate is DER-encoded.
 optional x5chain: Uint8Array<ArrayBufferLike>[];
 ```
 
-Defined in: [src/types.ts:131](https://github.com/jeremi/claim-169/blob/dd0d92962d1f8c89290080bdf695d1304de8a76f/sdks/typescript/src/types.ts#L131)
+Defined in: [src/types.ts:131](https://github.com/idpass/claim-169/blob/6ef76abee1f6003b7ded54fe70a14df5a86d2ae7/sdks/typescript/src/types.ts#L131)
 
 x5chain (COSE label 33): Ordered chain of X.509 certificates.
 The first certificate contains the public key used for verification.
@@ -3970,7 +3970,7 @@ Each certificate is DER-encoded.
 optional x5t: CertificateHash;
 ```
 
-Defined in: [src/types.ts:136](https://github.com/jeremi/claim-169/blob/dd0d92962d1f8c89290080bdf695d1304de8a76f/sdks/typescript/src/types.ts#L136)
+Defined in: [src/types.ts:136](https://github.com/idpass/claim-169/blob/6ef76abee1f6003b7ded54fe70a14df5a86d2ae7/sdks/typescript/src/types.ts#L136)
 
 x5t (COSE label 34): Certificate thumbprint hash.
 Used to identify the certificate by its hash.
@@ -3983,7 +3983,7 @@ Used to identify the certificate by its hash.
 optional x5u: string;
 ```
 
-Defined in: [src/types.ts:141](https://github.com/jeremi/claim-169/blob/dd0d92962d1f8c89290080bdf695d1304de8a76f/sdks/typescript/src/types.ts#L141)
+Defined in: [src/types.ts:141](https://github.com/idpass/claim-169/blob/6ef76abee1f6003b7ded54fe70a14df5a86d2ae7/sdks/typescript/src/types.ts#L141)
 
 x5u (COSE label 35): URI pointing to an X.509 certificate.
 Can be used to fetch the certificate for verification.
@@ -4050,7 +4050,7 @@ Claim 169 identity data.
 type Algorithm = "EdDSA" | "ES256" | "A256GCM" | "A128GCM";
 ```
 
-Defined in: [src/types.ts:292](https://github.com/jeremi/claim-169/blob/dd0d92962d1f8c89290080bdf695d1304de8a76f/sdks/typescript/src/types.ts#L292)
+Defined in: [src/types.ts:292](https://github.com/idpass/claim-169/blob/6ef76abee1f6003b7ded54fe70a14df5a86d2ae7/sdks/typescript/src/types.ts#L292)
 
 Algorithm identifier for COSE algorithms.
 - "EdDSA" - Edwards-curve Digital Signature Algorithm (Ed25519)
@@ -4068,7 +4068,7 @@ type AlgorithmName =
   | string & object;
 ```
 
-Defined in: [src/types.ts:300](https://github.com/jeremi/claim-169/blob/dd0d92962d1f8c89290080bdf695d1304de8a76f/sdks/typescript/src/types.ts#L300)
+Defined in: [src/types.ts:300](https://github.com/idpass/claim-169/blob/6ef76abee1f6003b7ded54fe70a14df5a86d2ae7/sdks/typescript/src/types.ts#L300)
 
 Algorithm identifier as surfaced by the underlying WASM bindings.
 
@@ -4083,7 +4083,7 @@ unknown strings for forwards compatibility.
 type BiometricFormat = typeof BiometricFormat[keyof typeof BiometricFormat];
 ```
 
-Defined in: [src/types.ts:570](https://github.com/jeremi/claim-169/blob/dd0d92962d1f8c89290080bdf695d1304de8a76f/sdks/typescript/src/types.ts#L570)
+Defined in: [src/types.ts:570](https://github.com/idpass/claim-169/blob/6ef76abee1f6003b7ded54fe70a14df5a86d2ae7/sdks/typescript/src/types.ts#L570)
 
 Biometric format code type (0=Image, 1=Template, 2=Sound, 3=BioHash)
 
@@ -4117,7 +4117,7 @@ type Claim169ErrorCode =
   | "UNKNOWN";
 ```
 
-Defined in: [src/types.ts:599](https://github.com/jeremi/claim-169/blob/dd0d92962d1f8c89290080bdf695d1304de8a76f/sdks/typescript/src/types.ts#L599)
+Defined in: [src/types.ts:599](https://github.com/idpass/claim-169/blob/6ef76abee1f6003b7ded54fe70a14df5a86d2ae7/sdks/typescript/src/types.ts#L599)
 
 Error code for programmatic error handling.
 
@@ -4136,7 +4136,7 @@ type CompressionMode =
   | `adaptive-brotli:${number}`;
 ```
 
-Defined in: [src/types.ts:257](https://github.com/jeremi/claim-169/blob/dd0d92962d1f8c89290080bdf695d1304de8a76f/sdks/typescript/src/types.ts#L257)
+Defined in: [src/types.ts:257](https://github.com/idpass/claim-169/blob/6ef76abee1f6003b7ded54fe70a14df5a86d2ae7/sdks/typescript/src/types.ts#L257)
 
 Compression mode for encoding.
 
@@ -4154,7 +4154,7 @@ Compression mode for encoding.
 type CoseType = "Sign1" | "Encrypt0";
 ```
 
-Defined in: [src/types.ts:452](https://github.com/jeremi/claim-169/blob/dd0d92962d1f8c89290080bdf695d1304de8a76f/sdks/typescript/src/types.ts#L452)
+Defined in: [src/types.ts:452](https://github.com/idpass/claim-169/blob/6ef76abee1f6003b7ded54fe70a14df5a86d2ae7/sdks/typescript/src/types.ts#L452)
 
 COSE structure type
 
@@ -4166,7 +4166,7 @@ COSE structure type
 type DecryptorCallback = (algorithm, keyId, nonce, aad, ciphertext) => Uint8Array;
 ```
 
-Defined in: [src/types.ts:346](https://github.com/jeremi/claim-169/blob/dd0d92962d1f8c89290080bdf695d1304de8a76f/sdks/typescript/src/types.ts#L346)
+Defined in: [src/types.ts:346](https://github.com/idpass/claim-169/blob/6ef76abee1f6003b7ded54fe70a14df5a86d2ae7/sdks/typescript/src/types.ts#L346)
 
 Custom decryptor callback.
 Use for external crypto providers (HSM, cloud KMS, etc.)
@@ -4225,7 +4225,7 @@ const myDecryptor: DecryptorCallback = (algorithm, keyId, nonce, aad, ciphertext
 type DetectedCompression = "zlib" | "brotli" | "none" | string & object;
 ```
 
-Defined in: [src/types.ts:270](https://github.com/jeremi/claim-169/blob/dd0d92962d1f8c89290080bdf695d1304de8a76f/sdks/typescript/src/types.ts#L270)
+Defined in: [src/types.ts:270](https://github.com/idpass/claim-169/blob/6ef76abee1f6003b7ded54fe70a14df5a86d2ae7/sdks/typescript/src/types.ts#L270)
 
 Detected compression format from decoding.
 
@@ -4240,7 +4240,7 @@ Unknown formats are preserved as strings for forward compatibility.
 type EncryptorCallback = (algorithm, keyId, nonce, aad, plaintext) => Uint8Array;
 ```
 
-Defined in: [src/types.ts:394](https://github.com/jeremi/claim-169/blob/dd0d92962d1f8c89290080bdf695d1304de8a76f/sdks/typescript/src/types.ts#L394)
+Defined in: [src/types.ts:394](https://github.com/idpass/claim-169/blob/6ef76abee1f6003b7ded54fe70a14df5a86d2ae7/sdks/typescript/src/types.ts#L394)
 
 Custom encryptor callback.
 Use for external crypto providers (HSM, cloud KMS, etc.)
@@ -4299,7 +4299,7 @@ const myEncryptor: EncryptorCallback = (algorithm, keyId, nonce, aad, plaintext)
 type Gender = typeof Gender[keyof typeof Gender];
 ```
 
-Defined in: [src/types.ts:525](https://github.com/jeremi/claim-169/blob/dd0d92962d1f8c89290080bdf695d1304de8a76f/sdks/typescript/src/types.ts#L525)
+Defined in: [src/types.ts:525](https://github.com/idpass/claim-169/blob/6ef76abee1f6003b7ded54fe70a14df5a86d2ae7/sdks/typescript/src/types.ts#L525)
 
 Gender code type (1=Male, 2=Female, 3=Other)
 
@@ -4311,7 +4311,7 @@ Gender code type (1=Male, 2=Female, 3=Other)
 type MaritalStatus = typeof MaritalStatus[keyof typeof MaritalStatus];
 ```
 
-Defined in: [src/types.ts:537](https://github.com/jeremi/claim-169/blob/dd0d92962d1f8c89290080bdf695d1304de8a76f/sdks/typescript/src/types.ts#L537)
+Defined in: [src/types.ts:537](https://github.com/idpass/claim-169/blob/6ef76abee1f6003b7ded54fe70a14df5a86d2ae7/sdks/typescript/src/types.ts#L537)
 
 Marital status code type (1=Unmarried, 2=Married, 3=Divorced)
 
@@ -4323,7 +4323,7 @@ Marital status code type (1=Unmarried, 2=Married, 3=Divorced)
 type PhotoFormat = typeof PhotoFormat[keyof typeof PhotoFormat];
 ```
 
-Defined in: [src/types.ts:553](https://github.com/jeremi/claim-169/blob/dd0d92962d1f8c89290080bdf695d1304de8a76f/sdks/typescript/src/types.ts#L553)
+Defined in: [src/types.ts:553](https://github.com/idpass/claim-169/blob/6ef76abee1f6003b7ded54fe70a14df5a86d2ae7/sdks/typescript/src/types.ts#L553)
 
 Photo format code type (1=JPEG, 2=JPEG2000, 3=AVIF, 4=WebP)
 
@@ -4335,7 +4335,7 @@ Photo format code type (1=JPEG, 2=JPEG2000, 3=AVIF, 4=WebP)
 type SignerCallback = (algorithm, keyId, data) => Uint8Array;
 ```
 
-Defined in: [src/types.ts:370](https://github.com/jeremi/claim-169/blob/dd0d92962d1f8c89290080bdf695d1304de8a76f/sdks/typescript/src/types.ts#L370)
+Defined in: [src/types.ts:370](https://github.com/idpass/claim-169/blob/6ef76abee1f6003b7ded54fe70a14df5a86d2ae7/sdks/typescript/src/types.ts#L370)
 
 Custom signer callback.
 Use for external crypto providers (HSM, cloud KMS, remote signing, etc.)
@@ -4382,7 +4382,7 @@ const mySigner: SignerCallback = (algorithm, keyId, data) => {
 type VerificationStatus = "verified" | "skipped" | "failed";
 ```
 
-Defined in: [src/types.ts:279](https://github.com/jeremi/claim-169/blob/dd0d92962d1f8c89290080bdf695d1304de8a76f/sdks/typescript/src/types.ts#L279)
+Defined in: [src/types.ts:279](https://github.com/idpass/claim-169/blob/6ef76abee1f6003b7ded54fe70a14df5a86d2ae7/sdks/typescript/src/types.ts#L279)
 
 Signature verification status of the decoded credential.
 
@@ -4398,7 +4398,7 @@ Signature verification status of the decoded credential.
 type VerifierCallback = (algorithm, keyId, data, signature) => void;
 ```
 
-Defined in: [src/types.ts:321](https://github.com/jeremi/claim-169/blob/dd0d92962d1f8c89290080bdf695d1304de8a76f/sdks/typescript/src/types.ts#L321)
+Defined in: [src/types.ts:321](https://github.com/idpass/claim-169/blob/6ef76abee1f6003b7ded54fe70a14df5a86d2ae7/sdks/typescript/src/types.ts#L321)
 
 Custom signature verifier callback.
 Use for external crypto providers (HSM, cloud KMS, remote signing, etc.)
@@ -4452,7 +4452,7 @@ const myVerifier: VerifierCallback = (algorithm, keyId, data, signature) => {
 const BiometricFormat: object;
 ```
 
-Defined in: [src/types.ts:570](https://github.com/jeremi/claim-169/blob/dd0d92962d1f8c89290080bdf695d1304de8a76f/sdks/typescript/src/types.ts#L570)
+Defined in: [src/types.ts:570](https://github.com/idpass/claim-169/blob/6ef76abee1f6003b7ded54fe70a14df5a86d2ae7/sdks/typescript/src/types.ts#L570)
 
 Biometric data format values as defined in MOSIP Claim 169 (0-indexed).
 
@@ -4496,7 +4496,7 @@ if (biometric.format === BiometricFormat.Image) { ... }
 const Gender: object;
 ```
 
-Defined in: [src/types.ts:525](https://github.com/jeremi/claim-169/blob/dd0d92962d1f8c89290080bdf695d1304de8a76f/sdks/typescript/src/types.ts#L525)
+Defined in: [src/types.ts:525](https://github.com/idpass/claim-169/blob/6ef76abee1f6003b7ded54fe70a14df5a86d2ae7/sdks/typescript/src/types.ts#L525)
 
 Gender values as defined in MOSIP Claim 169 (1-indexed).
 
@@ -4534,7 +4534,7 @@ if (claim.gender === Gender.Female) { ... }
 const MaritalStatus: object;
 ```
 
-Defined in: [src/types.ts:537](https://github.com/jeremi/claim-169/blob/dd0d92962d1f8c89290080bdf695d1304de8a76f/sdks/typescript/src/types.ts#L537)
+Defined in: [src/types.ts:537](https://github.com/idpass/claim-169/blob/6ef76abee1f6003b7ded54fe70a14df5a86d2ae7/sdks/typescript/src/types.ts#L537)
 
 Marital status values as defined in MOSIP Claim 169 (1-indexed).
 
@@ -4572,7 +4572,7 @@ if (claim.maritalStatus === MaritalStatus.Married) { ... }
 const PhotoFormat: object;
 ```
 
-Defined in: [src/types.ts:553](https://github.com/jeremi/claim-169/blob/dd0d92962d1f8c89290080bdf695d1304de8a76f/sdks/typescript/src/types.ts#L553)
+Defined in: [src/types.ts:553](https://github.com/idpass/claim-169/blob/6ef76abee1f6003b7ded54fe70a14df5a86d2ae7/sdks/typescript/src/types.ts#L553)
 
 Photo format values as defined in MOSIP Claim 169 (1-indexed).
 

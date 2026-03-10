@@ -25,20 +25,97 @@ print(claim169.version())  # "0.2.0-alpha"
 Generate a random 12-byte nonce for AES-GCM encryption.
 
 ```python
-def generate_nonce() -> list[int]
+def generate_nonce() -> bytes
 ```
 
-**Returns:** 12-byte nonce as a list of integers (convert with `bytes()`)
+**Returns:** 12-byte nonce suitable for AES-GCM IV
 
 **Example:**
 ```python
-nonce = claim169.generate_nonce()
-nonce_bytes = bytes(nonce)  # 12 bytes
+nonce = claim169.generate_nonce()  # 12 bytes
+```
+
+### inspect()
+
+Extract credential metadata without full decoding or verification.
+
+Extracts metadata (issuer, key ID, algorithm, expiration) from a QR code without
+verifying the signature. For encrypted credentials, only COSE-level headers are
+available; CWT-level fields (`issuer`, `subject`, `expires_at`) will be `None`.
+
+Useful for multi-issuer or key-rotation scenarios where you need to determine
+which verification key to use before decoding.
+
+```python
+def inspect(qr_text: str) -> InspectResult
+```
+
+**Parameters:**
+
+| Name | Type | Default | Description |
+|------|------|---------|-------------|
+| `qr_text` | `str` | required | Base45-encoded QR content |
+
+**Returns:** `InspectResult`
+
+**Raises:** `Base45DecodeError`, `DecompressError`, `CoseParseError`
+
+**Example:**
+```python
+meta = claim169.inspect(qr_text)
+print(meta.issuer, meta.algorithm, meta.key_id)
 ```
 
 ---
 
 ## Decode Functions
+
+### decode()
+
+Unified decode function with flexible verification options.
+
+```python
+def decode(
+    qr_text: str,
+    skip_biometrics: bool = False,
+    max_decompressed_bytes: int = 65536,
+    validate_timestamps: bool = True,
+    clock_skew_tolerance_seconds: int = 0,
+    verify_with_ed25519: bytes | None = None,
+    verify_with_ecdsa_p256: bytes | None = None,
+    verify_with_ed25519_pem: str | None = None,
+    verify_with_ecdsa_p256_pem: str | None = None,
+    allow_unverified: bool = False,
+) -> DecodeResult
+```
+
+By default, requires signature verification via one of:
+
+- `verify_with_ed25519`: 32-byte raw public key
+- `verify_with_ecdsa_p256`: 33 or 65-byte SEC1 public key
+- `verify_with_ed25519_pem`: PEM-encoded public key (SPKI format)
+- `verify_with_ecdsa_p256_pem`: PEM-encoded public key (SPKI format)
+
+To decode without verification (testing only), set `allow_unverified=True`.
+
+**Parameters:**
+
+| Name | Type | Default | Description |
+|------|------|---------|-------------|
+| `qr_text` | `str` | required | Base45-encoded QR content |
+| `skip_biometrics` | `bool` | `False` | Skip parsing biometric data |
+| `max_decompressed_bytes` | `int` | `65536` | Maximum decompressed size limit |
+| `validate_timestamps` | `bool` | `True` | Validate exp/nbf timestamps |
+| `clock_skew_tolerance_seconds` | `int` | `0` | Tolerance for clock differences |
+| `verify_with_ed25519` | `bytes \| None` | `None` | 32-byte Ed25519 public key |
+| `verify_with_ecdsa_p256` | `bytes \| None` | `None` | SEC1 encoded P-256 public key |
+| `verify_with_ed25519_pem` | `str \| None` | `None` | PEM-encoded Ed25519 public key |
+| `verify_with_ecdsa_p256_pem` | `str \| None` | `None` | PEM-encoded P-256 public key |
+| `allow_unverified` | `bool` | `False` | Skip signature verification (INSECURE) |
+
+**Returns:** `DecodeResult`
+
+---
 
 ### decode_unverified()
 
@@ -134,6 +211,70 @@ def decode_with_ecdsa_p256(
 
 ---
 
+### decode_with_ed25519_pem()
+
+Decode with Ed25519 signature verification using a PEM-encoded public key.
+
+```python
+def decode_with_ed25519_pem(
+    qr_text: str,
+    pem: str,
+    skip_biometrics: bool = False,
+    max_decompressed_bytes: int = 65536,
+    validate_timestamps: bool = True,
+    clock_skew_tolerance_seconds: int = 0
+) -> DecodeResult
+```
+
+**Parameters:**
+
+| Name | Type | Default | Description |
+|------|------|---------|-------------|
+| `qr_text` | `str` | required | Base45-encoded QR content |
+| `pem` | `str` | required | PEM-encoded Ed25519 public key (SPKI format) |
+| `skip_biometrics` | `bool` | `False` | Skip parsing biometric data |
+| `max_decompressed_bytes` | `int` | `65536` | Maximum decompressed size limit |
+| `validate_timestamps` | `bool` | `True` | Validate exp/nbf timestamps |
+| `clock_skew_tolerance_seconds` | `int` | `0` | Tolerance for clock differences |
+
+**Returns:** `DecodeResult`
+
+**Raises:** `SignatureError`, `Base45DecodeError`, `DecompressError`, `CoseParseError`, `CwtParseError`, `Claim169NotFoundError`
+
+---
+
+### decode_with_ecdsa_p256_pem()
+
+Decode with ECDSA P-256 signature verification using a PEM-encoded public key.
+
+```python
+def decode_with_ecdsa_p256_pem(
+    qr_text: str,
+    pem: str,
+    skip_biometrics: bool = False,
+    max_decompressed_bytes: int = 65536,
+    validate_timestamps: bool = True,
+    clock_skew_tolerance_seconds: int = 0
+) -> DecodeResult
+```
+
+**Parameters:**
+
+| Name | Type | Default | Description |
+|------|------|---------|-------------|
+| `qr_text` | `str` | required | Base45-encoded QR content |
+| `pem` | `str` | required | PEM-encoded ECDSA P-256 public key (SPKI format) |
+| `skip_biometrics` | `bool` | `False` | Skip parsing biometric data |
+| `max_decompressed_bytes` | `int` | `65536` | Maximum decompressed size limit |
+| `validate_timestamps` | `bool` | `True` | Validate exp/nbf timestamps |
+| `clock_skew_tolerance_seconds` | `int` | `0` | Tolerance for clock differences |
+
+**Returns:** `DecodeResult`
+
+**Raises:** `SignatureError`, `Base45DecodeError`, `DecompressError`, `CoseParseError`, `CwtParseError`, `Claim169NotFoundError`
+
+---
+
 ### decode_with_verifier()
 
 Decode with a custom verifier callback for HSM/KMS integration.
@@ -141,16 +282,24 @@ Decode with a custom verifier callback for HSM/KMS integration.
 ```python
 def decode_with_verifier(
     qr_text: str,
-    verifier: Callable[[str, bytes | None, bytes, bytes], None]
+    verifier: Callable[[str, bytes | None, bytes, bytes], None],
+    skip_biometrics: bool = False,
+    max_decompressed_bytes: int = 65536,
+    validate_timestamps: bool = True,
+    clock_skew_tolerance_seconds: int = 0
 ) -> DecodeResult
 ```
 
 **Parameters:**
 
-| Name | Type | Description |
-|------|------|-------------|
-| `qr_text` | `str` | Base45-encoded QR content |
-| `verifier` | `Callable` | Callback `(algorithm, key_id, data, signature) -> None` |
+| Name | Type | Default | Description |
+|------|------|---------|-------------|
+| `qr_text` | `str` | required | Base45-encoded QR content |
+| `verifier` | `Callable` | required | Callback `(algorithm, key_id, data, signature) -> None` |
+| `skip_biometrics` | `bool` | `False` | Skip parsing biometric data |
+| `max_decompressed_bytes` | `int` | `65536` | Maximum decompressed size limit |
+| `validate_timestamps` | `bool` | `True` | Validate exp/nbf timestamps |
+| `clock_skew_tolerance_seconds` | `int` | `0` | Tolerance for clock differences |
 
 The verifier callback receives:
 - `algorithm`: Algorithm name ("EdDSA" or "ES256")
@@ -169,6 +318,8 @@ The callback should raise an exception if verification fails.
 ### decode_encrypted_aes()
 
 Decode an AES-GCM encrypted credential (auto-detects key size).
+
+Either `verifier` or `allow_unverified=True` must be provided; passing neither raises `ValueError`.
 
 ```python
 def decode_encrypted_aes(
@@ -198,6 +349,8 @@ def decode_encrypted_aes(
 
 Decode an AES-256-GCM encrypted credential (validates 32-byte key).
 
+Either `verifier` or `allow_unverified=True` must be provided; passing neither raises `ValueError`.
+
 ```python
 def decode_encrypted_aes256(
     qr_text: str,
@@ -218,13 +371,15 @@ def decode_encrypted_aes256(
 
 **Returns:** `DecodeResult`
 
-**Raises:** `DecryptionError`, `ValueError` (if key not 32 bytes)
+**Raises:** `DecryptionError`, `ValueError` (if key not 32 bytes, or neither verifier nor allow_unverified provided)
 
 ---
 
 ### decode_encrypted_aes128()
 
 Decode an AES-128-GCM encrypted credential (validates 16-byte key).
+
+Either `verifier` or `allow_unverified=True` must be provided; passing neither raises `ValueError`.
 
 ```python
 def decode_encrypted_aes128(
@@ -246,13 +401,15 @@ def decode_encrypted_aes128(
 
 **Returns:** `DecodeResult`
 
-**Raises:** `DecryptionError`, `ValueError` (if key not 16 bytes)
+**Raises:** `DecryptionError`, `ValueError` (if key not 16 bytes, or neither verifier nor allow_unverified provided)
 
 ---
 
 ### decode_with_decryptor()
 
 Decode with a custom decryptor callback for HSM/KMS integration.
+
+Either `verifier` or `allow_unverified=True` must be provided; passing neither raises `ValueError`.
 
 ```python
 def decode_with_decryptor(
@@ -288,6 +445,52 @@ The callback should return decrypted plaintext bytes.
 ---
 
 ## Encode Functions
+
+### encode()
+
+Unified encode function with flexible signing and encryption options.
+
+```python
+def encode(
+    claim169_data: Claim169Input,
+    cwt_meta: CwtMetaInput,
+    sign_with_ed25519: bytes | None = None,
+    sign_with_ecdsa_p256: bytes | None = None,
+    encrypt_with_aes256: bytes | None = None,
+    encrypt_with_aes128: bytes | None = None,
+    allow_unsigned: bool = False,
+    skip_biometrics: bool = False,
+) -> str
+```
+
+By default, requires a signing key via one of:
+
+- `sign_with_ed25519`: 32-byte private key
+- `sign_with_ecdsa_p256`: 32-byte private key
+
+Optionally encrypt with:
+
+- `encrypt_with_aes256`: 32-byte AES key
+- `encrypt_with_aes128`: 16-byte AES key
+
+To encode without signing (testing only), set `allow_unsigned=True`.
+
+**Parameters:**
+
+| Name | Type | Default | Description |
+|------|------|---------|-------------|
+| `claim169_data` | `Claim169Input` | required | Identity data |
+| `cwt_meta` | `CwtMetaInput` | required | Token metadata |
+| `sign_with_ed25519` | `bytes \| None` | `None` | 32-byte Ed25519 private key |
+| `sign_with_ecdsa_p256` | `bytes \| None` | `None` | 32-byte ECDSA P-256 private key |
+| `encrypt_with_aes256` | `bytes \| None` | `None` | 32-byte AES-256 key |
+| `encrypt_with_aes128` | `bytes \| None` | `None` | 16-byte AES-128 key |
+| `allow_unsigned` | `bool` | `False` | Encode without signing (INSECURE) |
+| `skip_biometrics` | `bool` | `False` | Exclude biometric data |
+
+**Returns:** Base45-encoded string
+
+---
 
 ### encode_with_ed25519()
 
@@ -535,18 +738,55 @@ def encode_with_encryptor(
 
 ### Claim169Input
 
-Input class for encoding identity data.
+Input class for encoding identity data. All fields can be passed as constructor
+keyword arguments or set as attributes after construction.
 
 ```python
 class Claim169Input:
     def __init__(
         self,
         id: str | None = None,
-        full_name: str | None = None
+        version: str | None = None,
+        language: str | None = None,
+        full_name: str | None = None,
+        first_name: str | None = None,
+        middle_name: str | None = None,
+        last_name: str | None = None,
+        date_of_birth: str | None = None,
+        gender: int | None = None,
+        address: str | None = None,
+        email: str | None = None,
+        phone: str | None = None,
+        nationality: str | None = None,
+        marital_status: int | None = None,
+        guardian: str | None = None,
+        photo: bytes | None = None,
+        photo_format: int | None = None,
+        secondary_full_name: str | None = None,
+        secondary_language: str | None = None,
+        location_code: str | None = None,
+        legal_status: str | None = None,
+        country_of_issuance: str | None = None,
+        right_thumb: list[Biometric] | None = None,
+        right_pointer_finger: list[Biometric] | None = None,
+        right_middle_finger: list[Biometric] | None = None,
+        right_ring_finger: list[Biometric] | None = None,
+        right_little_finger: list[Biometric] | None = None,
+        left_thumb: list[Biometric] | None = None,
+        left_pointer_finger: list[Biometric] | None = None,
+        left_middle_finger: list[Biometric] | None = None,
+        left_ring_finger: list[Biometric] | None = None,
+        left_little_finger: list[Biometric] | None = None,
+        right_iris: list[Biometric] | None = None,
+        left_iris: list[Biometric] | None = None,
+        face: list[Biometric] | None = None,
+        right_palm: list[Biometric] | None = None,
+        left_palm: list[Biometric] | None = None,
+        voice: list[Biometric] | None = None,
     ) -> None
 ```
 
-**Attributes:**
+**Demographic Attributes:**
 
 | Name | Type | Description |
 |------|------|-------------|
@@ -572,6 +812,27 @@ class Claim169Input:
 | `location_code` | `str \| None` | Location code |
 | `legal_status` | `str \| None` | Legal status |
 | `country_of_issuance` | `str \| None` | Issuing country code |
+
+**Biometric Attributes:**
+
+| Name | Type | Description |
+|------|------|-------------|
+| `right_thumb` | `list[Biometric] \| None` | Right thumb biometrics |
+| `right_pointer_finger` | `list[Biometric] \| None` | Right pointer finger biometrics |
+| `right_middle_finger` | `list[Biometric] \| None` | Right middle finger biometrics |
+| `right_ring_finger` | `list[Biometric] \| None` | Right ring finger biometrics |
+| `right_little_finger` | `list[Biometric] \| None` | Right little finger biometrics |
+| `left_thumb` | `list[Biometric] \| None` | Left thumb biometrics |
+| `left_pointer_finger` | `list[Biometric] \| None` | Left pointer finger biometrics |
+| `left_middle_finger` | `list[Biometric] \| None` | Left middle finger biometrics |
+| `left_ring_finger` | `list[Biometric] \| None` | Left ring finger biometrics |
+| `left_little_finger` | `list[Biometric] \| None` | Left little finger biometrics |
+| `right_iris` | `list[Biometric] \| None` | Right iris biometrics |
+| `left_iris` | `list[Biometric] \| None` | Left iris biometrics |
+| `face` | `list[Biometric] \| None` | Face biometrics |
+| `right_palm` | `list[Biometric] \| None` | Right palm biometrics |
+| `left_palm` | `list[Biometric] \| None` | Left palm biometrics |
+| `voice` | `list[Biometric] \| None` | Voice biometrics |
 
 ---
 
@@ -609,6 +870,8 @@ class DecodeResult:
     claim169: Claim169
     cwt_meta: CwtMeta
     verification_status: str
+    x509_headers: X509Headers
+    detected_compression: str
 
     def is_verified(self) -> bool
 ```
@@ -620,10 +883,41 @@ class DecodeResult:
 | `claim169` | `Claim169` | Decoded identity data |
 | `cwt_meta` | `CwtMeta` | CWT metadata |
 | `verification_status` | `str` | "verified", "skipped", etc. |
+| `x509_headers` | `X509Headers` | X.509 certificate headers from COSE structure |
+| `detected_compression` | `str` | Detected compression format ("zlib", "brotli", or "none") |
 
 **Methods:**
 
 - `is_verified() -> bool`: Returns `True` if signature was verified
+
+---
+
+### InspectResult
+
+Metadata extracted from a credential without full verification or decoding.
+
+```python
+class InspectResult:
+    issuer: str | None
+    subject: str | None
+    key_id: bytes | None
+    algorithm: str | None
+    x509_headers: X509Headers
+    expires_at: int | None
+    cose_type: str
+```
+
+**Attributes:**
+
+| Name | Type | Description |
+|------|------|-------------|
+| `issuer` | `str \| None` | Token issuer from CWT claims (None for encrypted credentials) |
+| `subject` | `str \| None` | Token subject from CWT claims (None for encrypted credentials) |
+| `key_id` | `bytes \| None` | Key ID from the COSE header |
+| `algorithm` | `str \| None` | COSE algorithm name (e.g., "EdDSA", "ES256") |
+| `x509_headers` | `X509Headers` | X.509 certificate headers from COSE structure |
+| `expires_at` | `int \| None` | Expiration timestamp (None for encrypted credentials) |
+| `cose_type` | `str` | COSE structure type: "Sign1" or "Encrypt0" |
 
 ---
 
@@ -733,6 +1027,124 @@ class Biometric:
 
 ---
 
+### CertificateHash
+
+X.509 certificate hash (COSE_CertHash).
+
+```python
+class CertificateHash:
+    algorithm: str
+    hash_value: bytes
+```
+
+**Attributes:**
+
+| Name | Type | Description |
+|------|------|-------------|
+| `algorithm` | `str` | Hash algorithm identifier (numeric COSE algorithm ID as string, or named algorithm) |
+| `hash_value` | `bytes` | Hash value bytes |
+
+---
+
+### X509Headers
+
+X.509 headers extracted from COSE protected/unprotected headers.
+
+```python
+class X509Headers:
+    x5bag: list[bytes] | None
+    x5chain: list[bytes] | None
+    x5t: CertificateHash | None
+    x5u: str | None
+
+    def has_any(self) -> bool
+```
+
+**Attributes:**
+
+| Name | Type | Description |
+|------|------|-------------|
+| `x5bag` | `list[bytes] \| None` | x5bag (label 32): Unordered bag of X.509 certificates (DER-encoded) |
+| `x5chain` | `list[bytes] \| None` | x5chain (label 33): Ordered chain of X.509 certificates (DER-encoded) |
+| `x5t` | `CertificateHash \| None` | x5t (label 34): Certificate thumbprint hash |
+| `x5u` | `str \| None` | x5u (label 35): URI pointing to an X.509 certificate |
+
+**Methods:**
+
+- `has_any() -> bool`: Returns `True` if any X.509 headers are present
+
+---
+
+## Crypto Hook Wrapper Classes
+
+Wrapper classes for integrating with external crypto providers (HSMs, Cloud KMS,
+remote signing services, smart cards, TPMs, etc.).
+
+### SignatureVerifier
+
+Wrapper for a custom signature verifier callback.
+
+```python
+class SignatureVerifier:
+    def __init__(
+        self,
+        callback: Callable[[str, bytes | None, bytes, bytes], None]
+    ) -> None
+```
+
+The callback receives `(algorithm, key_id, data, signature)` and should raise an exception if verification fails.
+
+---
+
+### Decryptor
+
+Wrapper for a custom decryptor callback.
+
+```python
+class Decryptor:
+    def __init__(
+        self,
+        callback: Callable[[str, bytes | None, bytes, bytes, bytes], bytes]
+    ) -> None
+```
+
+The callback receives `(algorithm, key_id, nonce, aad, ciphertext)` and should return decrypted plaintext bytes.
+
+---
+
+### Signer
+
+Wrapper for a custom signer callback.
+
+```python
+class Signer:
+    def __init__(
+        self,
+        callback: Callable[[str, bytes | None, bytes], bytes],
+        key_id: bytes | None = None,
+    ) -> None
+```
+
+The callback receives `(algorithm, key_id, data)` and should return signature bytes.
+
+---
+
+### Encryptor
+
+Wrapper for a custom encryptor callback.
+
+```python
+class Encryptor:
+    def __init__(
+        self,
+        callback: Callable[[str, bytes | None, bytes, bytes, bytes], bytes]
+    ) -> None
+```
+
+The callback receives `(algorithm, key_id, nonce, aad, plaintext)` and should return ciphertext bytes (including the auth tag).
+
+---
+
 ## Exceptions
 
 All exceptions inherit from `Claim169Exception`.
@@ -809,6 +1221,15 @@ class DecryptionError(Claim169Exception):
     pass
 ```
 
+### EncryptionError
+
+Raised when encryption fails.
+
+```python
+class EncryptionError(Claim169Exception):
+    pass
+```
+
 ---
 
 ## Constants
@@ -841,9 +1262,9 @@ class DecryptionError(Claim169Exception):
 ### Algorithm Names
 
 **Signing:**
-- `"EdDSA"` — Ed25519
-- `"ES256"` — ECDSA P-256
+- `"EdDSA"`: Ed25519
+- `"ES256"`: ECDSA P-256
 
 **Encryption:**
-- `"A256GCM"` — AES-256-GCM
-- `"A128GCM"` — AES-128-GCM
+- `"A256GCM"`: AES-256-GCM
+- `"A128GCM"`: AES-128-GCM

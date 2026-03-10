@@ -181,6 +181,23 @@ class DecodeResult:
         """Check if signature was verified."""
         ...
 
+class InspectResult:
+    """Metadata extracted from a credential without full verification or decoding."""
+    issuer: Optional[str]
+    """Token issuer from CWT claims (None for encrypted credentials)."""
+    subject: Optional[str]
+    """Token subject from CWT claims (None for encrypted credentials)."""
+    key_id: Optional[bytes]
+    """Key ID from the COSE header."""
+    algorithm: Optional[str]
+    """COSE algorithm name (e.g., "EdDSA", "ES256")."""
+    x509_headers: X509Headers
+    """X.509 certificate headers from COSE structure."""
+    expires_at: Optional[int]
+    """Expiration timestamp, Unix epoch seconds (None for encrypted credentials)."""
+    cose_type: str
+    """COSE structure type: "Sign1" or "Encrypt0"."""
+
 # ============================================================================
 # Callback Types for Custom Crypto Providers
 # ============================================================================
@@ -503,6 +520,30 @@ def decode_with_decryptor(
 
 def version() -> str:
     """Get the library version."""
+    ...
+
+def inspect(qr_text: str) -> InspectResult:
+    """
+    Inspect credential metadata without full decoding or verification.
+
+    Extracts metadata (issuer, key ID, algorithm, expiration) from a QR code
+    without verifying the signature. For encrypted credentials, only COSE-level
+    headers are available; CWT-level fields (issuer, subject, expires_at) will be None.
+
+    Useful for multi-issuer or key-rotation scenarios where you need to determine
+    which verification key to use before decoding.
+
+    Args:
+        qr_text: Base45-encoded QR code content.
+
+    Returns:
+        InspectResult with metadata extracted from the credential.
+
+    Raises:
+        Base45DecodeError: If the QR text is not valid Base45.
+        DecompressError: If decompression fails.
+        CoseParseError: If the COSE structure is invalid.
+    """
     ...
 
 # ============================================================================
