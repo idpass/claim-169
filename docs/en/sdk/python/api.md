@@ -12,12 +12,12 @@ Get the library version.
 def version() -> str
 ```
 
-**Returns:** Version string in semver format (e.g., "0.2.0-alpha")
+**Returns:** Version string in semver format (e.g., "0.3.0")
 
 **Example:**
 ```python
 import claim169
-print(claim169.version())  # "0.2.0-alpha"
+print(claim169.version())  # "0.3.0"
 ```
 
 ### generate_nonce()

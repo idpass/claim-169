@@ -74,8 +74,8 @@ print(f"Python version: {claim169.__version__}")
 Output:
 
 ```
-claim169 version: 0.2.0-alpha
-Python version: 0.2.0-alpha
+claim169 version: 0.3.0
+Python version: 0.3.0
 ```
 
 ## Optional Dependencies

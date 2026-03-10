@@ -28,7 +28,7 @@ repositories {
 
 ```kotlin
 dependencies {
-  implementation("org.idpass.claim169:claim169-core:0.2.0-alpha")
+  implementation("org.idpass.claim169:claim169-core:0.3.0")
 }
 ```
 
@@ -36,7 +36,7 @@ dependencies {
 
 ```groovy
 dependencies {
-  implementation "org.idpass.claim169:claim169-core:0.2.0-alpha"
+  implementation "org.idpass.claim169:claim169-core:0.3.0"
 }
 ```
 

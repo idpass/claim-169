@@ -329,14 +329,14 @@ Claim169Error::Claim169NotFound
 
 ```toml
 [dependencies]
-claim169-core = { version = "0.1", features = ["software-crypto"] }
+claim169-core = { version = "0.3.0", features = ["software-crypto"] }
 ```
 
 Or use the default features:
 
 ```toml
 [dependencies]
-claim169-core = "0.2.0-alpha"
+claim169-core = "0.3.0"
 ```
 
 ### "trait Signer is not implemented"

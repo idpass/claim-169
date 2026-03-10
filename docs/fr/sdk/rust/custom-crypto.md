@@ -27,7 +27,7 @@ Pour des déploiements « HSM-only », désactivez les implémentations logiciel
 
 ```toml
 [dependencies]
-claim169-core = { version = "0.1", default-features = false }
+claim169-core = { version = "0.3.0", default-features = false }
 ```
 
 Cela supprime `Ed25519Signer`, `EcdsaP256Signer`, `AesGcmEncryptor`, etc.
