@@ -22,7 +22,7 @@ Native library (linux-x86-64/libclaim169_core.so) not found
 1. Verify the dependency is correctly declared:
    ```kotlin
    dependencies {
-       implementation("org.idpass.claim169:claim169-core:0.2.0-alpha")
+       implementation("org.idpass.claim169:claim169-core:0.3.0")
    }
    ```
 

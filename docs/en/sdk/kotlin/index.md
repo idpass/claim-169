@@ -22,7 +22,7 @@ The Kotlin SDK provides native bindings for encoding and decoding MOSIP Claim 16
 
     ```kotlin
     dependencies {
-        implementation("org.idpass.claim169:claim169-core:0.2.0-alpha")
+        implementation("org.idpass.claim169:claim169-core:0.3.0")
     }
     ```
 
@@ -32,7 +32,7 @@ The Kotlin SDK provides native bindings for encoding and decoding MOSIP Claim 16
     <dependency>
         <groupId>org.idpass.claim169</groupId>
         <artifactId>claim169-core</artifactId>
-        <version>0.2.0-alpha</version>
+        <version>0.3.0</version>
     </dependency>
     ```
 

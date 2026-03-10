@@ -27,7 +27,7 @@ For HSM-only deployments, disable the default software implementations:
 
 ```toml
 [dependencies]
-claim169-core = { version = "0.1", default-features = false }
+claim169-core = { version = "0.3.0", default-features = false }
 ```
 
 This removes `Ed25519Signer`, `EcdsaP256Signer`, `AesGcmEncryptor`, etc.
