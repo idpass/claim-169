@@ -68,7 +68,7 @@ The SDK is published to GitHub Packages. Add the repository to your build file:
 
 ```kotlin
 dependencies {
-    implementation("org.idpass.claim169:claim169-core:0.2.0-alpha")
+    implementation("org.idpass.claim169:claim169-core:0.3.0")
 }
 ```
 
@@ -76,7 +76,7 @@ dependencies {
 
 ```groovy
 dependencies {
-    implementation 'org.idpass.claim169:claim169-core:0.2.0-alpha'
+    implementation 'org.idpass.claim169:claim169-core:0.3.0'
 }
 ```
 
@@ -86,7 +86,7 @@ dependencies {
 <dependency>
     <groupId>org.idpass.claim169</groupId>
     <artifactId>claim169-core</artifactId>
-    <version>0.2.0-alpha</version>
+    <version>0.3.0</version>
 </dependency>
 ```
 
@@ -195,7 +195,7 @@ fun main() {
 Output:
 
 ```
-claim169 version: 0.2.0-alpha
+claim169 version: 0.3.0
 ```
 
 ## Upgrading
@@ -206,7 +206,7 @@ Update the version in your build file:
 
     ```kotlin
     dependencies {
-        implementation("org.idpass.claim169:claim169-core:0.2.0")
+        implementation("org.idpass.claim169:claim169-core:0.3.0")
     }
     ```
 

@@ -60,7 +60,7 @@ The SDK includes TypeScript definitions. For optimal type checking:
 ```typescript
 import { version, isLoaded } from 'claim169';
 
-console.log('Version:', version());    // e.g., "0.2.0-alpha"
+console.log('Version:', version());    // e.g., "0.3.0"
 console.log('WASM loaded:', isLoaded()); // true
 ```
 

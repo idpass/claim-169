@@ -8,7 +8,7 @@ plugins {
 
 allprojects {
     group = "org.idpass.claim169"
-    version = "0.2.0-alpha"
+    version = "0.3.0"
 }
 
 nexusPublishing {
