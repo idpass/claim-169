@@ -5,7 +5,7 @@ build-backend = "maturin"
 [project]
 name = "claim169"
 version = "0.2.0-alpha"
-description = "MOSIP Claim 169 QR Code decoder library"
+description = "ID Claim 169 QR Code decoder library"
 readme = "README.md"
 license = { text = "MIT" }
 requires-python = ">=3.8"
