@@ -6,6 +6,64 @@
 - **Android API 24+** --- For Android targets (Android 7.0 Nougat and above)
 - **JNA** --- Included as a transitive dependency
 
+## Repository Setup
+
+The SDK is published to GitHub Packages. Add the repository to your build file:
+
+=== "Gradle (Kotlin DSL)"
+
+    ```kotlin
+    repositories {
+        maven {
+            url = uri("https://maven.pkg.github.com/idpass/claim-169")
+            credentials {
+                username = project.findProperty("gpr.user") as String? ?: System.getenv("GITHUB_ACTOR")
+                password = project.findProperty("gpr.key") as String? ?: System.getenv("GITHUB_TOKEN")
+            }
+        }
+    }
+    ```
+
+=== "Gradle (Groovy DSL)"
+
+    ```groovy
+    repositories {
+        maven {
+            url = uri("https://maven.pkg.github.com/idpass/claim-169")
+            credentials {
+                username = project.findProperty("gpr.user") ?: System.getenv("GITHUB_ACTOR")
+                password = project.findProperty("gpr.key") ?: System.getenv("GITHUB_TOKEN")
+            }
+        }
+    }
+    ```
+
+=== "Maven"
+
+    ```xml
+    <repositories>
+        <repository>
+            <id>github</id>
+            <url>https://maven.pkg.github.com/idpass/claim-169</url>
+        </repository>
+    </repositories>
+    ```
+
+    And in your `~/.m2/settings.xml`:
+
+    ```xml
+    <servers>
+        <server>
+            <id>github</id>
+            <username>YOUR_GITHUB_USERNAME</username>
+            <password>YOUR_GITHUB_TOKEN</password>
+        </server>
+    </servers>
+    ```
+
+!!! note
+    GitHub Packages requires authentication even for public packages. You need a GitHub personal access token with `read:packages` scope.
+
 ## Installing with Gradle (Kotlin DSL)
 
 ```kotlin

@@ -214,13 +214,17 @@ jobs:
           NPM_TAG: ${{ needs.prepare.outputs.npm_tag }}
         run: npm publish *.tgz --provenance --access public --tag "$NPM_TAG"
 
-  # Publish to Maven Central (Kotlin/Java SDK)
+  # Publish to GitHub Packages (Kotlin/Java SDK)
+  # TODO: Switch to Maven Central once org.idpass namespace is claimed on central.sonatype.com
   publish-maven:
-    name: Publish to Maven Central
+    name: Publish to GitHub Packages
     needs: [prepare, ci]
     runs-on: ubuntu-latest
     environment:
       name: maven
+    permissions:
+      contents: read
+      packages: write
     steps:
       - uses: actions/checkout@v4
 
@@ -240,16 +244,15 @@ jobs:
       - name: Build native library
         run: cargo build --release -p claim169-jni
 
-      - name: Publish to Maven Central
+      - name: Publish to GitHub Packages
         working-directory: sdks/kotlin
         env:
-          MAVEN_USERNAME: ${{ secrets.MAVEN_USERNAME }}
-          MAVEN_PASSWORD: ${{ secrets.MAVEN_PASSWORD }}
-          GPG_PRIVATE_KEY: ${{ secrets.GPG_PRIVATE_KEY }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_ACTOR: ${{ github.actor }}
         run: |
           # Point to release build for publishing
           NATIVE_LIB_DIR="$(pwd)/../../target/release"
-          ./gradlew :claim169-core:publishToSonatype closeAndReleaseSonatypeStagingRepository \
+          ./gradlew :claim169-core:publishMavenPublicationToGitHubPackagesRepository \
             -Djava.library.path="$NATIVE_LIB_DIR" \
             -Djna.library.path="$NATIVE_LIB_DIR"
 

@@ -95,7 +95,18 @@ publishing {
         }
     }
 
-    // Repository is configured by the gradle-nexus/publish-plugin in the root project.
+    repositories {
+        // Maven Central is configured by the gradle-nexus/publish-plugin in the root project.
+        // GitHub Packages as an alternative registry.
+        maven {
+            name = "GitHubPackages"
+            url = uri("https://maven.pkg.github.com/idpass/claim-169")
+            credentials {
+                username = System.getenv("GITHUB_ACTOR") ?: ""
+                password = System.getenv("GITHUB_TOKEN") ?: ""
+            }
+        }
+    }
 }
 
 signing {
